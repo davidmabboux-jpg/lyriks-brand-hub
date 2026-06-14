@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr" data-event="vivatech">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lyriks — Studio · Configurateur de supports</title>
+<link rel="stylesheet" href="brand.css">
+<script src="image-slot.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.13/dist/html-to-image.js"></script>
+<style>
+  :root { --bg:#0e1014; --panel:#15171c; --line:#262b33; --line2:#1c2129; --txt:#e7e8ec; --dim:#9aa0ab; --dim2:#6a7079; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--txt); font-family:var(--font); height:100vh; overflow:hidden; display:flex; flex-direction:column; }
+
+  /* top bar */
+  .topbar { display:flex; align-items:center; gap:20px; padding:14px 22px; border-bottom:1px solid var(--line2); flex:none; }
+  .topbar .lk-logo { font-size:20px; }
+  .topbar .evtag { font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#FFA101; border:1px solid rgba(255,161,1,.3); background:rgba(255,161,1,.1); padding:5px 10px; border-radius:999px; }
+  .tabs { display:flex; gap:6px; margin-left:8px; }
+  .tab { font-family:var(--font); font-weight:700; font-size:13.5px; border:1px solid var(--line); background:transparent; color:var(--dim); padding:8px 16px; border-radius:999px; cursor:pointer; }
+  .tab.on { background:#fff; color:#0a0a0a; border-color:#fff; }
+  .topbar .right { margin-left:auto; display:flex; gap:9px; }
+  .ebtn { font-family:var(--font); font-weight:700; font-size:13px; border:1px solid var(--line); background:var(--panel); color:var(--txt); padding:9px 15px; border-radius:10px; cursor:pointer; display:inline-flex; align-items:center; gap:7px; }
+  .ebtn:hover { border-color:#3a4150; }
+  .ebtn.primary { background:#FFA101; color:#1a1a1a; border-color:#FFA101; }
+  .ebtn.done { background:#1FA98A; color:#fff; border-color:#1FA98A; }
+
+  /* studio layout */
+  #viewStudio { flex:1; display:grid; grid-template-columns:248px 1fr 340px; min-height:0; }
+  .col { min-height:0; overflow-y:auto; }
+  .col::-webkit-scrollbar { width:9px; } .col::-webkit-scrollbar-thumb { background:#2a2f37; border-radius:6px; }
+
+  /* sidebar */
+  .sidebar { border-right:1px solid var(--line2); padding:16px 12px; }
+  .nav-group { font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--dim2); margin:18px 8px 8px; }
+  .nav-group:first-child { margin-top:4px; }
+  .nav-item { display:flex; flex-direction:column; gap:2px; width:100%; text-align:left; border:1px solid transparent; background:transparent; color:var(--dim); padding:10px 12px; border-radius:10px; cursor:pointer; }
+  .nav-item:hover { background:#161a20; color:var(--txt); }
+  .nav-item.on { background:#1b1f26; border-color:var(--line); color:#fff; }
+  .nav-item .ni-name { font-weight:700; font-size:13.5px; }
+  .nav-item .ni-fmt { font-family:var(--mono); font-size:10px; color:var(--dim2); }
+
+  /* stage */
+  .stage-col { display:flex; flex-direction:column; min-height:0; background:radial-gradient(900px 600px at 50% 0%,#15171c,#0e1014); }
+  #stageBox { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; padding:64px; position:relative; }
+  #artWrap { position:relative; border-radius:14px; overflow:hidden; box-shadow:0 40px 90px -40px rgba(0,0,0,.9); border:1px solid #1c1c1c; }
+  #art { transform-origin:top left; position:absolute; top:0; left:0; }
+  .art .lk-logo { line-height:1; }
+  #dimLabel { position:absolute; left:18px; bottom:14px; font-family:var(--mono); font-size:11px; color:var(--dim2); letter-spacing:.04em; }
+
+  /* form panel */
+  .formpanel { border-left:1px solid var(--line2); padding:20px; }
+  .formpanel h2 { font-family:var(--display); font-size:16px; font-weight:700; letter-spacing:-.01em; margin:0 0 4px; }
+  .formpanel .subtitle { font-family:var(--mono); font-size:11px; color:var(--dim2); margin:0 0 18px; letter-spacing:.04em; }
+  .field { margin-bottom:16px; }
+  .flabel { display:block; font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--dim); margin-bottom:7px; }
+  .finput { width:100%; font-family:var(--font); font-size:14px; color:var(--txt); background:#0f1217; border:1px solid var(--line); border-radius:10px; padding:11px 13px; resize:vertical; }
+  .finput:focus { outline:none; border-color:#FFA101; }
+  textarea.finput { line-height:1.4; }
+  select.finput { cursor:pointer; }
+  .fhint { font-family:var(--mono); font-size:10.5px; color:var(--dim2); margin:8px 0 0; line-height:1.5; }
+  .vseg { display:flex; flex-direction:column; gap:6px; }
+  .vbtn { display:flex; align-items:center; gap:9px; font-family:var(--font); font-weight:700; font-size:13px; border:1px solid var(--line); background:#0f1217; color:var(--dim); padding:10px 12px; border-radius:10px; cursor:pointer; text-align:left; }
+  .vbtn.on { color:#fff; border-color:#3a4150; background:#1b1f26; }
+  .vdot { width:11px; height:11px; border-radius:50%; flex:none; }
+  .reset-btn { margin-top:6px; width:100%; font-family:var(--font); font-weight:700; font-size:12.5px; border:1px dashed var(--line); background:transparent; color:var(--dim); padding:10px; border-radius:10px; cursor:pointer; }
+  .reset-btn:hover { color:#fff; border-color:#3a4150; }
+
+  /* copy area */
+  #copyArea { margin-top:22px; border-top:1px solid var(--line2); padding-top:18px; }
+  #copyArea .ch { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+  #copyArea .ch .lbl { font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--dim); }
+  #copyText { font-family:var(--font); font-size:13px; line-height:1.6; color:#dadade; white-space:pre-wrap; background:#0f1217; border:1px solid var(--line); border-radius:10px; padding:14px; max-height:230px; overflow-y:auto; }
+
+  /* KB view */
+  #viewKB { flex:1; overflow-y:auto; padding:40px 48px; display:none; }
+  #viewKB .kb-inner { max-width:1000px; margin:0 auto; }
+  #viewKB h1 { font-family:var(--display); font-size:40px; font-weight:700; letter-spacing:-.03em; margin:0 0 6px; }
+  #viewKB .lede { color:var(--dim); font-size:16px; margin:0 0 30px; max-width:60ch; line-height:1.6; }
+  .kb-h { font-family:var(--mono); font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--dim2); margin:36px 0 16px; display:flex; align-items:center; gap:12px; }
+  .kb-h::before { content:""; width:22px; height:6px; border-radius:2px; background:#FFA101; }
+  .kb-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .kb-card { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px; }
+  .kb-card .kb-bar { display:block; width:38px; height:8px; border-radius:3px; margin-bottom:12px; }
+  .kb-card b { display:block; font-family:var(--display); font-size:15px; font-weight:700; margin-bottom:6px; }
+  .kb-card p { margin:0; font-size:13px; color:var(--dim); line-height:1.55; }
+  .kb-sw { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .kb-swatch { display:flex; align-items:center; gap:11px; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:12px; }
+  .kb-chip { width:34px; height:34px; border-radius:8px; flex:none; }
+  .kb-swatch b { display:block; font-size:12.5px; font-weight:700; }
+  .kb-swatch code { font-family:var(--mono); font-size:11px; color:var(--dim2); }
+  .kb-rules { margin:0; padding-left:20px; color:var(--dim); }
+  .kb-rules li { font-size:14px; line-height:1.5; margin-bottom:10px; }
+
+  .opt.preset { justify-content:center; text-align:center; padding:11px 8px; }
+  .opt.preset .opt-lbl { font-size:12.5px; }
+  .opt.preset:hover { border-color:#FFA101; color:#fff; }
+
+  /* composer controls */
+  .opt-grid { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+  .opt { display:flex; align-items:center; gap:9px; border:1px solid var(--line); background:#0f1217; color:var(--dim); padding:9px 10px; border-radius:10px; cursor:pointer; text-align:left; }
+  .opt.on { border-color:#FFA101; background:#1b1f26; color:#fff; }
+  .opt-lbl { font-weight:700; font-size:12px; display:flex; flex-direction:column; gap:1px; line-height:1.15; }
+  .opt-lbl small { font-family:var(--mono); font-size:9.5px; color:var(--dim2); font-weight:400; }
+  .opt-ico { width:26px; flex:none; display:grid; place-items:center; }
+  .fmtbox { width:22px; max-height:30px; border:1.5px solid currentColor; border-radius:3px; opacity:.7; }
+  .bg-sw { width:26px; height:26px; border-radius:7px; flex:none; border:1px solid rgba(255,255,255,.12); }
+  .opt-list { display:flex; flex-direction:column; gap:6px; }
+  .opt-row { display:flex; align-items:center; gap:10px; border:1px solid var(--line); background:#0f1217; color:var(--dim); padding:10px 12px; border-radius:10px; cursor:pointer; font-weight:700; font-size:13px; text-align:left; }
+  .opt-row.on { border-color:#3a4150; background:#1b1f26; color:#fff; }
+  .dotradio { width:13px; height:13px; border-radius:50%; border:2px solid var(--dim2); flex:none; }
+  .opt-row.on .dotradio { border-color:#FFA101; background:#FFA101; box-shadow:inset 0 0 0 2px #1b1f26; }
+  .vdot { width:13px; height:13px; border-radius:50%; flex:none; }
+  /* blocks */
+  .blk { border-bottom:1px solid var(--line2); padding:14px 0; }
+  .blk:first-child { padding-top:0; }
+  .blk-head { display:flex; align-items:center; justify-content:space-between; }
+  .blk-name { font-weight:700; font-size:14px; color:var(--txt); }
+  .toggle { width:42px; height:24px; border-radius:999px; border:1px solid var(--line); background:#0f1217; position:relative; cursor:pointer; flex:none; padding:0; transition:background .15s; }
+  .toggle .knob { position:absolute; top:2px; left:2px; width:18px; height:18px; border-radius:50%; background:var(--dim2); transition:left .15s,background .15s; }
+  .toggle.on { background:#FFA101; border-color:#FFA101; }
+  .toggle.on .knob { left:20px; background:#1a1a1a; }
+  .blk .finput { margin-top:10px; }
+  .blk-hint { font-family:var(--mono); font-size:10.5px; color:var(--dim2); margin-top:8px; line-height:1.5; }
+
+  /* entry gate */
+  #typeGate { position:fixed; inset:0; z-index:50; background:radial-gradient(1000px 700px at 50% 0%,#15171c,#0b0c0f); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px; }
+  #typeGate.hidden { display:none; }
+  #typeGate .gate-eyebrow { font-family:var(--mono); font-size:12px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#FFA101; }
+  #typeGate h1 { font-family:var(--display); font-size:46px; font-weight:700; letter-spacing:-.03em; margin:14px 0 6px; color:#fff; text-align:center; }
+  #typeGate p { color:var(--dim); font-size:16px; margin:0 0 34px; }
+  .gate-grid { display:grid; grid-template-columns:repeat(4,200px); gap:16px; }
+  .gate-card { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:24px; cursor:pointer; text-align:left; transition:border-color .15s,transform .15s; }
+  .gate-card:hover { border-color:#FFA101; transform:translateY(-2px); }
+  .gate-card .gc-ic { width:46px; height:46px; border-radius:12px; display:grid; place-items:center; margin-bottom:16px; }
+  .gate-card b { display:block; font-family:var(--display); font-size:19px; font-weight:700; color:#fff; letter-spacing:-.01em; }
+  .gate-card small { font-family:var(--mono); font-size:11px; color:var(--dim2); }
+  @media (max-width:920px){ .gate-grid{ grid-template-columns:repeat(2,200px); } #typeGate h1{ font-size:34px; } }
+
+  @media print { .topbar,.sidebar,.formpanel{ display:none !important; } #viewStudio{ grid-template-columns:1fr; } #stageBox{ padding:0; } #typeGate{ display:none !important; } }
+  @media (max-width:1180px){ #viewStudio{ grid-template-columns:210px 1fr 320px; } #stageBox{ padding:40px; } }
+  @media (max-width:980px){ #viewStudio{ grid-template-columns:180px 1fr 300px; } .formpanel{ padding:16px; } #stageBox{ padding:28px; } }
+  @media (max-width:760px){ #viewStudio{ grid-template-columns:1fr; grid-template-rows:auto auto auto; overflow-y:auto; } .col{ overflow:visible; } .sidebar{ border-right:0; border-bottom:1px solid var(--line2); } .formpanel{ border-left:0; border-top:1px solid var(--line2); } #stageBox{ min-height:60vh; } }
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" rx="14" fill="#0a0a0a"/>
+<rect x="30" y="37" width="26" height="7" rx="2.5" fill="#0066FF"/>
+<rect x="30" y="48" width="26" height="7" rx="2.5" fill="#BB46F5"/>
+<rect x="30" y="59" width="40" height="7" rx="2.5" fill="#FFA101"/>
+</svg>
+</template>
+
+  <div class="topbar">
+    <span class="lk-logo on-dark"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+    <span class="evtag">Studio</span>
+    <div class="tabs">
+      <button class="tab on" data-tab="studio">Configurateur</button>
+      <button class="tab" data-tab="kb">Base de connaissance</button>
+    </div>
+    <button class="ebtn" id="btnType" style="margin-left:8px">← Changer de support</button>
+    <div class="right">
+      <button class="ebtn" id="btnCopy">⎘ Copier le texte</button>
+      <button class="ebtn" id="btnPrint">⎙ Imprimer / PDF</button>
+      <button class="ebtn primary" id="btnPng">↓ Exporter PNG</button>
+    </div>
+  </div>
+
+  <!-- ENTRY GATE -->
+  <div id="typeGate">
+    <div class="gate-eyebrow">Studio Lyriks</div>
+    <h1>Quel support voulez-vous créer ?</h1>
+    <p>Choisissez un type pour démarrer. Tout reste modifiable ensuite.</p>
+    <div class="gate-grid" id="gateGrid"></div>
+  </div>
+
+  <!-- STUDIO -->
+  <div id="viewStudio">
+    <div class="col sidebar"><div id="supportNav"></div></div>
+    <div class="stage-col">
+      <div id="stageBox">
+        <div id="artWrap"><div id="art"></div></div>
+        <span id="dimLabel"></span>
+      </div>
+    </div>
+    <div class="col formpanel">
+      <h2>Éditer le support</h2>
+      <p class="subtitle">Modifiez les textes — l'aperçu se met à jour en direct.</p>
+      <div id="form"></div>
+      <div id="copyArea">
+        <div class="ch"><span class="lbl">✎ Texte prêt à publier</span></div>
+        <div id="copyText"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KB -->
+  <div id="viewKB">
+    <div class="kb-inner">
+      <h1>Base de connaissance</h1>
+      <p class="lede">Les repères de la marque pour rester cohérent sur chaque support : les 3 voix, les couleurs, et les règles d'or de l'événement.</p>
+      <div id="kbBody"></div>
+    </div>
+  </div>
+
+<script src="studio-data.js"></script>
+<script src="studio-app.js"></script>
+</body>
+</html>

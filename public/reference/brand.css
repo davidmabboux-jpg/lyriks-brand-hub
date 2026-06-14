@@ -1,0 +1,293 @@
+/* ============================================================
+   LYRIKS × VivaTech 2026 — Brand system
+   Source of truth: deck colors + lyriks.io app
+   ============================================================ */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+  /* Brand core */
+  --violet: #8047F4;
+  --violet-deep: #7E3FF2;
+  --purple: #BB46F5;
+  --magenta: #FA5FB2;
+  --orange: #FFA101;
+  --green: #1FA98A;
+  --blue: #0066FF;
+  --royal: #0066FF;        /* logo blue bar */
+  --logo-purple: #BB46F5;  /* logo middle bar */
+
+  /* Neutrals */
+  --ink: #0A0A0A;
+  --ink-soft: #1A1A1A;
+  --body: #535462;
+  --muted: #9296A6;
+  --paper: #FAFAFC;
+  --paper-warm: #FAFAFA;
+  --line: #E8E8EE;
+  --line-2: #EEF0F5;
+  --white: #FFFFFF;
+
+  /* Signature gradients */
+  --grad: linear-gradient(105deg, #8047F4 0%, #BB46F5 48%, #FA5FB2 100%);
+  --grad-viva: linear-gradient(105deg, #8047F4 0%, #BB46F5 38%, #FA5FB2 72%, #FFA101 130%);
+  --grad-ink: linear-gradient(160deg, #1A1A1A 0%, #0A0A0A 100%);
+
+  --r-sm: 10px;
+  --r: 16px;
+  --r-lg: 24px;
+  --r-xl: 32px;
+
+  --shadow-card: 0 1px 2px rgba(16,18,40,.04), 0 8px 24px -12px rgba(16,18,40,.12);
+  --shadow-float: 0 24px 60px -20px rgba(80,40,120,.35);
+
+  --font: "Montserrat", system-ui, -apple-system, sans-serif;
+  --display: "Space Grotesk", "Montserrat", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* ----------------------------------------------------------
+     EVENT THEMING — the declension mechanic.
+     Core brand never changes. Each event sets an accent + a hero
+     gradient that extends the brand grad toward that accent.
+     Default = neutral brand (no event).
+     ---------------------------------------------------------- */
+  --event-accent: #8047F4;          /* falls back to brand violet */
+  --event-accent-2: #FA5FB2;
+  --event-accent-soft: rgba(128,71,244,.12);
+  --event-ink: #4a2da0;             /* readable accent on light bg */
+  --event-grad: linear-gradient(105deg, #8047F4 0%, #BB46F5 48%, #FA5FB2 100%);
+}
+
+/* VivaTech — energy: brand grad pushed into orange */
+[data-event="vivatech"] {
+  --event-accent: #FFA101;
+  --event-accent-2: #FA5FB2;
+  --event-accent-soft: rgba(255,161,1,.15);
+  --event-ink: #b56e00;
+  --event-grad: linear-gradient(105deg, #8047F4 0%, #BB46F5 38%, #FA5FB2 72%, #FFA101 130%);
+}
+/* Conference / keynote — cool, technical */
+[data-event="conference"] {
+  --event-accent: #0066FF;
+  --event-accent-2: #8047F4;
+  --event-accent-soft: rgba(0,102,255,.12);
+  --event-ink: #0049b8;
+  --event-grad: linear-gradient(105deg, #0066FF 0%, #6E4BF0 55%, #8047F4 100%);
+}
+/* Product launch — fresh, productivity green */
+[data-event="launch"] {
+  --event-accent: #1FA98A;
+  --event-accent-2: #8047F4;
+  --event-accent-soft: rgba(31,169,138,.14);
+  --event-ink: #0f7d65;
+  --event-grad: linear-gradient(105deg, #1FA98A 0%, #4aa6c9 50%, #8047F4 110%);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ============================================================
+   LOGO — three stacked bars + wordmark
+   ============================================================ */
+.lk-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: .42em;
+  font-family: var(--display);
+  font-weight: 700;
+  letter-spacing: -.04em;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--ink);   /* explicit dark wordmark by default — never inherit white */
+}
+.lk-mark {
+  display: inline-grid;
+  flex: none;
+  font-size: .82em;   /* mark height relative to wordmark */
+}
+.lk-mark i {
+  display: block;
+  border-radius: .04em;
+}
+/* Each bar ~1px thinner than the one above; gaps strictly EQUAL. */
+.lk-mark i:nth-child(1) { width: .8em;  height: .28em;  background: var(--royal); }
+.lk-mark i:nth-child(2) { width: .8em;  height: .245em; background: var(--logo-purple); margin-top: .085em; }
+.lk-mark i:nth-child(3) { width: 1.14em; height: .21em; background: var(--orange); margin-top: .085em; }
+.lk-logo .lk-word { font-size: 1em; }
+.lk-logo .lk-word .dot { color: inherit; }
+
+/* light-on-dark variant — wordmark turns white, bars keep brand colors */
+.lk-logo.on-dark { color: #fff; }
+
+/* ============================================================
+   Shared atoms
+   ============================================================ */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: .5em;
+  padding: .42em .9em;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.pill-grad { background: var(--grad); color: #fff; }
+.pill-orange { background: rgba(255,161,1,.14); color: #b56e00; }
+.pill-violet { background: rgba(128,71,244,.12); color: var(--violet-deep); }
+.pill-green { background: rgba(31,169,138,.14); color: #0f7d65; }
+.pill-ghost { background: rgba(255,255,255,.14); color: #fff; border: 1px solid rgba(255,255,255,.28); }
+
+.kicker {
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.gradtext {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* tiny equalizer motif (the "partition") */
+.eq { display: inline-flex; align-items: flex-end; gap: 3px; height: 1em; }
+.eq span { width: 4px; border-radius: 2px; background: currentColor; }
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.btn {
+  display: inline-flex; align-items: center; gap: .55em;
+  font-family: var(--font); font-weight: 700; font-size: 15px;
+  padding: .85em 1.5em; border-radius: 999px; border: 0; cursor: pointer;
+  text-decoration: none; letter-spacing: -.01em; line-height: 1;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-primary { background: var(--grad); color: #fff; box-shadow: 0 10px 26px -10px rgba(128,71,244,.6); }
+.btn-event { background: var(--event-accent); color: #fff; box-shadow: 0 10px 26px -10px var(--event-accent); }
+.btn-ink { background: var(--ink); color: #fff; }
+.btn-ghost { background: rgba(255,255,255,.14); color: #fff; border: 1px solid rgba(255,255,255,.3); }
+.btn-outline { background: #fff; color: var(--ink); border: 1.5px solid var(--line); }
+
+/* ============================================================
+   Swatch (used in the charter)
+   ============================================================ */
+.swatch { border-radius: var(--r); overflow: hidden; border: 1px solid var(--line); background: #fff; }
+.swatch .chip { height: 96px; }
+.swatch .meta { padding: 12px 14px; }
+.swatch .meta b { display: block; font-size: 14px; font-weight: 800; letter-spacing: -.01em; }
+.swatch .meta code { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+/* event-accent helpers */
+.accent-bg { background: var(--event-accent); }
+.accent-text { color: var(--event-ink); }
+.accent-soft { background: var(--event-accent-soft); }
+
+/* ============================================================
+   THE SCORE SYSTEM — signature graphic language
+   The three logo bars become three TRACKS (voices).
+   Bar-notes sit on tracks; a playhead crosses them;
+   convergence resolves chaos into alignment.
+   ============================================================ */
+
+/* three voices = three logo colors (ownable mapping) */
+:root {
+  --track-1: #FFA101;  /* Business · David Mabboux */
+  --track-2: #BB46F5;  /* Cohérence · Adrien Basso Blandin */
+  --track-3: #0066FF;  /* Produit · Adrien Charles */
+}
+
+/* a bar-note: the logo bar shape, used as the atomic graphic unit */
+.note {
+  display: inline-block; height: 14px; border-radius: 3px; background: var(--ink);
+  vertical-align: middle;
+}
+
+/* TRACK label, studio/DAW style */
+.tracklab {
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.tracklab::before { content:""; width: 22px; height: 8px; border-radius: 2px; background: currentColor; }
+
+/* a horizontal staff/track band */
+.staff {
+  position: relative; display: grid; gap: 0;
+  border-radius: 14px; overflow: hidden;
+}
+.staff .lane {
+  position: relative; display: flex; align-items: center; gap: 10px;
+  padding: 0 18px; min-height: 56px;
+  border-top: 1px solid rgba(0,0,0,.06);
+}
+.staff .lane:first-child { border-top: 0; }
+
+/* playhead — the vertical "now" marker */
+.playhead { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--magenta); z-index: 3; }
+.playhead::before {
+  content:""; position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+  border-left: 7px solid transparent; border-right: 7px solid transparent;
+  border-top: 9px solid var(--magenta);
+}
+
+/* convergence container (bars positioned by JS) */
+.converge { position: relative; width: 100%; overflow: hidden; }
+.converge .bn {
+  position: absolute; height: 12px; border-radius: 3px;
+  transition: all .9s cubic-bezier(.2,.8,.2,1);
+}
+
+/* play glyph */
+.playglyph { display:inline-block; width:0; height:0; border-left: .62em solid currentColor; border-top: .38em solid transparent; border-bottom: .38em solid transparent; vertical-align: middle; }
+
+/* ============================================================
+   BAR-FIELD — the signature "tramé" / piano-roll texture.
+   The logo bars repeated into a tileable pattern. Reuse on any
+   surface by setting a base background behind it.
+   ============================================================ */
+.lk-field { background-repeat: repeat; background-position: center; }
+
+/* tonal white (on ink / signal) */
+.lk-field--ink {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='66'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Crect x='5' y='8' width='36' height='10' rx='3'/%3E%3Crect x='49' y='8' width='22' height='10' rx='3'/%3E%3Crect x='19' y='28' width='30' height='10' rx='3'/%3E%3Crect x='57' y='28' width='20' height='10' rx='3'/%3E%3Crect x='5' y='48' width='20' height='10' rx='3'/%3E%3Crect x='33' y='48' width='42' height='10' rx='3'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 96px 66px;
+}
+/* tonal dark (on paper) */
+.lk-field--paper {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='66'%3E%3Cg fill='%230a0a0a' fill-opacity='0.045'%3E%3Crect x='5' y='8' width='36' height='10' rx='3'/%3E%3Crect x='49' y='8' width='22' height='10' rx='3'/%3E%3Crect x='19' y='28' width='30' height='10' rx='3'/%3E%3Crect x='57' y='28' width='20' height='10' rx='3'/%3E%3Crect x='5' y='48' width='20' height='10' rx='3'/%3E%3Crect x='33' y='48' width='42' height='10' rx='3'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 96px 66px;
+}
+/* full color — the three tracks, vivid (on ink) */
+.lk-field--color {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='66'%3E%3Crect x='5' y='8' width='36' height='10' rx='3' fill='%23FFA101' fill-opacity='0.22'/%3E%3Crect x='49' y='8' width='22' height='10' rx='3' fill='%23FFA101' fill-opacity='0.13'/%3E%3Crect x='19' y='28' width='30' height='10' rx='3' fill='%23A93EEF' fill-opacity='0.24'/%3E%3Crect x='57' y='28' width='20' height='10' rx='3' fill='%23A93EEF' fill-opacity='0.14'/%3E%3Crect x='5' y='48' width='20' height='10' rx='3' fill='%231B4DE8' fill-opacity='0.20'/%3E%3Crect x='33' y='48' width='42' height='10' rx='3' fill='%231B4DE8' fill-opacity='0.28'/%3E%3C/svg%3E");
+  background-size: 96px 66px;
+}
+
+/* ============================================================
+   BAR-NOTE CONTAINER — message lives INSIDE the bar shape.
+   A giant rounded bar that holds a headline (Gringoou-style).
+   ============================================================ */
+.notebox {
+  display: inline-block; border-radius: 999px;
+  padding: clamp(14px, 2vw, 34px) clamp(22px, 3vw, 52px);
+  background: var(--ink); color: #fff;
+}
+.notebox.is-orange { background: var(--track-1); color:#1a1a1a; }
+.notebox.is-violet { background: var(--track-2); color:#fff; }
+.notebox.is-blue   { background: var(--track-3); color:#fff; }
+.notebox.is-grad   { background: var(--grad); color:#fff; }

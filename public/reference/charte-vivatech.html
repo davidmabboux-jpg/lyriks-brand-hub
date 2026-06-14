@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="fr" data-event="vivatech">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lyriks × VivaTech · Charte de co-branding</title>
+<link rel="stylesheet" href="brand.css">
+<script src="image-slot.js"></script>
+<style>
+  body { background:var(--ink); color:#fff; }
+  ::selection { background:#FFA101; color:#1a1a1a; }
+  .shell { display:grid; grid-template-columns:240px 1fr; max-width:1500px; margin:0 auto; }
+
+  /* nav */
+  nav.side { position:sticky; top:0; align-self:start; height:100vh; padding:30px 22px; border-right:1px solid #1c1c1c; display:flex; flex-direction:column; gap:2px; background:#0c0c0c; z-index:20; }
+  nav.side .lk-logo { font-size:21px; margin-bottom:8px; }
+  nav.side .evtag { font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#FFA101; background:rgba(255,161,1,.12); border:1px solid rgba(255,161,1,.3); padding:6px 10px; border-radius:999px; align-self:flex-start; margin-bottom:24px; }
+  nav.side a { text-decoration:none; color:#8a8a92; font-size:13.5px; font-weight:600; padding:9px 11px; border-radius:9px; display:flex; gap:10px; align-items:center; font-family:var(--font); transition:background .15s,color .15s; }
+  nav.side a .num { font-family:var(--mono); font-size:10.5px; color:#4a4a52; width:16px; }
+  nav.side a:hover { background:#161616; color:#fff; }
+  nav.side a.active { background:#FFA101; color:#1a1a1a; }
+  nav.side a.active .num { color:#1a1a1a; }
+  nav.side a.ext { border:1px solid #2a2a2e; color:#fff; }
+  nav.side a.ext:first-of-type { margin-top:8px; }
+  nav.side a.ext:hover { border-color:#FFA101; }
+  nav.side a.ext .num { color:#FFA101; }
+  nav.side .foot { margin-top:auto; font-family:var(--mono); font-size:10.5px; color:#4a4a52; line-height:1.6; }
+
+  main { min-width:0; }
+  section.block { padding:100px 68px; border-bottom:1px solid #1c1c1c; position:relative; overflow:hidden; }
+  .sec-num { font-family:var(--mono); font-size:12px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; display:flex; align-items:center; gap:12px; color:#FFA101; }
+  .sec-num::before { content:""; width:28px; height:10px; border-radius:2px; background:#FFA101; }
+  h2.sec-title { font-family:var(--display); font-size:60px; font-weight:700; letter-spacing:-.045em; line-height:.95; margin:18px 0 22px; color:#fff; }
+  .sec-intro { font-size:19px; line-height:1.6; color:#9a9aa2; max-width:62ch; font-weight:500; }
+  .sec-intro b { color:#fff; font-weight:700; }
+  h3.sub { font-family:var(--mono); font-size:12px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#6a6a72; margin:52px 0 22px; display:flex; align-items:center; gap:12px; }
+  h3.sub::before { content:""; width:22px; height:6px; border-radius:2px; background:#FFA101; }
+  section.light { background:var(--paper); color:var(--ink); border-bottom-color:var(--line); }
+  section.light h2.sec-title { color:var(--ink); } section.light .sec-intro { color:var(--body); } section.light .sec-intro b { color:var(--ink); }
+  section.light h3.sub { color:var(--muted); }
+
+  .barstack { display:inline-grid; gap:.16em; }
+  .barstack b { display:block; height:.3em; border-radius:.06em; }
+  .barstack b:nth-child(1){ width:.8em; background:var(--royal); }
+  .barstack b:nth-child(2){ width:.8em; background:var(--logo-purple); }
+  .barstack b:nth-child(3){ width:1.14em; background:var(--orange); }
+
+  /* ===== Official VivaTech logo (supplied by user) ===== */
+  .vt-logo { height:2.6em; width:auto; display:block; filter:drop-shadow(0 2px 10px rgba(0,0,0,.32)); }
+  .lockup .vt-logo { margin-left:.1em; }
+
+  /* ===== Co-brand lockup ===== */
+  .lockup { display:inline-flex; align-items:center; gap:1.1em; }
+  .lockup .x { font-family:var(--display); font-weight:500; opacity:.5; font-size:.9em; }
+  .lockup .div { width:1px; height:1.4em; background:currentColor; opacity:.25; }
+
+  /* COVER */
+  .cover { padding:0; border-bottom:0; min-height:100vh; display:flex; flex-direction:column; }
+  .cover .ctop { padding:38px 68px; display:flex; justify-content:space-between; align-items:center; z-index:5; }
+  .cover .ctop .v { font-family:var(--mono); font-size:12px; color:#6a6a72; letter-spacing:.1em; }
+  .cover .stage { flex:1; position:relative; display:flex; flex-direction:column; justify-content:center; gap:30px; padding:30px 68px; }
+  .cover .glow { position:absolute; inset:0; background:radial-gradient(820px 460px at 84% -10%,rgba(255,161,1,.4),transparent 60%),radial-gradient(700px 520px at 0% 110%,rgba(187,70,245,.42),transparent 60%); }
+  .cover .htext { position:relative; z-index:4; }
+  .cover .eyebrow { font-family:var(--mono); font-size:14px; letter-spacing:.2em; text-transform:uppercase; color:#FFA101; font-weight:700; display:inline-flex; align-items:center; gap:10px; }
+  .cover .lock-hero { display:flex; align-items:center; gap:38px; margin:26px 0 0; flex-wrap:wrap; }
+  .cover .lock-hero .lk-logo { font-size:54px; }
+  .cover .lock-hero .x { font-family:var(--display); font-weight:500; font-size:46px; color:#FFA101; }
+  .cover .lock-hero .vt-logo { height:112px; }
+  .cover h1 { font-family:var(--display); font-size:60px; font-weight:700; letter-spacing:-.04em; line-height:.96; margin:30px 0 0; max-width:18ch; }
+  .cover h1 .g { background:linear-gradient(96deg,#fff 0%,#FA5FB2 55%,#FFA101 110%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .cover .convband { position:relative; height:150px; width:100%; border-top:1px solid #1c1c1c; border-bottom:1px solid #1c1c1c; }
+  .cover .cbot { padding:26px 68px 40px; display:flex; justify-content:space-between; align-items:flex-end; gap:20px; flex-wrap:wrap; z-index:5; }
+  .cover .cbot .facts { display:flex; gap:10px; flex-wrap:wrap; }
+  .cover .cbot .fact { background:rgba(255,255,255,.06); border:1px solid #232323; border-radius:12px; padding:11px 16px; }
+  .cover .cbot .fact b { display:block; font-family:var(--display); font-size:17px; font-weight:700; color:#fff; }
+  .cover .cbot .fact span { font-family:var(--mono); font-size:10.5px; color:#7a7a82; letter-spacing:.04em; }
+
+  .g2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .g3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .g4 { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .card-d { background:#131313; border:1px solid #232323; border-radius:20px; padding:28px; }
+
+  /* lockup stages */
+  .lockstage { border-radius:18px; padding:50px; display:grid; place-items:center; min-height:170px; border:1px solid #232323; }
+  .dos .it { display:flex; gap:11px; align-items:flex-start; font-size:14px; line-height:1.5; margin-bottom:12px; color:#9a9aa2; }
+  .dos .mk { flex:none; width:21px; height:21px; border-radius:6px; display:grid; place-items:center; font-size:12px; font-weight:900; }
+  .mk.ok{ background:rgba(31,169,138,.16); color:#3fd0ad; } .mk.no{ background:rgba(230,57,70,.16); color:#ff6b74; }
+
+  /* decl before/after */
+  .decl { display:grid; grid-template-columns:1fr 56px 1fr; gap:18px; align-items:center; margin-top:30px; }
+  .decl .arrow { display:grid; place-items:center; font-size:26px; color:#FFA101; }
+  .decl .panel { border-radius:18px; overflow:hidden; border:1px solid #232323; aspect-ratio:16/10; position:relative; }
+  .decl .lbl { position:absolute; left:16px; top:14px; font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:6px 11px; border-radius:999px; z-index:3; }
+
+  /* swatches */
+  .sw { border-radius:14px; overflow:hidden; border:1px solid #232323; background:#131313; }
+  .sw .c { height:96px; position:relative; }
+  .sw .c .on { position:absolute; left:13px; bottom:11px; font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.04em; }
+  .sw .m { padding:12px 14px; } .sw .m b { display:block; font-size:14px; font-weight:800; } .sw .m code { font-family:var(--mono); font-size:11.5px; color:var(--muted); }
+  section:not(.light) .sw .m b { color:#fff; }
+  .gradbar { height:130px; border-radius:16px; margin-bottom:12px; position:relative; overflow:hidden; }
+  .gradmeta { font-family:var(--mono); font-size:12px; color:var(--muted); }
+
+  /* mixed graphism */
+  .mix-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:30px; }
+  .mix { border-radius:16px; overflow:hidden; border:1px solid #232323; }
+  .mix .viz { height:180px; position:relative; overflow:hidden; }
+  .mix .nm { padding:14px 16px; border-top:1px solid #232323; }
+  .mix .nm b { font-family:var(--display); font-size:15px; font-weight:700; color:#fff; display:block; }
+  .mix .nm span { font-family:var(--mono); font-size:10.5px; color:#7a7a82; }
+
+  /* surfaces */
+  .surfaces { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:34px; }
+  .surf { border-radius:18px; overflow:hidden; border:1px solid #232323; aspect-ratio:4/5; display:flex; flex-direction:column; padding:24px; position:relative; }
+  .surf .stag { font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.12em; padding:5px 10px; border-radius:999px; align-self:flex-start; }
+  .surf .sbody { margin-top:auto; }
+  .surf .sbody .disp { font-family:var(--display); font-size:30px; font-weight:700; letter-spacing:-.03em; line-height:.96; }
+  .surf .slanes { display:flex; gap:8px; margin-top:16px; }
+  .note { display:inline-block; height:14px; border-radius:3px; }
+
+  /* voices */
+  .vcard { border-radius:18px; padding:0; overflow:hidden; border:1px solid #1f1f1f; background:#111; }
+  .vcard .vtop { height:8px; }
+  .vcard .vin { padding:24px; }
+  .vcard .vrole { font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+  .vcard h4 { font-family:var(--display); font-size:22px; font-weight:700; letter-spacing:-.02em; margin:8px 0 4px; color:#fff; }
+  .vcard .vmeta { font-family:var(--mono); font-size:11px; color:#7a7a82; margin-bottom:12px; }
+  .vcard p { margin:0; font-size:13.5px; line-height:1.6; color:#a8a8b0; }
+
+  /* stand */
+  .stand-grid { display:grid; grid-template-columns:0.7fr 1fr 1fr; gap:18px; margin-top:34px; align-items:start; }
+  .stand-item .frame { border-radius:16px; overflow:hidden; border:1px solid #232323; position:relative; }
+  .stand-item .cap { font-family:var(--mono); font-size:11px; color:#7a7a82; margin-top:10px; letter-spacing:.04em; }
+  .stand-item .cap b { color:#cfcfd6; text-transform:uppercase; letter-spacing:.08em; font-size:11px; }
+  .kak { aspect-ratio:85/200; } .badge { aspect-ratio:9/5; } .signage { aspect-ratio:16/9; }
+
+  /* post personnel artboards */
+  .post-gallery { display:flex; flex-wrap:wrap; gap:24px; margin-top:34px; align-items:flex-start; }
+  figure.pfmt { margin:0; }
+  figure.pfmt .stage { border-radius:14px; overflow:hidden; border:1px solid #232323; box-shadow:0 24px 50px -28px rgba(0,0,0,.8); width:calc(var(--w) * var(--s)); height:calc(var(--h) * var(--s)); }
+  figure.pfmt .art { width:var(--w); height:var(--h); transform:scale(var(--s)); transform-origin:top left; position:relative; overflow:hidden; }
+  figure.pfmt figcaption { margin-top:12px; font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:.03em; }
+  figure.pfmt figcaption b { color:var(--ink); text-transform:uppercase; letter-spacing:.06em; font-weight:700; }
+  .pdisp { font-family:var(--display); font-weight:700; letter-spacing:-.04em; line-height:.94; }
+  .pmono { font-family:var(--mono); font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+  .cobrand { display:inline-flex; align-items:center; gap:18px; }
+  image-slot { box-shadow:inset 0 0 0 2px rgba(255,255,255,.32), 0 16px 40px -18px rgba(0,0,0,.6); }
+
+  .info-strip { margin-top:24px; background:#131313; border:1px solid #232323; border-radius:18px; padding:26px 30px; display:flex; gap:30px; flex-wrap:wrap; }
+  .info-strip .it b { font-family:var(--display); font-size:24px; font-weight:700; color:#fff; display:block; }
+  .info-strip .it span { font-family:var(--mono); font-size:11px; color:#7a7a82; letter-spacing:.06em; }
+
+  .cta-strip { margin-top:38px; background:#fff; color:var(--ink); border-radius:20px; padding:36px 42px; display:flex; align-items:center; justify-content:space-between; gap:22px; flex-wrap:wrap; }
+  .cta-strip h3 { font-family:var(--display); margin:0 0 6px; font-size:25px; font-weight:700; letter-spacing:-.02em; }
+  .cta-strip p { margin:0; color:var(--body); font-size:14.5px; }
+
+  .callout { margin-top:20px; background:rgba(255,161,1,.08); border:1px solid rgba(255,161,1,.3); border-radius:14px; padding:18px 22px; font-size:13.5px; line-height:1.55; color:#cfcfd6; display:flex; gap:12px; }
+  .callout .ic { color:#FFA101; font-size:18px; flex:none; }
+  section.light .callout { color:var(--body); }
+
+  @media print { nav.side{ display:none; } .shell{ display:block; } main{ padding:0; } section.block{ break-inside:avoid; padding:40px; } .cover{ min-height:auto; page-break-after:always; } }
+  @media (max-width:1040px){
+    .shell{ grid-template-columns:1fr; }
+    nav.side{ position:static; height:auto; flex-direction:row; flex-wrap:wrap; align-items:center; border-right:0; border-bottom:1px solid #1c1c1c; }
+    nav.side .foot,nav.side .lk-logo,nav.side .evtag{ display:none; }
+    .g2,.g3,.g4,.surfaces,.decl,.stand-grid,.mix-grid{ grid-template-columns:1fr; } .decl .arrow{ transform:rotate(90deg); }
+    section.block{ padding:64px 24px; } .cover h1{ font-size:40px; } h2.sec-title{ font-size:40px; }
+    .cover .lock-hero .lk-logo{ font-size:30px; } .cover .lock-hero .vt-logo{ height:64px; }
+  }
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" rx="14" fill="#0a0a0a"/>
+<rect x="30" y="37" width="26" height="7" rx="2.5" fill="#0066FF"/>
+<rect x="30" y="48" width="26" height="7" rx="2.5" fill="#BB46F5"/>
+<rect x="30" y="59" width="40" height="7" rx="2.5" fill="#FFA101"/>
+</svg>
+</template>
+<div class="shell">
+  <nav class="side">
+    <span class="lk-logo on-dark"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+    <span class="evtag">× VivaTech 2026</span>
+    <a href="#cover"><span class="num">00</span>Couverture</a>
+    <a href="#cobrand"><span class="num">01</span>Le co-branding</a>
+    <a href="#decl"><span class="num">02</span>La déclinaison</a>
+    <a href="#couleurs"><span class="num">03</span>Couleurs mixées</a>
+    <a href="#graph"><span class="num">04</span>Graphisme mixé</a>
+    <a href="#surfaces"><span class="num">05</span>Surfaces</a>
+    <a href="#voix"><span class="num">06</span>Les 3 voix</a>
+    <a href="#stand"><span class="num">07</span>Supports du stand</a>
+    <a href="#post-perso"><span class="num">08</span>Post personnel</a>
+    <a href="charte.html" class="ext"><span class="num">↩</span>Charte générale</a>
+    <a href="templates-vivatech.html" class="ext"><span class="num">▦</span>Templates VivaTech</a>
+    <a href="calendrier.html" class="ext"><span class="num">▤</span>Calendrier</a>
+    <div class="foot">Charte de co-branding<br>VivaTech · 2026</div>
+  </nav>
+
+  <main>
+    <!-- COVER -->
+    <section class="cover block" id="cover">
+      <div class="glow"></div>
+      <div class="ctop">
+        <span class="lk-logo on-dark"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+        <span class="v">CHARTE DE CO-BRANDING · ÉVÉNEMENT</span>
+      </div>
+      <div class="stage">
+        <div class="htext">
+          <span class="eyebrow"><span class="playglyph"></span> Lyriks × VivaTech 2026</span>
+          <div class="lock-hero">
+            <span class="lk-logo on-dark"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+            <span class="x">×</span>
+            <img class="vt-logo" src="vivatech-logo-white.svg" alt="VivaTech">
+          </div>
+          <h1>Quand notre <span class="g">partition</span> rencontre le plus grand salon tech d'Europe.</h1>
+        </div>
+        <div class="convband" id="coverConv"></div>
+      </div>
+      <div class="cbot">
+        <div class="facts">
+          <div class="fact"><b>Booth 1E24-001</b><span>PAVILLON 7</span></div>
+          <div class="fact"><b>17–20 juin 2026</b><span>PARIS</span></div>
+          <div class="fact"><b>Co-branding</b><span>LYRIKS × VIVATECH</span></div>
+        </div>
+        <span class="barstack" style="font-size:28px"><b></b><b></b><b></b></span>
+      </div>
+    </section>
+
+    <!-- 01 CO-BRANDING -->
+    <section class="block" id="cobrand">
+      <span class="sec-num">01 · Le co-branding</span>
+      <h2 class="sec-title">Deux marques,<br>un verrou.</h2>
+      <p class="sec-intro">Sur tout support événementiel, les deux marques apparaissent ensemble dans un <b>lockup</b> : le logo <b>Lyriks.io</b> à gauche, l'<b>event mark VivaTech</b> à droite, séparés par un <b>×</b> orange. Lyriks reste l'émetteur principal, VivaTech signe le contexte.</p>
+
+      <h3 class="sub">Le lockup officiel</h3>
+      <div class="g2">
+        <div class="lockstage" style="background:var(--ink)">
+          <span class="lockup" style="color:#fff;font-size:30px">
+            <span class="lk-logo on-dark" style="font-size:30px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+            <span class="x" style="color:#FFA101">×</span>
+            <img class="vt-logo" src="vivatech-logo-white.svg" alt="VivaTech">
+          </span>
+        </div>
+        <div class="lockstage" style="background:#fff">
+          <span class="lockup" style="color:#0a0a0a;font-size:30px">
+            <span class="lk-logo" style="font-size:30px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+            <span class="x" style="color:#FFA101">×</span>
+            <img class="vt-logo" src="vivatech-logo.svg" alt="VivaTech">
+          </span>
+        </div>
+      </div>
+
+      <div class="callout"><span class="ic">▸</span><div><b style="color:#fff">Logo officiel VivaTech.</b> Le logo VivaTech est utilisé tel que fourni par l'organisateur, marques colorées + « VivaTech 17-20 June 2026 / Paris ». On <b style="color:#fff">ne le recolore jamais</b>, on ne le passe pas dans le dégradé, et on respecte sa zone d'exclusion. Version blanche sur fond sombre, version couleur sur fond clair.</div></div>
+
+      <h3 class="sub">Règles du lockup</h3>
+      <div class="g2">
+        <div class="card-d">
+          <div class="dos">
+            <div class="it"><span class="mk ok">✓</span><span>Lyriks à gauche, VivaTech à droite, séparés par le <b style="color:#fff">×</b> orange.</span></div>
+            <div class="it"><span class="mk ok">✓</span><span>Hauteur de wordmark identique pour les deux marques ; aligner sur la ligne de base.</span></div>
+            <div class="it"><span class="mk ok">✓</span><span>Zone d'exclusion ≥ hauteur d'une barre Lyriks autour du lockup.</span></div>
+          </div>
+        </div>
+        <div class="card-d">
+          <div class="dos">
+            <div class="it"><span class="mk no">✕</span><span>Ne pas coller les deux logos sans le × ni les empiler.</span></div>
+            <div class="it"><span class="mk no">✕</span><span>Ne pas recolorer le logo VivaTech ni le passer dans le dégradé.</span></div>
+            <div class="it"><span class="mk no">✕</span><span>Ne pas inverser l'ordre : Lyriks reste l'émetteur, donc à gauche.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 DÉCLINAISON -->
+    <section class="block light" id="decl">
+      <span class="sec-num">02 · La déclinaison</span>
+      <h2 class="sec-title">Le cœur ne bouge pas.<br>L'énergie change.</h2>
+      <p class="sec-intro">L'univers Lyriks reste intact, logo, pistes, typographie, voix. Le co-branding ajoute <b>deux marqueurs</b> : le <b>lockup</b> Lyriks × VivaTech, et un <b>accent orange</b> qui réchauffe le dégradé. On reconnaît Lyriks au premier coup d'œil, et on comprend tout de suite : « mode salon ».</p>
+
+      <div class="decl">
+        <div>
+          <div class="panel">
+            <span class="lbl" style="background:rgba(0,0,0,.55);color:#fff">Marque · neutre</span>
+            <div style="position:absolute;inset:0;background:var(--grad)"></div>
+            <div style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:22px"><span class="lk-logo on-dark" style="font-size:20px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span></div>
+          </div>
+        </div>
+        <div class="arrow">→</div>
+        <div>
+          <div class="panel" style="border-color:rgba(255,161,1,.6)">
+            <span class="lbl" style="background:rgba(255,161,1,.95);color:#1a1a1a">VivaTech · co-brand</span>
+            <div style="position:absolute;inset:0;background:var(--event-grad)"></div>
+            <div style="position:absolute;inset:0;background:radial-gradient(300px 160px at 88% 0%,rgba(255,255,255,.25),transparent 60%)"></div>
+            <div style="position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:space-between;padding:22px">
+              <span class="lockup" style="color:#fff;font-size:15px"><span class="lk-logo on-dark" style="font-size:15px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span><span class="x" style="color:#fff">×</span><img class="vt-logo" src="vivatech-logo-white.svg" alt="VivaTech"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 COULEURS MIXÉES -->
+    <section class="block" id="couleurs">
+      <span class="sec-num">03 · Couleurs mixées</span>
+      <h2 class="sec-title">La palette<br>co-brand.</h2>
+      <p class="sec-intro">On garde les <b>3 pistes Lyriks</b> comme base, et on fait monter l'<b>orange</b> au rang d'accent principal de l'événement, c'est lui qui « signe » VivaTech. Le <b>noir</b> et le <b>blanc</b> tech assurent le lien avec le langage salon.</p>
+
+      <h3 class="sub">Base Lyriks · les 3 pistes</h3>
+      <div class="g3">
+        <div class="sw"><div class="c" style="background:#FFA101"><span class="on" style="color:#1a1a1a">TRACK 01</span></div><div class="m"><b>Orange · Business</b><code>#FFA101</code></div></div>
+        <div class="sw"><div class="c" style="background:#BB46F5"><span class="on" style="color:#fff">TRACK 02</span></div><div class="m"><b>Violet · Cohérence</b><code>#BB46F5</code></div></div>
+        <div class="sw"><div class="c" style="background:#0066FF"><span class="on" style="color:#fff">TRACK 03</span></div><div class="m"><b>Bleu · Produit</b><code>#0066FF</code></div></div>
+      </div>
+
+      <h3 class="sub">Accent événement · le mix</h3>
+      <div class="g4">
+        <div class="sw"><div class="c" style="background:#FFA101"><span class="on" style="color:#1a1a1a">ACCENT</span></div><div class="m"><b>Orange VivaTech</b><code>#FFA101</code></div></div>
+        <div class="sw"><div class="c" style="background:#FA5FB2"><span class="on" style="color:#fff">PLAYHEAD</span></div><div class="m"><b>Magenta</b><code>#FA5FB2</code></div></div>
+        <div class="sw"><div class="c" style="background:#0A0A0A;border-bottom:1px solid #232323"><span class="on" style="color:#fff">TECH</span></div><div class="m"><b>Noir</b><code>#0A0A0A</code></div></div>
+        <div class="sw"><div class="c" style="background:#FAFAFC"><span class="on" style="color:#0a0a0a">TECH</span></div><div class="m"><b>Blanc</b><code>#FAFAFC</code></div></div>
+      </div>
+
+      <h3 class="sub">Dégradé signal VivaTech</h3>
+      <div class="g2">
+        <div><div class="gradbar" style="background:var(--event-grad)"></div><span class="gradmeta">Signal VivaTech · violet → magenta → <b style="color:#b56e00">orange</b> · 105°</span></div>
+        <div><div class="gradbar" style="background:var(--grad)"></div><span class="gradmeta">Marque (référence) · violet → magenta · 105°</span></div>
+      </div>
+    </section>
+
+    <!-- 04 GRAPHISME MIXÉ -->
+    <section class="block" id="graph">
+      <span class="sec-num">04 · Graphisme mixé</span>
+      <h2 class="sec-title">Score System<br>× énergie salon.</h2>
+      <p class="sec-intro">Le langage graphique reste celui de Lyriks, <b>pistes</b>, <b>convergence</b>, <b>typo tramée</b>, mais l'orange devient la couleur dominante des accents, et le <b>lockup</b> co-brand vient signer chaque composition. Trois exemples du mix.</p>
+
+      <div class="mix-grid">
+        <div class="mix">
+          <div class="viz" style="background:var(--event-grad)"><div id="mixConv" style="position:absolute;inset:0"></div></div>
+          <div class="nm"><b>Convergence orange</b><span>signal VivaTech</span></div>
+        </div>
+        <div class="mix">
+          <div class="viz" style="background:var(--ink)"><div id="mixStripes" style="position:absolute;inset:0"></div><div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(10,10,10,.7))"></div><div style="position:absolute;left:18px;bottom:16px;font-family:var(--display);font-weight:700;font-size:46px;letter-spacing:-.04em;background-image:linear-gradient(180deg,#FFA101 0 50%,#FA5FB2 50%);-webkit-background-clip:text;background-clip:text;color:transparent">LIVE</div></div>
+          <div class="nm"><b>Typo tramée · live</b><span>orange + magenta</span></div>
+        </div>
+        <div class="mix">
+          <div class="viz" style="background:#fff;display:flex;flex-direction:column;justify-content:center;padding:0 22px;gap:14px">
+            <div style="height:18px;width:64%;border-radius:5px;background:#FFA101"></div>
+            <div style="height:18px;width:92%;border-radius:5px;background:#BB46F5"></div>
+            <div style="height:18px;width:78%;border-radius:5px;background:#0066FF"></div>
+            <div style="position:absolute;right:18px;bottom:14px;font-family:var(--mono);font-size:11px;font-weight:700;color:#9296a6">× VivaTech</div>
+          </div>
+          <div class="nm"><b>Pistes + signature</b><span>co-brand · paper</span></div>
+        </div>
+      </div>
+      <p class="callout" style="margin-top:24px"><span class="ic">▸</span><span>Règle constante : les 3 pistes gardent <b style="color:#fff">la même hauteur</b>, seules les largeurs varient. L'orange domine les accents en mode événement, sans jamais remplacer le violet de la marque.</span></p>
+    </section>
+
+    <!-- 05 SURFACES -->
+    <section class="block light" id="surfaces">
+      <span class="sec-num">05 · Surfaces</span>
+      <h2 class="sec-title">Trois surfaces,<br>une énergie orange.</h2>
+      <p class="sec-intro">Les trois surfaces, <b>ink</b>, <b>paper</b>, <b>signal</b>, restent la base. En co-brand, le lockup signe chacune et l'orange entre comme accent.</p>
+
+      <div class="surfaces">
+        <div class="surf" style="background:var(--ink);color:#fff">
+          <span class="stag" style="background:rgba(255,161,1,.16);color:#FFA101">INK</span>
+          <div class="sbody">
+            <span class="lockup" style="color:#fff;font-size:13px"><span class="lk-logo on-dark" style="font-size:13px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span><span class="x" style="color:#FFA101">×</span><img class="vt-logo" src="vivatech-logo-white.svg" alt="VivaTech"></span>
+            <div class="disp" style="margin-top:14px;color:#fff">On vous<br>attend.</div>
+            <div class="slanes"><span class="note" style="width:46px;background:#FFA101"></span><span class="note" style="width:26px;background:#BB46F5"></span><span class="note" style="width:34px;background:#0066FF"></span></div>
+          </div>
+        </div>
+        <div class="surf" style="background:#fff;color:var(--ink)">
+          <span class="stag" style="background:rgba(255,161,1,.16);color:#b56e00">PAPER</span>
+          <div class="sbody">
+            <span class="lockup" style="color:#0a0a0a;font-size:13px"><span class="lk-logo" style="font-size:13px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span><span class="x" style="color:#FFA101">×</span><img class="vt-logo" src="vivatech-logo.svg" alt="VivaTech"></span>
+            <div class="disp" style="margin-top:14px;color:var(--ink)">Stand<br>1E24-001.</div>
+            <div class="slanes"><span class="note" style="width:46px;background:#FFA101"></span><span class="note" style="width:26px;background:#BB46F5"></span><span class="note" style="width:34px;background:#0066FF"></span></div>
+          </div>
+        </div>
+        <div class="surf" style="background:var(--event-grad);color:#fff;border-color:transparent">
+          <span class="stag" style="background:rgba(255,255,255,.18);color:#fff">SIGNAL</span>
+          <div class="sbody">
+            <span class="lockup" style="color:#fff;font-size:13px"><span class="lk-logo on-dark" style="font-size:13px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span><span class="x" style="color:#1a1a1a">×</span><img class="vt-logo" src="vivatech-logo-white.svg" alt="VivaTech"></span>
+            <div class="disp" style="margin-top:14px;color:#fff">17–20<br>juin.</div>
+            <div class="slanes"><span class="note" style="width:46px;background:#fff"></span><span class="note" style="width:26px;background:rgba(255,255,255,.7)"></span><span class="note" style="width:34px;background:#1a1a1a"></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 VOIX -->
+    <section class="block" id="voix">
+      <span class="sec-num">06 · Les 3 voix</span>
+      <h2 class="sec-title">Qui parle de quoi<br>sur le salon.</h2>
+      <p class="sec-intro">Chaque voix tient sa piste. Sur les <b>posts</b>, jamais de prénom + nom : la voix se lit à sa couleur, et le <b>logo reste hyper lisible</b>.</p>
+
+      <div class="g3" style="margin-top:34px">
+        <div class="vcard"><div class="vtop" style="background:#FFA101"></div><div class="vin"><span class="vrole" style="color:#FFA101">Track 01 · Business</span><h4>David</h4><div class="vmeta">Inspirant · orienté résultats</div><p>Vision marché, traction, « pourquoi maintenant », rencontres investisseurs.</p></div></div>
+        <div class="vcard"><div class="vtop" style="background:#BB46F5"></div><div class="vin"><span class="vrole" style="color:#d49bf8">Track 02 · Cohérence</span><h4>Adrien Basso Blandin</h4><div class="vmeta">Pédagogue · preuve technique</div><p>Le moteur de cohérence, l'architecture, le scale, les défis techniques.</p></div></div>
+        <div class="vcard"><div class="vtop" style="background:#0066FF"></div><div class="vin"><span class="vrole" style="color:#5B93FF">Track 03 · Produit</span><h4>Adrien Charles</h4><div class="vmeta">Concret · démontrable</div><p>Productivité, qualité, temps gagné, démo produit en direct.</p></div></div>
+      </div>
+    </section>
+
+    <!-- 07 STAND -->
+    <section class="block" id="stand">
+      <span class="sec-num">07 · Supports du stand</span>
+      <h2 class="sec-title">Le co-branding,<br>en physique.</h2>
+      <p class="sec-intro">Les supports du Booth 1E24-001 portent le lockup Lyriks × VivaTech en grand format : <b>kakémono</b>, <b>badges</b> et <b>signalétique</b>. Surface signal pour attirer l'œil, lockup en tête, pistes en signature.</p>
+
+      <div class="stand-grid">
+        <div class="stand-item">
+          <div class="frame kak">
+            <div style="position:absolute;inset:0;background:var(--event-grad)"></div>
+            <div id="kakStripes" style="position:absolute;left:0;right:0;bottom:0;height:28%"></div>
+            <div style="position:absolute;inset:0;background:radial-gradient(300px 200px at 80% 8%,rgba(255,255,255,.22),transparent 60%)"></div>
+            <div style="position:absolute;inset:0;padding:28px;display:flex;flex-direction:column">
+              <span class="lockup" style="color:#fff;font-size:15px"><span class="lk-logo on-dark" style="font-size:15px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span><span class="x" style="color:#1a1a1a">×</span><img class="vt-logo" src="vivatech-logo-white.svg" alt="VivaTech"></span>
+              <div style="margin-top:44px;font-family:var(--display);font-weight:700;font-size:42px;letter-spacing:-.03em;color:#fff;line-height:.98">On joue tous la même partition.</div>
+              <div style="margin-top:auto;font-family:var(--mono);font-size:14px;font-weight:700;color:#fff;letter-spacing:.06em">BOOTH 1E24-001</div>
+            </div>
+          </div>
+          <div class="cap"><b>Kakémono</b> · 85 × 200 cm · roll-up</div>
+        </div>
+        <div class="stand-item">
+          <div class="frame badge">
+            <div style="position:absolute;inset:0;background:var(--ink)"></div>
+            <div style="position:absolute;inset:0;padding:22px;display:flex;flex-direction:column;justify-content:space-between">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                <span class="lk-logo on-dark" style="font-size:16px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+                <img class="vt-logo" src="vivatech-logo-white.svg" alt="VivaTech">
+              </div>
+              <div>
+                <div style="font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:-.02em;color:#fff">David</div>
+                <div style="font-family:var(--mono);font-size:11px;color:#9296a6;margin-top:4px">TRACK 01 · BUSINESS</div>
+                <div style="display:flex;gap:5px;margin-top:12px"><span class="note" style="width:40px;background:#FFA101"></span><span class="note" style="width:24px;background:#BB46F5"></span><span class="note" style="width:32px;background:#0066FF"></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="cap"><b>Badge équipe</b> · tour de cou · 1 par voix</div>
+        </div>
+        <div class="stand-item">
+          <div class="frame signage">
+            <div style="position:absolute;inset:0;background:#fff"></div>
+            <div style="position:absolute;left:0;right:0;top:0;display:flex"><i style="height:14px;flex:1;background:#FFA101"></i><i style="height:14px;flex:1.6;background:#BB46F5"></i><i style="height:14px;flex:.8;background:#0066FF"></i></div>
+            <div style="position:absolute;inset:0;padding:28px 30px;display:flex;flex-direction:column;justify-content:center">
+              <span class="lockup" style="color:#0a0a0a;font-size:13px"><span class="lk-logo" style="font-size:13px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span><span class="x" style="color:#FFA101">×</span><img class="vt-logo" src="vivatech-logo.svg" alt="VivaTech"></span>
+              <div style="font-family:var(--display);font-weight:700;font-size:32px;letter-spacing:-.03em;color:var(--ink);margin-top:12px;line-height:1">Démo live<br>en continu.</div>
+              <div style="font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:12px;letter-spacing:.04em">9h–19h · BOOTH 1E24-001</div>
+            </div>
+          </div>
+          <div class="cap"><b>Signalétique</b> · panneau / écran · 16:9</div>
+        </div>
+      </div>
+
+      <div class="info-strip">
+        <div class="it"><b>1E24-001</b><span>STAND · PAVILLON 7</span></div>
+        <div class="it"><b>17–20 juin</b><span>9H–19H</span></div>
+        <div class="it"><b>Démo live</b><span>EN CONTINU</span></div>
+        <div class="it"><b>3 voix</b><span>DAVID · A. BB · A. CHARLES</span></div>
+      </div>
+
+      <div class="cta-strip">
+        <div>
+          <h3>Tout le kit VivaTech</h3>
+          <p>Templates, calendrier éditorial et textes prêts, déclinés sur cette charte de co-branding.</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a class="btn btn-event" href="templates-vivatech.html">Templates →</a>
+          <a class="btn btn-ink" href="calendrier.html">Calendrier →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 POST PERSONNEL -->
+    <section class="block light" id="post-perso">
+      <span class="sec-num">08 · Post personnel</span>
+      <h2 class="sec-title">« On y sera »<br>avec votre visage.</h2>
+      <p class="sec-intro">Le post d'annonce personnel : votre <b>portrait</b>, le lockup co-brand, et le stand bien visible. Quatre mises en avant de l'événement, <b>save the date</b>, <b>compte à rebours</b>, <b>démo live</b>, <b>pass d'invitation</b>. Glissez votre photo sur l'emplacement de chaque version.</p>
+
+      <div class="post-gallery">
+        <!-- V1 SAVE THE DATE -->
+        <figure class="pfmt" style="--w:1080px;--h:1350px;--s:0.285">
+          <div class="stage"><div class="art">
+            <div style="position:absolute;inset:0;background:var(--event-grad)"></div>
+            <div style="position:absolute;inset:0;background:radial-gradient(640px 360px at 84% 4%,rgba(255,255,255,.2),transparent 60%)"></div>
+            <div style="position:absolute;inset:0;padding:80px;display:flex;flex-direction:column">
+              <span class="cobrand"><span class="lk-logo on-dark" style="font-size:32px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span><span class="x" style="font-size:28px;font-family:var(--display);font-weight:500;color:#fff">×</span><img class="vt-logo" src="vivatech-logo-white.svg" alt="VivaTech" style="height:56px"></span>
+              <span class="pmono" style="margin-top:34px;align-self:flex-start;font-size:24px;color:#0a0a0a;background:#fff;padding:12px 22px;border-radius:999px">★ SAVE THE DATE</span>
+              <div class="pdisp" style="font-size:152px;color:#fff;margin-top:24px">17—20<br>JUIN</div>
+              <div style="margin-top:auto;display:flex;align-items:flex-end;gap:34px">
+                <image-slot id="cvtFace1" style="width:300px;height:300px;flex:none" shape="circle" placeholder="Votre portrait"></image-slot>
+                <div style="padding-bottom:6px">
+                  <div class="pdisp" style="font-size:52px;color:#fff">On y<br>sera.</div>
+                  <span style="display:inline-block;margin-top:22px;font-family:var(--mono);font-weight:700;letter-spacing:.1em;font-size:22px;color:#0a0a0a;background:#fff;padding:13px 20px;border-radius:999px;white-space:nowrap">📍 BOOTH 1E24-001</span>
+                </div>
+              </div>
+            </div>
+          </div></div>
+          <figcaption><b>Save the date</b> · Signal · 1080 × 1350</figcaption>
+        </figure>
+
+        <!-- V2 COUNTDOWN -->
+        <figure class="pfmt" style="--w:1080px;--h:1350px;--s:0.285">
+          <div class="stage"><div class="art">
+            <div style="position:absolute;inset:0;background:var(--ink)"></div>
+            <div style="position:absolute;inset:0;background:radial-gradient(620px 460px at 80% 22%,rgba(255,161,1,.34),transparent 60%)"></div>
+            <div style="position:absolute;inset:0;padding:80px;display:flex;flex-direction:column">
+              <span class="cobrand"><span class="lk-logo on-dark" style="font-size:30px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span><span class="x" style="font-size:26px;font-family:var(--display);font-weight:500;color:#FFA101">×</span><img class="vt-logo" src="vivatech-logo-white.svg" alt="VivaTech" style="height:52px"></span>
+              <div style="margin-top:36px;display:flex;align-items:center;gap:22px">
+                <span class="pdisp" style="font-size:172px;color:#FFA101;line-height:.74">J-14</span>
+                <span class="pmono" style="font-size:22px;color:#fff;line-height:1.5">AVANT<br>VIVATECH</span>
+              </div>
+              <div style="margin-top:44px;display:flex;align-items:flex-end;gap:36px">
+                <image-slot id="cvtFace2" style="width:330px;height:400px;flex:none" shape="rounded" radius="24" placeholder="Votre portrait"></image-slot>
+                <div style="padding-bottom:8px">
+                  <div class="pdisp" style="font-size:62px;color:#fff">On y<br>sera.</div>
+                  <div style="display:flex;flex-direction:column;gap:9px;margin-top:14px"><i style="height:16px;width:120px;border-radius:5px;background:#FFA101"></i><i style="height:16px;width:80px;border-radius:5px;background:#BB46F5"></i><i style="height:16px;width:150px;border-radius:5px;background:#0066FF"></i></div>
+                </div>
+              </div>
+              <div style="margin-top:auto;display:flex;gap:12px;flex-wrap:wrap">
+                <span style="font-family:var(--mono);font-weight:700;letter-spacing:.1em;font-size:22px;color:#0a0a0a;background:#FFA101;padding:13px 20px;border-radius:999px;white-space:nowrap">📍 BOOTH 1E24-001</span>
+                <span style="font-family:var(--mono);font-weight:700;letter-spacing:.1em;font-size:22px;color:#fff;border:1px solid #333;padding:13px 20px;border-radius:999px;white-space:nowrap">📅 17–20 JUIN · PAVILLON 7</span>
+              </div>
+            </div>
+          </div></div>
+          <figcaption><b>Compte à rebours</b> · Ink · 1080 × 1350</figcaption>
+        </figure>
+
+        <!-- V3 CARRÉ DÉMO LIVE -->
+        <figure class="pfmt" style="--w:1080px;--h:1080px;--s:0.285">
+          <div class="stage"><div class="art">
+            <div style="position:absolute;inset:0;background:var(--ink)"></div>
+            <div style="position:absolute;inset:0;background:radial-gradient(560px 420px at 88% 90%,rgba(255,161,1,.34),transparent 60%)"></div>
+            <div style="position:absolute;inset:0;padding:74px;display:flex;flex-direction:column">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px">
+                <span class="lk-logo on-dark" style="font-size:32px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+                <img class="vt-logo" src="vivatech-logo-white.svg" alt="VivaTech" style="height:74px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))">
+              </div>
+              <div style="margin-top:auto;display:flex;align-items:flex-end;gap:38px">
+                <image-slot id="cvtFace3" style="width:340px;height:430px;flex:none" shape="rounded" radius="24" placeholder="Votre portrait"></image-slot>
+                <div style="padding-bottom:6px">
+                  <div style="display:inline-flex;align-items:center;gap:11px;background:rgba(255,161,1,.16);border:1px solid rgba(255,161,1,.5);padding:10px 16px;border-radius:999px">
+                    <span style="width:14px;height:14px;border-radius:50%;background:#FFA101"></span>
+                    <span class="pmono" style="font-size:17px;color:#FFA101">EN DIRECT AU STAND</span>
+                  </div>
+                  <div class="pdisp" style="font-size:84px;color:#fff;margin-top:20px">On y<br>sera.</div>
+                  <span style="display:inline-block;margin-top:22px;font-family:var(--mono);font-weight:700;letter-spacing:.1em;font-size:21px;color:#0a0a0a;background:#FFA101;padding:13px 20px;border-radius:999px;white-space:nowrap">📍 Pavillon 7 · 1E24-001 · 17–20 JUIN</span>
+                </div>
+              </div>
+            </div>
+          </div></div>
+          <figcaption><b>Carré · démo live</b> · Ink · 1080 × 1080</figcaption>
+        </figure>
+
+        <!-- V4 PASS -->
+        <figure class="pfmt" style="--w:1080px;--h:1350px;--s:0.285">
+          <div class="stage"><div class="art">
+            <div style="position:absolute;inset:0;background:var(--ink)"></div>
+            <div style="position:absolute;inset:0;background:radial-gradient(600px 420px at 50% 0%,rgba(255,161,1,.34),transparent 62%)"></div>
+            <div style="position:absolute;inset:0;padding:76px;display:flex;flex-direction:column">
+              <span class="cobrand"><span class="lk-logo on-dark" style="font-size:30px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span><span class="x" style="font-size:26px;font-family:var(--display);font-weight:500;color:#FFA101">×</span><img class="vt-logo" src="vivatech-logo-white.svg" alt="VivaTech" style="height:52px"></span>
+              <span class="pmono" style="margin-top:30px;align-self:flex-start;font-size:18px;color:#FFA101;display:inline-flex;align-items:center;gap:10px"><span class="playglyph"></span> VOTRE PASS DÉMO</span>
+              <div style="margin-top:30px;position:relative;background:#fff;border-radius:30px;padding:44px;color:#0a0a0a;display:flex;gap:34px;align-items:center">
+                <div style="position:absolute;left:-15px;top:50%;width:30px;height:30px;border-radius:50%;background:var(--ink);transform:translateY(-50%)"></div>
+                <div style="position:absolute;right:-15px;top:50%;width:30px;height:30px;border-radius:50%;background:var(--ink);transform:translateY(-50%)"></div>
+                <image-slot id="cvtFace4" style="width:240px;height:300px;flex:none" shape="rounded" radius="18" placeholder="Votre portrait"></image-slot>
+                <div>
+                  <div class="pmono" style="font-size:18px;color:#9296a6">ADMIT ONE · DÉMO LIVE</div>
+                  <div class="pdisp" style="font-size:58px;margin-top:10px;color:#0a0a0a">On y<br>sera.</div>
+                  <div class="pmono" style="font-size:20px;color:#0a0a0a;margin-top:18px">17–20 JUIN</div>
+                  <div style="font-family:var(--mono);font-weight:700;letter-spacing:.1em;font-size:20px;color:#FFA101;margin-top:4px">BOOTH 1E24-001</div>
+                </div>
+              </div>
+              <div style="margin-top:auto;background:var(--event-grad);color:#fff;font-family:var(--display);font-weight:700;font-size:38px;letter-spacing:-.02em;text-align:center;border-radius:26px;padding:30px">🎟️ Réservez votre créneau →</div>
+            </div>
+          </div></div>
+          <figcaption><b>Pass démo</b> · ticket · 1080 × 1350</figcaption>
+        </figure>
+      </div>
+
+      <div class="cta-strip" style="margin-top:34px">
+        <div>
+          <h3>Version interactive du post</h3>
+          <p>Changer la voix (Business / Cohérence / Produit) et copier le texte prêt à publier.</p>
+        </div>
+        <a class="btn btn-event" href="post-visage-vivatech.html">Ouvrir le générateur →</a>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  const TRACKS = ['#FFA101','#BB46F5','#0066FF'];
+  const links = [...document.querySelectorAll('nav.side a')].filter(l=>l.getAttribute('href').startsWith('#'));
+  const secs = links.map(l=>document.querySelector(l.getAttribute('href')));
+  const spy=()=>{ let i=0; for(let k=0;k<secs.length;k++) if(secs[k] && secs[k].getBoundingClientRect().top<=160) i=k; links.forEach(l=>l.classList.remove('active')); if(links[i]) links[i].classList.add('active'); };
+  document.addEventListener('scroll', spy, {passive:true}); spy();
+  links.forEach(l=>l.addEventListener('click', e=>{ e.preventDefault(); document.querySelector(l.getAttribute('href')).scrollIntoView({behavior:'smooth',block:'start'}); }));
+
+  function buildConvergence(container, faint){
+    if(!container) return; container.innerHTML='';
+    const W=container.clientWidth||900, H=container.clientHeight||180;
+    const ty=[0.26,0.5,0.74].map(t=>t*H), playX=0.58*W;
+    const ph=document.createElement('div'); ph.style.cssText=`position:absolute;top:0;bottom:0;width:3px;left:${playX}px;background:#FA5FB2;z-index:3`; container.appendChild(ph);
+    const tip=document.createElement('div'); tip.style.cssText=`position:absolute;top:-2px;left:${playX}px;transform:translateX(-50%);border-left:8px solid transparent;border-right:8px solid transparent;border-top:11px solid #FA5FB2;z-index:4`; container.appendChild(tip);
+    ty.forEach((y,ti)=>{ let x=playX+14; while(x<W-26){ const w=30+Math.round(Math.random()*56); if(x+w>W-10) break; const b=document.createElement('div'); b.style.cssText=`position:absolute;height:11px;border-radius:3px;left:${x}px;top:${y-5}px;width:${w}px;background:${ti===0?'#fff':TRACKS[ti]};opacity:${0.8+Math.random()*0.2}`; container.appendChild(b); x+=w+10+Math.round(Math.random()*16); } });
+    const rows=Math.max(4,Math.round(H/40));
+    for(let r=0;r<rows;r++){ const y=(0.1+0.8*r/(rows-1))*H; let x=6+Math.random()*30; while(x<playX-30){ if(Math.random()<0.34){ x+=24+Math.random()*46; continue; } const w=20+Math.round(Math.random()*42); if(x+w>playX-12) break; const b=document.createElement('div'); b.style.cssText=`position:absolute;height:10px;border-radius:3px;left:${x}px;top:${y-5}px;width:${w}px;background:${faint};opacity:${0.4+Math.random()*0.3}`; container.appendChild(b); x+=w+14+Math.round(Math.random()*28); } }
+  }
+  function fillStripes(host,op){ if(!host) return; host.innerHTML='<div style="position:absolute;inset:0;display:flex;opacity:'+(op||1)+'">'+Array.from({length:14},(_,i)=>`<div style="width:${100/14}%;background:${TRACKS[i%3]}"></div>`).join('')+'</div>'; }
+  function renderAll(){
+    buildConvergence(document.getElementById('coverConv'), '#33333b');
+    buildConvergence(document.getElementById('mixConv'), 'rgba(255,255,255,.35)');
+    fillStripes(document.getElementById('kakStripes'), .5);
+    fillStripes(document.getElementById('mixStripes'), .9);
+  }
+  renderAll(); window.addEventListener('load', renderAll);
+  let rt; window.addEventListener('resize', ()=>{ clearTimeout(rt); rt=setTimeout(renderAll,200); });
+</script>
+</body>
+</html>

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lyriks × VivaTech 2026, Manuel de stand</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --violet:#8047F4; --violet-deep:#5A2DBD; --violet-ink:#2E1A6B;
+    --scriptbg:#EEEDFE; --neutralbg:#F1EFE8;
+    --ink:#0A0A0A; --body:#4A4A5A; --muted:#8A8A99; --line:#E5E3F2; --paper:#FBFBFD;
+    /* profils */
+    --dir:#0066FF; --dir-bg:#E6F0FF;
+    --prod:#8047F4; --prod-bg:#EFEAFE;
+    --dev:#1FA98A; --dev-bg:#E2F6F3;
+    --inv:#FFA101; --inv-bg:#FCF1E0;
+    --bad:#7C7C8A; --bad-bg:#F0F0F2;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Inter",system-ui,sans-serif;font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+
+  /* layout */
+  .wrap{max-width:1100px;margin:0 auto;padding:0 32px;}
+  .doc{max-width:840px;margin:0 auto;}
+
+  /* ===== header / cover ===== */
+  .cover{background:linear-gradient(150deg,#2A2266 0%,#5A2DBD 48%,#5B3DCB 100%);color:#fff;position:relative;overflow:hidden;}
+  .cover::after{content:"";position:absolute;right:-120px;top:-120px;width:520px;height:520px;background:radial-gradient(circle,rgba(128,71,244,.55),transparent 62%);}
+  .cover .wrap{position:relative;z-index:2;padding:52px 32px 46px;}
+  .brandrow{display:flex;align-items:center;gap:14px;}
+  .logo{display:inline-flex;align-items:center;gap:.46em;font-weight:800;font-size:26px;letter-spacing:-.03em;}
+  .logo .bars{display:inline-grid;gap:3px;}
+  .logo .bars i{display:block;height:5px;border-radius:2px;}
+  .logo .bars i:nth-child(1){width:17px;background:#8B6BF5;}
+  .logo .bars i:nth-child(2){width:17px;background:#B79BFb;}
+  .logo .bars i:nth-child(3){width:24px;background:#fff;}
+  .cover .tag{margin-left:auto;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C9BCF4;border:1px solid rgba(255,255,255,.25);padding:6px 13px;border-radius:999px;}
+  .cover h1{font-size:52px;font-weight:900;letter-spacing:-.035em;line-height:1.02;margin:30px 0 0;max-width:18ch;}
+  .cover .lede{font-size:19px;color:#D7CFF5;max-width:60ch;margin:16px 0 0;line-height:1.55;}
+  .factbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px;}
+  .fact{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:12px 18px;}
+  .fact b{display:block;font-size:16px;font-weight:800;letter-spacing:-.01em;white-space:nowrap;}
+  .fact span{font-size:11.5px;color:#BCAEEC;font-weight:600;letter-spacing:.08em;text-transform:uppercase;}
+
+  /* ===== sticky quick-nav ===== */
+  /* page header (sobre, sans logo, intégré au site Lyriks) */
+  .phead{background:#fff;border-bottom:1px solid var(--line);}
+  .phead .wrap{padding:34px 32px 24px;}
+  .phead .eyebrow{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--violet);}
+  .phead h1{font-size:34px;font-weight:900;letter-spacing:-.03em;line-height:1.08;color:var(--ink);margin:10px 0 8px;}
+  .phead .lede{font-size:16px;color:var(--body);margin:0;max-width:66ch;line-height:1.55;}
+  .phead .meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:16px;font-size:13px;color:var(--muted);}
+  .phead .meta b{color:var(--violet-deep);font-weight:700;}
+
+  nav.toc{position:sticky;top:0;z-index:30;background:rgba(251,251,253,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  nav.toc .wrap{display:flex;gap:6px;overflow-x:auto;padding:11px 32px;scrollbar-width:none;}
+  nav.toc .wrap::-webkit-scrollbar{display:none;}
+  nav.toc a{flex:none;font-size:12.5px;font-weight:700;color:var(--body);text-decoration:none;padding:7px 13px;border-radius:8px;white-space:nowrap;border:1px solid transparent;}
+  nav.toc a:hover{background:var(--scriptbg);color:var(--violet-deep);}
+  nav.toc a.on{background:var(--scriptbg);color:var(--violet-deep);border-color:var(--line);}
+
+  /* ===== sections ===== */
+  main{padding:50px 0 90px;}
+  .part-divider{margin:64px 0 8px;padding:26px 30px;border-radius:18px;background:var(--violet-deep);color:#fff;}
+  .part-divider .k{font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#B9A9F0;}
+  .part-divider h2{font-size:30px;font-weight:900;letter-spacing:-.02em;margin:6px 0 4px;}
+  .part-divider p{margin:0;color:#CFC4F0;font-size:14.5px;font-style:italic;}
+
+  h2.sec{display:flex;align-items:center;gap:15px;margin:74px 0 0;padding:16px 22px;background:var(--scriptbg);border-radius:14px;border-left:5px solid var(--violet);font-size:21px;font-weight:900;letter-spacing:-.012em;color:var(--violet-deep);text-transform:none;scroll-margin-top:72px;}
+  h2.sec .num{font-family:"Inter";font-size:18px;font-weight:900;color:#fff;background:var(--violet);width:40px;height:40px;border-radius:11px;display:grid;place-items:center;flex:none;letter-spacing:0;box-shadow:0 6px 14px -6px rgba(128,71,244,.55);}
+  h2.sec + .lede-sec{font-size:24px;font-weight:800;letter-spacing:-.02em;color:var(--ink);margin:18px 0 0;line-height:1.22;}
+  h3{font-size:18px;font-weight:800;letter-spacing:-.01em;color:var(--violet-deep);margin:36px 0 10px;padding-left:14px;border-left:3px solid var(--purple,#BB46F5);}
+  h4{font-size:15.5px;font-weight:800;color:var(--ink);margin:22px 0 6px;}
+  p{margin:12px 0;}
+  p,li{color:var(--body);}
+  strong{color:var(--ink);font-weight:700;}
+  .doc > p:first-child{margin-top:14px;}
+  hr{border:0;border-top:1px solid var(--line);margin:42px 0;}
+
+  /* ===== "À DIRE", script blocks (the stars) ===== */
+  .say{position:relative;background:var(--scriptbg);border-radius:0 14px 14px 0;border-left:6px solid var(--violet);padding:18px 22px 18px 52px;margin:16px 0;}
+  .say::before{content:"“";position:absolute;left:16px;top:6px;font-size:42px;font-weight:900;color:var(--violet);line-height:1;font-family:Georgia,serif;}
+  .say p{margin:0;font-style:italic;font-size:18px;line-height:1.5;color:var(--violet-ink);font-weight:500;}
+  .say p + p{margin-top:10px;}
+  .say .lbl{display:inline-block;font-style:normal;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);margin-bottom:7px;}
+  .say.big p{font-size:21px;font-weight:600;}
+
+  /* mantra, hero say */
+  .mantra{background:linear-gradient(120deg,var(--violet-deep),var(--violet));color:#fff;border:0;border-radius:16px;padding:24px 28px;margin:22px 0;}
+  .mantra .lbl{color:#CDBFF6;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;}
+  .mantra p{margin:8px 0 0;font-size:22px;font-weight:800;font-style:normal;letter-spacing:-.01em;line-height:1.3;color:#fff;}
+
+  /* ===== callout boxes : Principe / Attention / Signal ===== */
+  .box{border-radius:14px;padding:17px 20px 17px 20px;margin:20px 0;border:1px solid var(--line);border-left-width:5px;background:#fff;}
+  .box .bt{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+  .box p{margin:4px 0 0;font-size:15px;}
+  .box.principe{border-left-color:var(--violet);background:#FAF8FF;}
+  .box.principe .bt{color:var(--violet);}
+  .box.attention{border-left-color:var(--inv);background:#FEF9F0;}
+  .box.attention .bt{color:#B8730F;}
+  .box.signal{border-left-color:var(--dev);background:#EEFAF8;}
+  .box.signal .bt{color:#0C8175;}
+
+  /* ===== tables ===== */
+  .tablecard{margin:20px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:520px;}
+  thead th{background:var(--violet-deep);color:#fff;font-weight:700;text-align:left;padding:12px 16px;font-size:13px;letter-spacing:.02em;}
+  tbody td{padding:12px 16px;border-top:1px solid var(--line);color:var(--body);vertical-align:top;}
+  tbody tr:nth-child(even){background:#F8F7FC;}
+  tbody td strong,tbody td b{color:var(--ink);}
+  td:first-child{font-weight:600;color:var(--ink);}
+  .mini th{font-size:12px;}
+
+  /* ===== profile sections ===== */
+  .profile{border:1px solid var(--line);border-left-width:6px;border-radius:14px;padding:22px 24px;margin:24px 0;background:#fff;}
+  .profile .ptop{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:4px;}
+  .pbadge{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 11px;border-radius:999px;}
+  .ptitle{font-size:21px;font-weight:900;letter-spacing:-.01em;color:var(--ink);}
+  .ppri{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--muted);}
+  .profile h4{margin-top:18px;}
+  .profile.dir{border-left-color:var(--dir);} .profile.dir .pbadge{background:var(--dir-bg);color:var(--dir);}
+  .profile.prod{border-left-color:var(--prod);} .profile.prod .pbadge{background:var(--prod-bg);color:var(--prod);}
+  .profile.dev{border-left-color:var(--dev);} .profile.dev .pbadge{background:var(--dev-bg);color:#0C8175;}
+  .profile.inv{border-left-color:var(--inv);} .profile.inv .pbadge{background:var(--inv-bg);color:#B8730F;}
+  .profile.bad{border-left-color:var(--bad);} .profile.bad .pbadge{background:var(--bad-bg);color:var(--bad);}
+  .profile.dir .say{border-left-color:var(--dir);background:var(--dir-bg);} .profile.dir .say::before{color:var(--dir);} .profile.dir .say p{color:#00347A;}
+  .profile.dev .say{border-left-color:var(--dev);background:var(--dev-bg);} .profile.dev .say::before{color:var(--dev);} .profile.dev .say p{color:#0A4D46;}
+  .profile.inv .say{border-left-color:var(--inv);background:var(--inv-bg);} .profile.inv .say::before{color:var(--inv);} .profile.inv .say p{color:#6E4708;}
+  .profile.bad .say{border-left-color:var(--bad);background:var(--bad-bg);} .profile.bad .say::before{color:var(--bad);} .profile.bad .say p{color:#3C3C44;}
+  .reaction{font-weight:800;color:var(--violet-deep);font-size:14.5px;margin:18px 0 2px;padding-left:14px;border-left:3px solid var(--line);}
+  .profile.dir .reaction{color:#0052CC;} .profile.dev .reaction{color:#0C8175;} .profile.inv .reaction{color:#B8730F;}
+  .procedline{margin-top:18px;background:var(--neutralbg);border-radius:11px;padding:13px 16px;font-size:13.5px;}
+  .procedline b{color:var(--violet-deep);}
+
+  /* arbre visuel (flowchart) */
+  .flow{margin:24px 0 8px;}
+  .flow .topnode{max-width:330px;margin:0 auto;background:var(--neutralbg);border:1px solid var(--line);border-radius:12px;padding:12px 18px;text-align:center;}
+  .flow .topnode.alt{background:#fff;border-color:#D8D4EC;}
+  .flow .topnode b{display:block;font-size:15.5px;font-weight:800;color:var(--ink);}
+  .flow .topnode span{font-size:12px;color:var(--muted);}
+  .flow .down{height:16px;width:2px;background:#C7C3D9;margin:0 auto;}
+  .flow .cols{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:start;}
+  .flow .col{--c:var(--violet);--cbg:var(--scriptbg);--ct:var(--violet-deep);display:flex;flex-direction:column;align-items:stretch;text-decoration:none;}
+  .flow .col.dir{--c:#0066FF;--cbg:#E6F0FF;--ct:#0052CC;}
+  .flow .col.prod{--c:#8047F4;--cbg:#EFEAFE;--ct:#5A2DBD;}
+  .flow .col.dev{--c:#1FA98A;--cbg:#E2F6F3;--ct:#0C8175;}
+  .flow .col.inv{--c:#FFA101;--cbg:#FCF1E0;--ct:#B8730F;}
+  .flow .col.bad{--c:#9AA0AB;--cbg:#F0F0F2;--ct:#55555F;}
+  .flow .cell{border-radius:11px;padding:10px 12px;text-align:center;min-height:50px;display:flex;flex-direction:column;justify-content:center;}
+  .flow .cell b{display:block;font-size:14px;font-weight:800;letter-spacing:-.01em;color:var(--ct);line-height:1.2;}
+  .flow .cell span{font-size:11.5px;color:var(--ct);opacity:.82;margin-top:2px;}
+  .flow .cell.head{background:var(--cbg);border:1.5px solid var(--c);}
+  .flow .cell.soft{background:var(--cbg);}
+  .flow .cell.line{background:#fff;border:1.5px dashed var(--c);}
+  .flow .cell.out{background:#E9F6EC;border:1px solid #C8E6C9;}
+  .flow .cell.out b,.flow .cell.out span{color:#2E7D32;}
+  .flow .lnk{height:12px;width:2px;background:var(--c);opacity:.5;margin:0 auto;}
+  .flow .col:hover .cell.head{box-shadow:0 8px 18px -9px var(--c);}
+  .flow .legend{margin-top:20px;background:var(--neutralbg);border:1px solid var(--line);border-radius:12px;padding:13px 18px;}
+  .flow .legend p{margin:3px 0;font-size:13px;color:var(--body);}
+  .flow .legend b{color:var(--ink);font-weight:800;}
+  @media (max-width:680px){.flow .cols{grid-template-columns:1fr 1fr;gap:14px;}}
+  /* flow interactif */
+  .flow .cell{cursor:pointer;transition:box-shadow .12s,transform .12s;}
+  .flow .cell:hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px var(--c);}
+  .flow .cell.sel{outline:2.5px solid var(--c);outline-offset:1px;}
+  .flow-hint{text-align:center;font-size:12px;color:var(--muted);margin:14px 0 0;font-weight:600;}
+  .flow-detail{margin-top:14px;border-radius:14px;border:1px solid var(--line);border-left:5px solid var(--violet);background:var(--scriptbg);overflow:hidden;display:none;}
+  .flow-detail.show{display:block;}
+  .flow-detail .fd-head{display:flex;align-items:center;gap:10px;padding:11px 18px;background:#fff;border-bottom:1px solid var(--line);}
+  .flow-detail .fd-dot{width:12px;height:12px;border-radius:50%;flex:none;}
+  .flow-detail .fd-t{font-weight:800;font-size:14px;color:var(--ink);}
+  .flow-detail .fd-step{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-left:auto;}
+  .flow-detail .fd-say{padding:16px 18px 14px 48px;position:relative;font-style:italic;font-size:17px;line-height:1.5;color:var(--violet-ink);font-weight:500;}
+  .flow-detail .fd-say::before{content:"\201C";position:absolute;left:16px;top:8px;font-size:38px;font-weight:900;color:var(--violet);font-family:Georgia,serif;}
+  .flow-detail .fd-link{display:inline-block;margin:0 18px 16px;font-size:12.5px;font-weight:700;color:var(--violet);text-decoration:none;}
+  .flow-detail .fd-link:hover{text-decoration:underline;}
+
+  /* numbered steps */
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:18px 0;}
+  ol.steps li{position:relative;padding:10px 0 10px 46px;border-top:1px solid var(--line);}
+  ol.steps li:first-child{border-top:0;}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:10px;width:30px;height:30px;background:var(--scriptbg);color:var(--violet);font-weight:800;font-size:14px;border-radius:9px;display:grid;place-items:center;}
+  ol.steps li strong{color:var(--ink);}
+
+  ul.clean{list-style:none;padding:0;margin:14px 0;}
+  ul.clean li{position:relative;padding:7px 0 7px 24px;border-bottom:1px solid var(--line);}
+  ul.clean li:last-child{border-bottom:0;}
+  ul.clean li::before{content:"";position:absolute;left:4px;top:16px;width:7px;height:7px;border-radius:2px;background:var(--violet);}
+  ul.checks{list-style:none;padding:0;margin:14px 0;}
+  ul.checks li{position:relative;padding:9px 0 9px 34px;border-bottom:1px solid var(--line);font-size:15px;}
+  ul.checks li::before{content:"☐";position:absolute;left:4px;top:8px;font-size:18px;color:var(--violet);}
+
+  /* aide-mémoire highlight */
+  .memo{background:var(--neutralbg);border-radius:16px;padding:8px 26px 26px;margin:22px 0;}
+  .proced-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0;}
+  .pcase{background:#fff;border:1px solid var(--line);border-radius:11px;padding:13px 15px;}
+  .pcase .k{font-weight:900;color:var(--violet);font-size:20px;}
+  .pcase .n{font-weight:800;color:var(--ink);font-size:14px;margin-top:2px;}
+  .pcase .d{font-size:12px;color:var(--muted);margin-top:2px;}
+
+  .endnote{text-align:center;font-style:italic;color:var(--violet-deep);font-weight:600;font-size:17px;margin:50px 0 0;padding-top:30px;border-top:2px solid var(--scriptbg);}
+
+  @media (max-width:680px){
+    .wrap{padding:0 18px;} nav.toc .wrap{padding:10px 18px;}
+    .cover .wrap{padding:38px 18px 34px;} .cover h1{font-size:36px;} .cover .lede{font-size:16px;}
+    h2.sec + .lede-sec{font-size:21px;} .say p{font-size:16px;} .say.big p{font-size:18px;}
+    .ppri{display:none;}
+  }
+  @media print{
+    nav.toc{display:none;} body{font-size:11pt;background:#fff;}
+    .cover{background:var(--violet-deep)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .say,.box,.profile,.mantra,.part-divider,thead th,tbody tr:nth-child(even),.memo,.pcase,.procedline{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .profile,.box,.say,.tablecard,.part-divider{break-inside:avoid;}
+    h2.sec,h3{break-after:avoid;}
+    main{padding:20px 0;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== COVER ===== -->
+<header class="phead">
+  <div class="wrap"><div class="doc">
+    <div class="eyebrow">VivaTech 2026 · Manuel de stand</div>
+    <h1>Aborder, qualifier, capter la donnée, décrocher le RDV.</h1>
+    <p class="lede">Document interne. À lire avant le jour 1, à garder sur soi pendant le salon.</p>
+    <div class="meta"><span><b>17–20 juin 2026</b> · 9h–18h</span><span><b>Paris Expo</b> · Porte de Versailles</span><span><b>Équipe de 4</b> en permanence</span></div>
+  </div></div>
+</header>
+
+<!-- ===== QUICK NAV ===== -->
+<nav class="toc">
+  <div class="wrap">
+    <a href="#essentiel">L'essentiel</a>
+    <a href="#vendre">Ce qu'on vend</a>
+    <a href="#postes">Les 4 postes</a>
+    <a href="#parcours">Parcours visiteur</a>
+    <a href="#proced">PROCED</a>
+    <a href="#arbre">Arbre par profil</a>
+    <a href="#demo">La démo</a>
+    <a href="#close">Le close</a>
+    <a href="#data">Data capture</a>
+    <a href="#debrief">Débrief</a>
+    <a href="#memo">Aide-mémoire</a>
+  </div>
+</nav>
+
+<main>
+<div class="wrap"><div class="doc">
+
+  <!-- ESSENTIEL -->
+  <h2 class="sec" id="essentiel"><span class="num">★</span>L'essentiel en une page</h2>
+  <div class="lede-sec">Si tu ne retiens que ceci avant d'ouvrir le stand.</div>
+
+  <ol class="steps">
+    <li><strong>Notre objectif.</strong> Trois choses, dans l'ordre : faire connaître la catégorie, récolter des leads qualifiés (démos réservées), rencontrer des investisseurs. Un « bon » visiteur repart avec un <strong>rendez-vous calé</strong>, pas juste une carte.</li>
+    <li><strong>La règle d'or.</strong> Personne ne lance une démo sans avoir qualifié. La démo est une <strong>récompense qu'on mérite</strong>, pas une introduction. On qualifie en 30 secondes, on donne envie, puis on montre.</li>
+    <li><strong>On joue à 4, en relais fluide.</strong> Chacun a un poste par défaut mais sait faire le cran d'avant et d'après. Le visiteur est <strong>escorté</strong>, jamais « refilé ».</li>
+    <li><strong>On capte 6 infos : PROCED.</strong> Profil · Rôle dans l'achat · Outils · Chaos (son problème, dans ses mots) · Échelle · Décision. À l'oral lors de la passe, au CRM au close.</li>
+    <li><strong>On adapte à QUI on a en face.</strong> Un dirigeant n'a pas droit à la démo (pas le temps) ; un dev veut la démo tout de suite (et déteste le pitch) ; un investisseur veut la vision, surtout pas le produit.</li>
+    <li><strong>On close sur du concret daté.</strong> « Une démo de 45 min la semaine pro, sur VOTRE produit », jamais « on vous envoie de la doc », qui tue le lead.</li>
+  </ol>
+
+  <div class="mantra">
+    <span class="lbl">Le mantra du stand</span>
+    <p>Trier → Donner envie → Qualifier → Montrer (si pertinent) → Closer → Historiser.</p>
+  </div>
+
+  <!-- PARTIE I -->
+  <div class="part-divider">
+    <div class="k">Partie I</div>
+    <h2>Comprendre</h2>
+    <p>Du plus global au cœur du dispositif. Ce qu'on lit pour intégrer la méthode.</p>
+  </div>
+
+  <!-- 1. CE QU'ON VEND -->
+  <h2 class="sec" id="vendre"><span class="num">1</span>Ce qu'on vend (rappel express)</h2>
+  <div class="lede-sec">Tout le monde doit savoir dire ça sans hésiter.</div>
+  <p>Trois niveaux selon le temps disponible.</p>
+
+  <div class="say">
+    <span class="lbl">À dire · la phrase de 5 secondes (catégorie)</span>
+    <p>Lyriks est une base de connaissance vivante et centralisée pour donner aux équipes et aux agents IA une compréhension commune de ce qui doit être construit.</p>
+  </div>
+
+  <div class="say">
+    <span class="lbl">À dire · le pitch de 30 secondes (problème + réponse)</span>
+    <p>L'IA transforme l'ambiguïté en code plus vite que les équipes ne se mettent d'accord. Résultat : entre ce que le PM a en tête, ce que le designer fait et ce que l'IA génère, on se retrouve avec trois produits différents. Nous, on met le produit dans un modèle structuré et vérifié : humains et agents travaillent sur la même définition. Moins d'ambiguïté, moins d'hallucinations, moins de reprises.</p>
+  </div>
+
+  <h4>Les 3 piliers (si on creuse)</h4>
+  <div class="tablecard"><table>
+    <thead><tr><th>Pilier</th><th>Ce que c'est</th><th>À qui ça parle</th></tr></thead>
+    <tbody>
+      <tr><td>Spécification</td><td>Une base produit structurée (vision, parcours, règles, specs) exploitable par les humains ET les agents IA.</td><td>Product / Design</td></tr>
+      <tr><td>Cohérence</td><td>Un moteur qui détecte ambiguïtés et contradictions, simule les comportements avant le build, compare le code à la spec.</td><td>Product / Dev</td></tr>
+      <tr><td>Supervision</td><td>Une vue consolidée des usages IA : coûts, conformité, ROI réel par fonctionnalité.</td><td>Dirigeants / Finance</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="box principe">
+    <div class="bt">▚ Les deux éditions, à clarifier net</div>
+    <p><strong>Lyriks Community</strong> = la couche <strong>open source</strong> (AGPL, local-first), celle que les devs installent. <strong>Lyriks</strong> = la <strong>plateforme enterprise</strong> au-dessus (collaboration, droits, supervision, déploiement managé). <em>Si on vous parle d'« Unspaghettit » : c'est l'ancien nom de notre open source, aujourd'hui Lyriks Community.</em></p>
+  </div>
+  <div class="say">
+    <span class="lbl">À dire · si quelqu'un est perdu</span>
+    <p>Lyriks Community, c'est le moteur open source ; Lyriks, c'est la plateforme qu'on construit par-dessus.</p>
+  </div>
+
+  <!-- 2. LES 4 POSTES -->
+  <h2 class="sec" id="postes"><span class="num">2</span>Comment on s'organise : les 4 postes</h2>
+  <div class="lede-sec">Des rôles souples, avec un relais fluide.</div>
+  <p>Pas de « chacun fait tout » (ça épuise et plafonne le débit). Pas de rôles rigides en chaîne (ça crée des ruptures).</p>
+
+  <div class="box principe">
+    <div class="bt">▚ Principe directeur</div>
+    <p>Personne ne lance une démo sans avoir qualifié, et personne ne qualifie plus de 30 secondes sans donner envie.</p>
+  </div>
+
+  <div class="tablecard"><table>
+    <thead><tr><th>Poste</th><th>Qui</th><th>Mission</th><th>Ne fait jamais</th></tr></thead>
+    <tbody>
+      <tr><td>L'Aimant</td><td>Expert com</td><td>Tourné vers l'allée. Lance UNE phrase-crochet, trie le profil en 10 sec, passe la main. Enchaîne les amorces.</td><td>De démo. Ne retient pas longtemps.</td></tr>
+      <tr><td>Le Traducteur</td><td>Commercial</td><td>Récupère le visiteur amorcé, fait le pitch adapté, pose les 2-3 questions qui comptent, décide démo/RDV/carte, close.</td><td>De démo technique poussée.</td></tr>
+      <tr><td>Le Démonstrateur</td><td>Dev ou ingénieur</td><td>Prend SEULEMENT les visiteurs déjà chauffés. Démo de 3 min. Produit le moment « ah, je vois ».</td><td>De re-pitch. Le pourquoi est déjà vendu.</td></tr>
+      <tr><td>Le Flex</td><td>Le 4e (tournant)</td><td>Absorbe les pics, tient une 2e démo, saisit les leads au CRM, gère la simulation, remplace pour les pauses.</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>La rotation sur 4 jours</h4>
+  <ul class="clean">
+    <li>On tourne les postes <strong>par demi-journée</strong>. Personne ne tient le même poste 10h.</li>
+    <li>Exception : l'Aimant demande un vrai talent relationnel, garde tes 1-2 meilleurs dessus, mais fais-les souffler souvent (poste le plus usant).</li>
+    <li>Toujours <strong>au moins 1 personne capable de faire la démo</strong> présente. Synchronise les pauses pour ne jamais être à découvert.</li>
+  </ul>
+
+  <h4>La règle de relais, la passe qui ne se voit pas</h4>
+  <p>On ne « transfère » jamais visiblement. On présente nominativement + une phrase qui élève. Le visiteur se sent escorté.</p>
+  <div class="say">
+    <span class="lbl">À dire · exemple de passe (Aimant → Traducteur)</span>
+    <p>Tiens, je te présente Léa, elle dirige le produit chez [boîte], elle galère exactement avec ça. Léa, Marc va te montrer en deux mots comment on règle ce problème.</p>
+  </div>
+  <p>La phrase de passe porte toujours le <strong>Profil</strong> et le <strong>Chaos</strong> (voir PROCED).</p>
+
+  <!-- 3. PARCOURS -->
+  <h2 class="sec" id="parcours"><span class="num">3</span>Le parcours visiteur, étape par étape</h2>
+  <div class="lede-sec">La même partition pour tout le monde. Six temps.</div>
+
+  <div class="tablecard"><table>
+    <thead><tr><th>#</th><th>Temps</th><th>Qui</th><th>But</th><th>Durée</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Trier</td><td>Aimant</td><td>Faire ralentir, lire le badge, router vers le bon profil.</td><td>~10 sec</td></tr>
+      <tr><td>2</td><td>Donner envie</td><td>Aimant → Traducteur</td><td>Accrocher le pain dans les mots du visiteur. Passer la main.</td><td>~20 sec</td></tr>
+      <tr><td>3</td><td>Qualifier</td><td>Traducteur</td><td>2-3 questions ciblées. Capter PROCED. Décider : démo, RDV ou carte.</td><td>30-60 sec</td></tr>
+      <tr><td>4</td><td>Montrer</td><td>Démonstrateur</td><td>UN moment « ah, je vois » sur un cas réel. (Si pertinent.)</td><td>2-3 min</td></tr>
+      <tr><td>5</td><td>Closer</td><td>Traducteur</td><td>Caler du concret daté : démo 45 min sur LEUR produit. Scanner le badge.</td><td>~30 sec</td></tr>
+      <tr><td>6</td><td>Historiser</td><td>Closeur → Flex</td><td>Dicter le PROCED tant que c'est frais. Saisir au CRM.</td><td>~15 sec</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="box signal">
+    <div class="bt">◈ Le signal d'achat à reconnaître</div>
+    <p>Quand le visiteur demande « comment ça marche concrètement ? », il demande la démo lui-même. C'est LE moment de passer au Démonstrateur. À l'inverse, s'il reste vague ou recule, on économise la démo et on passe à la carte.</p>
+  </div>
+
+  <!-- 4. PROCED -->
+  <h2 class="sec" id="proced"><span class="num">4</span>Capter la donnée : la méthode PROCED</h2>
+  <div class="lede-sec">L'info captée doit voyager AVEC le visiteur, de main en main, jusqu'au CRM.</div>
+  <p>Sinon on repose les mêmes questions (le visiteur se sent un numéro) et le soir on a 80 cartes sans contexte.</p>
+
+  <div class="tablecard"><table>
+    <thead><tr><th>&nbsp;</th><th>Info</th><th>Comment la capter</th><th>Priorité</th></tr></thead>
+    <tbody>
+      <tr><td><strong style="color:var(--violet);font-size:18px">P</strong></td><td>Profil / rôle</td><td>Badge + question de tri (Product, Dev, CTO, Dirigeant, Investisseur…)</td><td><strong>Obligatoire</strong></td></tr>
+      <tr><td><strong style="color:var(--violet);font-size:18px">R</strong></td><td>Rôle dans l'achat</td><td>Déduit, jamais demandé frontalement. Décideur, prescripteur ou curieux ?</td><td>Si possible</td></tr>
+      <tr><td><strong style="color:var(--violet);font-size:18px">O</strong></td><td>Outils</td><td>L'air de rien, dans le fil (Cursor, Claude Code, Copilot, Figma, Jira…)</td><td>Importante</td></tr>
+      <tr><td><strong style="color:var(--violet);font-size:18px">C</strong></td><td>Chaos (son pain)</td><td>Dans SES mots, verbatim. L'info la plus précieuse.</td><td><strong>Obligatoire</strong></td></tr>
+      <tr><td><strong style="color:var(--violet);font-size:18px">E</strong></td><td>Échelle</td><td>Taille d'équipe / nb de devs / stade. Qualifie la valeur du lead.</td><td>Importante</td></tr>
+      <tr><td><strong style="color:var(--violet);font-size:18px">D</strong></td><td>Décision</td><td>RDV daté / démo faite / carte / à relancer.</td><td><strong>Obligatoire</strong></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="box principe">
+    <div class="bt">▚ Règle</div>
+    <p>3 cases bien captées valent mieux que 6 inventées. Les non négociables sont <strong>P</strong> (profil) et <strong>C</strong> (le chaos en verbatim), ce sont elles qui rendent la passe crédible et le RDV personnalisable.</p>
+  </div>
+
+  <div class="say">
+    <span class="lbl">À dire · la phrase de passe (toujours le même ordre)</span>
+    <p>[Prénom], [profil], bosse avec [outil], son problème c'est [chaos]. [Décision / next step].</p>
+    <p>Léa, Head of Product, ses équipes codent avec Cursor, son problème c'est qu'elle se retrouve avec trois produits différents entre le PM, le designer et l'IA. Je te la passe pour la démo côté alignement.</p>
+  </div>
+
+  <div class="box attention">
+    <div class="bt">▲ Attention, la règle d'or de la capture orale</div>
+    <p>On ne sort JAMAIS de tablette ou de formulaire pendant la découverte (ça tue le naturel et ça braque). La capture se fait DE TÊTE, à l'oral. La saisie réelle au CRM se fait à deux moments seulement : <strong>(1)</strong> au close, scan badge + RDV ; <strong>(2)</strong> juste après le départ, le closeur dicte le PROCED au Flex tant que c'est frais.</p>
+  </div>
+
+  <!-- 5. ARBRE -->
+  <h2 class="sec" id="arbre"><span class="num">5</span>L'arbre de décision par profil</h2>
+  <div class="lede-sec">Le tronc commun trie ; chaque profil a sa logique. Les formulations sont à dire mot à mot.</div>
+
+  <div class="flow">
+    <div class="topnode"><b>Abordage</b><span>1 phrase + lecture badge</span></div>
+    <div class="down"></div>
+    <div class="topnode alt"><b>Quel profil ?</b></div>
+    <div class="down"></div>
+    <div class="cols">
+      <div class="col dir">
+        <div class="cell head" data-say="Vous produisez plus vite avec l'IA, mais est-ce que vous voyez ce que vos équipes produisent, et ce que ça coûte vraiment ?"><b>Dirigeant</b><span>priorité 1</span></div><div class="lnk"></div>
+        <div class="cell soft" data-say="Le concret parlera surtout à vos PM et vos devs. Le mieux : une démo dédiée. Qui dois-je avoir dans la pièce ?"><b>Phrase board</b><span>pas de démo</span></div><div class="lnk"></div>
+        <div class="cell line" data-say="PROCED dirigeant : son niveau exact · décideur · taille de la boîte · RDV calé + qui d'autre doit être dans la pièce."><b>Capter PROCED</b></div><div class="lnk"></div>
+        <div class="cell out" data-say="Ça mérite 30 minutes avec vos équipes produit et tech. On cale ça ?"><b>Sortie</b><span>RDV ou carte</span></div>
+      </div>
+      <div class="col prod">
+        <div class="cell head" data-say="Une fois que l'IA s'en mêle, vos specs restent claires, ou ça part dans tous les sens ?"><b>Product / Design</b><span>priorité 2</span></div><div class="lnk"></div>
+        <div class="cell soft" data-say="C'est LE problème qu'on résout : on met le produit dans un modèle structuré, vérifié. Humains et IA sur la même définition. Ça vous parle ?"><b>Pitch alignement</b><span>puis démo si signal</span></div><div class="lnk"></div>
+        <div class="cell line" data-say="PROCED product : PM/PO/designer · leurs outils (Cursor, Figma, Jira) · le pain en verbatim · taille équipe · démo ou carte."><b>Capter PROCED</b></div><div class="lnk"></div>
+        <div class="cell out" data-say="Vu votre contexte, une vraie démo de 45 min la semaine pro, sur VOTRE produit, pas notre exemple. Mardi ou jeudi ?"><b>Sortie</b><span>démo 45 min</span></div>
+      </div>
+      <div class="col dev">
+        <div class="cell head" data-say="Vous codez avec un agent IA ? Cursor, Claude Code, Copilot ?"><b>Dev / CTO</b><span>priorité 3</span></div><div class="lnk"></div>
+        <div class="cell soft" data-say="Et vous re-promptez combien de fois parce qu'il invente des règles ou ignore l'existant ? On a un truc pour ça. Deux minutes ?"><b>Démo directe</b><span>saute le pitch</span></div><div class="lnk"></div>
+        <div class="cell line" data-say="PROCED dev : rôle · agent IA + stack · 'reprompt / hallucinations / code inutile' · taille équipe eng · star du repo + RDV."><b>Capter PROCED</b></div><div class="lnk"></div>
+        <div class="cell out" data-say="Scanne le QR, t'as le repo. Et si tu veux qu'on t'aide à le câbler sur ton projet, on prend 20 min en visio."><b>Sortie</b><span>GitHub + démo</span></div>
+      </div>
+      <div class="col inv">
+        <div class="cell head" data-say="Vous regardez ça côté usage, ou plutôt côté investissement ?"><b>Investisseur</b><span>objectif transverse</span></div><div class="lnk"></div>
+        <div class="cell soft" data-say="On crée une catégorie : la cohérence produit à l'ère du développement assisté par IA. Un problème qui grossit avec l'adoption de l'IA, pas qui rétrécit."><b>Vision + moat</b><span>pas la démo</span></div><div class="lnk"></div>
+        <div class="cell line" data-say="Vous êtes plutôt thèse dev-tools / AI infra ? (qualifie le fonds, et récupère le NOM du fonds — critique)."><b>Qui ? Quel fonds ?</b></div><div class="lnk"></div>
+        <div class="cell out" data-say="Le mieux : un échange dédié avec un de nos fondateurs, pas un commercial. Vous avez une carte ? On vous envoie le deck."><b>Sortie</b><span>RDV fondateur</span></div>
+      </div>
+      <div class="col bad">
+        <div class="cell head" data-say="On a un jeu sur le stand, la simulation en temps réel avec leaderboard. Tentez, c'est par là !"><b>Badaud</b><span>désengager</span></div><div class="lnk"></div>
+        <div class="cell soft" data-say="Le Flex gère cette zone : ça libère le Traducteur et ça anime le stand pour attirer de vrais prospects."><b>Simulation</b><span>leaderboard</span></div><div class="lnk"></div>
+        <div class="cell line" data-say="S'il s'avère intéressant, il reviendra de lui-même. Sinon, carte et on passe au suivant."><b>Carte si curieux</b></div>
+      </div>
+    </div>
+    <p class="flow-hint">→ Cliquez une case pour découvrir la phrase à utiliser.</p>
+    <div class="flow-detail" id="flowDetail">
+      <div class="fd-head"><span class="fd-dot"></span><span class="fd-t"></span><span class="fd-step"></span></div>
+      <div class="fd-say"></div>
+      <a class="fd-link" href="#p-dir">Voir la fiche complète du profil →</a>
+    </div>
+    <div class="legend">
+      <p><b>Légende</b> · <b style="color:#0066FF">bleu</b> dirigeant · <b style="color:#8047F4">violet</b> product · <b style="color:#0C8175">turquoise</b> dev · <b style="color:#B8730F">ambre</b> investisseur · <b style="color:#55555F">gris</b> badaud</p>
+      <p><b>PROCED</b> = Profil · Rôle achat · Outils · Chaos (verbatim) · Échelle · Décision</p>
+    </div>
+  </div>
+
+  <h3>Tronc commun, l'abordage</h3>
+  <p>Une seule phrase, tournée vers l'allée, en lisant le badge :</p>
+  <div class="say big">
+    <span class="lbl">À dire · l'abordage universel</span>
+    <p>Vous développez avec de l'IA en ce moment, chez vous ?</p>
+  </div>
+  <p>Puis on route selon le badge ET la réponse :</p>
+  <div class="tablecard"><table class="mini">
+    <thead><tr><th>Si le badge / la réponse indique…</th><th>→ Branche</th></tr></thead>
+    <tbody>
+      <tr><td>C-level, VP, Director, Head of</td><td><strong style="color:var(--dir)">Dirigeant (5.1)</strong></td></tr>
+      <tr><td>Product, PM, PO, Designer, UX</td><td><strong style="color:var(--prod)">Product / Design (5.2)</strong></td></tr>
+      <tr><td>Dev, Engineer, CTO, Tech Lead, Architect</td><td><strong style="color:#0C8175">Dev / CTO (5.3)</strong></td></tr>
+      <tr><td>Investor, VC, Partner, Fund, ou question business d'emblée</td><td><strong style="color:#B8730F">Investisseur (5.4)</strong></td></tr>
+      <tr><td>Pas de badge pro clair, cherche un goodie</td><td><strong style="color:var(--bad)">Badaud (5.5)</strong></td></tr>
+    </tbody>
+  </table></div>
+  <div class="say">
+    <span class="lbl">À dire · question de tri si le badge est ambigu</span>
+    <p>Vous êtes plutôt produit, dev, ou côté business ?</p>
+  </div>
+
+  <!-- 5.1 DIRIGEANT -->
+  <div class="profile dir" id="p-dir">
+    <div class="ptop"><span class="pbadge">Bleu · Dirigeant</span><span class="ptitle">5.1, Dirigeant</span><span class="ppri">Priorité 1</span></div>
+    <div class="box attention" style="margin-top:14px">
+      <div class="bt">▲ Principe : PAS de démo. Jamais.</div>
+      <p>Un dirigeant ne reste pas 3 minutes debout. Temps de cerveau disponible : ~40 secondes. Objectif = UNE phrase qui nomme un problème de board + un rendez-vous. La démo, ce sera pour ses équipes.</p>
+    </div>
+    <div class="say">
+      <span class="lbl">À dire · accroche niveau board</span>
+      <p>Vos équipes produisent plus vite avec l'IA, mais est-ce que vous <em>voyez</em> ce qu'elles produisent, et ce que ça coûte vraiment ?</p>
+    </div>
+
+    <div class="reaction">→ « Justement, on a du mal à mesurer / c'est opaque »</div>
+    <div class="say"><span class="lbl">À dire · avance</span><p>C'est exactement le trou. L'IA accélère la production mais le gain part dans les reprises et les outils, sans visibilité. Nous, on relie l'intention produit, l'implémentation et l'usage IA, donc vous voyez où va la valeur.</p></div>
+    <div class="say"><span class="lbl">À dire · close direct</span><p>Ça mérite 30 minutes avec vos équipes produit et tech. On cale ça ?</p></div>
+
+    <div class="reaction">→ « On est très en avance / ça roule bien chez nous »</div>
+    <p>Ne contredis pas. Plante un doute poli :</p>
+    <div class="say"><p>Tant mieux. La question qu'on entend chez ceux qui sont en avance, c'est : est-ce que vos specs suivent le rythme de l'IA, ou est-ce que vos équipes et vos agents partent dans trois directions ?</p></div>
+    <p>S'il tique → close RDV. S'il reste fermé → carte + <em>« Je vous envoie notre angle, regardez à tête reposée. »</em></p>
+
+    <div class="reaction">→ « C'est quoi exactement ? » (curiosité)</div>
+    <p>Résiste au détail produit. Donne la catégorie, puis renvoie vers ses équipes :</p>
+    <div class="say"><p>Le concret parlera surtout à vos PM et vos devs. Le mieux : une démo dédiée. Qui dois-je avoir dans la pièce ?</p></div>
+    <p>(fait nommer les bonnes personnes = lead enrichi).</p>
+
+    <div class="reaction">→ Décisionnaire ET intéressé</div>
+    <p>Ne le lâche pas :</p>
+    <div class="say"><p>On a un créneau pour les profils comme vous pendant le salon, un échange court avec un de nos fondateurs, pas un commercial. Vous êtes là demain ?</p></div>
+    <p>(le mot <em>fondateur</em> flatte et qualifie).</p>
+
+    <div class="procedline"><b>PROCED dirigeant</b>, P = son niveau exact · R = décideur (presque toujours) · E = taille de la boîte · D = RDV calé + QUI d'autre doit être dans la pièce. Le pain (C) est souvent implicite, note sa réaction (« opaque », « en avance mais inquiet »).</div>
+  </div>
+
+  <!-- 5.2 PRODUCT -->
+  <div class="profile prod" id="p-prod">
+    <div class="ptop"><span class="pbadge">Violet · Product</span><span class="ptitle">5.2, Product / Design</span><span class="ppri">Priorité 2</span></div>
+    <div class="box principe" style="margin-top:14px">
+      <div class="bt">▚ Principe : pitch alignement court, puis démo SI signal d'achat.</div>
+      <p>Notre branche la mieux outillée. Le pain résonne fort et la démo est spectaculaire pour eux.</p>
+    </div>
+    <div class="say">
+      <span class="lbl">À dire · la question qui fait préciser</span>
+      <p>Une fois que l'IA s'en mêle, vos specs restent claires, ou ça part dans tous les sens ?</p>
+    </div>
+
+    <div class="reaction">→ « Ça part dans tous les sens / on se comprend plus »</div>
+    <div class="say"><span class="lbl">À dire · pitch</span><p>C'est LE problème qu'on résout. L'IA transforme l'ambiguïté en code avant que tout le monde soit d'accord. On met le produit dans un modèle structuré, vérifié, humains et IA travaillent sur la même définition.</p></div>
+    <div class="say"><span class="lbl">À dire · teste</span><p>Ça vous parle, ou c'est loin de votre quotidien ?</p></div>
+
+    <div class="reaction">→ « Comment ça marche concrètement ? » = SIGNAL D'ACHAT = DÉMO</div>
+    <div class="say"><p>Je vais vous montrer, 2 minutes sur un cas réel.</p></div>
+
+    <div class="reaction">→ « On a déjà Notion / Jira / un wiki pour ça » (objection classique)</div>
+    <div class="say"><p>Justement, le problème n'est pas le manque de doc, c'est qu'aucun outil ne vérifie la cohérence entre l'intention, le design et le code. Notion stocke, il ne détecte pas les contradictions. Nous si, et c'est lisible par l'IA.</p></div>
+    <p>Puis démo pour prouver.</p>
+
+    <div class="reaction">→ C'est un designer (pas un PM)</div>
+    <div class="say"><p>Côté design, le problème c'est l'écran qui marche tout seul mais casse le parcours global. On relie parcours, écrans et règles, et on repère les états oubliés, erreurs, exceptions, avant le dev.</p></div>
+    <p>Démo orientée couverture de parcours.</p>
+
+    <div class="reaction">→ Après la démo, s'il accroche, CLOSE</div>
+    <div class="say big"><span class="lbl">À dire · le close</span><p>Vu votre contexte, ça mérite mieux que 3 minutes debout. Une vraie démo de 45 min la semaine pro, sur VOTRE produit, pas notre exemple ?</p></div>
+
+    <div class="reaction">→ Après la démo, s'il est tiède</div>
+    <p>Carte + GitHub. <em>« Regardez le projet open source, ça vous donnera le concret. On reste en contact. »</em> (lead basse priorité, pas de RDV forcé).</p>
+
+    <div class="procedline"><b>PROCED product</b>, P = PM/PO/Designer · O = leurs outils (Cursor/Copilot + Figma/Jira) · C = le pain en verbatim (capital) · E = taille équipe produit/tech · D = démo calée ou carte.</div>
+  </div>
+
+  <!-- 5.3 DEV -->
+  <div class="profile dev" id="p-dev">
+    <div class="ptop"><span class="pbadge">Turquoise · Dev</span><span class="ptitle">5.3, Dev / CTO</span><span class="ppri">Priorité 3</span></div>
+    <div class="box signal" style="margin-top:14px">
+      <div class="bt">◈ Principe : démo directe, zéro blabla commercial.</div>
+      <p>Un dev sceptique déteste le pitch. Il veut voir le truc tourner. Saute l'étape Traducteur, va direct au Démonstrateur. Le pain : « j'en ai marre de re-prompter 15 fois et de récupérer du code à côté de la plaque ».</p>
+    </div>
+    <div class="say">
+      <span class="lbl">À dire · abordage spécifique dev (plus direct, technique)</span>
+      <p>Vous codez avec un agent IA ? Cursor, Claude Code, Copilot ?</p>
+    </div>
+
+    <div class="reaction">→ Oui (presque toujours)</div>
+    <div class="say"><span class="lbl">À dire · accroche le pain</span><p>Et vous passez combien de temps à re-prompter parce qu'il invente des règles ou ignore l'existant ?</p></div>
+    <p>Il rit / soupire = tu as touché juste. <em>« On a un truc pour ça. Deux minutes ? »</em> → DÉMO.</p>
+    <div class="say"><span class="lbl">À dire · démo dev (angle MCP + vérif)</span><p>La spec est un modèle exécutable. Ton agent la lit via MCP au lieu de deviner dans un prompt. Et après le build, on compare le code à la spec et on sort les écarts.</p></div>
+    <p>Montre les scénarios qui tournent comme des tests AVANT le code, et l'audit qui relie chaque entité de spec à un fichier:ligne.</p>
+
+    <div class="reaction">→ « En quoi c'est pas juste un fichier markdown de specs ? » (l'objection reine)</div>
+    <div class="say"><p>Parce qu'un markdown ne s'exécute pas et ne reporte pas la dérive. Là, chaque scénario est une assertion testable, simulée avant qu'une ligne existe. Et l'index relie chaque entité de spec à un fichier:ligne dans ton code. Le markdown périme en silence, ça non.</p></div>
+
+    <div class="reaction">→ « C'est open source ? je peux tester ? » = SIGNAL FORT</div>
+    <div class="say"><p>Oui, AGPL, local-first, zéro cloud. Tu scannes le QR, tu l'installes et c'est branché sur ton IDE en 2 minutes.</p></div>
+    <div class="say"><span class="lbl">À dire · close adapté dev</span><p>Scanne le QR, t'as le repo. Et si tu veux qu'on t'aide à le câbler sur ton projet, on prend 20 min en visio.</p></div>
+    <p>(Un dev convaincu = potentiel design partner ou ambassadeur.)</p>
+
+    <div class="reaction">→ C'est un CTO (pas juste un dev)</div>
+    <div class="say"><p>À l'échelle de ton équipe, ça donne une vue des dépendances et des écarts entre ce que chaque dev et chaque agent produit. Moins de conflits d'intégration.</p></div>
+    <p>Close RDV (un CTO peut enclencher un déploiement équipe).</p>
+
+    <div class="procedline"><b>PROCED dev</b>, P = Dev/Lead/CTO/Archi · O = leur agent IA + stack · C = « re-prompt / hallucinations / code inutile » · E = taille équipe eng · D = a star/clone le repo + éventuel RDV technique.</div>
+  </div>
+
+  <!-- 5.4 INVESTISSEUR -->
+  <div class="profile inv" id="p-inv">
+    <div class="ptop"><span class="pbadge">Ambre · Investisseur</span><span class="ptitle">5.4, Investisseur</span><span class="ppri">Objectif transverse</span></div>
+    <div class="box attention" style="margin-top:14px">
+      <div class="bt">▲ Principe : surtout PAS la démo produit.</div>
+      <p>Un investisseur veut le marché, le moat, la traction, l'équipe, pas le simulateur. ATTENTION : on a un trou de traction (peu de stars GitHub, métriques en « à mesurer »). On ne le cache pas, on ne s'excuse pas : on le RECADRE comme une stratégie assumée.</p>
+    </div>
+    <p>Il ne se présente presque jamais comme investisseur. Détecte-le aux questions : « business model ? », « combien de clients ? », « qui d'autre fait ça ? », « vous levez ? ». Dès que ça arrive → bascule en mode investisseur.</p>
+    <div class="say">
+      <span class="lbl">À dire · question de confirmation discrète</span>
+      <p>Vous regardez ça côté usage, ou plutôt côté investissement ?</p>
+    </div>
+
+    <div class="reaction">→ Il confirme l'angle invest</div>
+    <div class="say"><span class="lbl">À dire · la thèse, pas le produit</span><p>On crée une catégorie : la cohérence produit à l'ère du développement assisté par IA. Aujourd'hui tout le monde génère du code 10x plus vite, et personne ne contrôle la cohérence entre intention et implémentation. C'est un problème qui grossit avec l'adoption de l'IA, pas qui rétrécit.</p></div>
+
+    <div class="reaction">→ « La traction ? » (LA question piège)</div>
+    <div class="say"><span class="lbl">À dire · ne bote pas en touche, recadre</span><p>On vient de sortir la couche open source pour créer l'adoption bottom-up, les devs l'installent, on construit la communauté, et l'enterprise se vend par-dessus. On est tôt, c'est volontaire : on parle à VivaTech pour rencontrer les premiers design partners et les investisseurs qui comprennent les plays dev-tools.</p></div>
+    <div class="say"><span class="lbl">À dire · puis retourne la question</span><p>Vous êtes plutôt thèse dev-tools / AI infra ?</p></div>
+
+    <div class="reaction">→ « Votre moat / pourquoi vous ? »</div>
+    <div class="say"><p>Deux choses. Le formalisme produit lui-même, notre façon de modéliser le comportement de façon exécutable et vérifiable, c'est de la recherche propriétaire. Et l'open source crée un effet communauté difficile à rattraper. La couche de cohérence formelle et l'engine restent notre cœur.</p></div>
+
+    <div class="reaction">→ « Vous levez combien / quand ? »</div>
+    <p>Ne donne pas de chiffre debout.</p>
+    <div class="say"><p>On structure ça en ce moment. Le mieux c'est un échange dédié avec [fondateur]. Vous avez une carte ? On vous envoie le deck.</p></div>
+
+    <div class="procedline"><b>PROCED investisseur</b>, P = VC/Angel/Partner · LE NOM DU FONDS (critique) · sa thèse (dev-tools ? AI ? généraliste ?) · son ticket si lâché · D = deck envoyé + RDV fondateur calé. Close investisseur = RDV avec un FONDATEUR, jamais un commercial. <em>Pour les réponses détaillées, voir la FAQ business.</em></div>
+  </div>
+
+  <!-- 5.5 BADAUD -->
+  <div class="profile bad" id="p-bad">
+    <div class="ptop"><span class="pbadge">Gris · Badaud</span><span class="ptitle">5.5, Badaud / chasseur de goodies</span></div>
+    <div class="box principe" style="margin-top:14px;border-left-color:var(--bad)">
+      <div class="bt" style="color:var(--bad)">▚ Principe : désengager vite et poliment, sans mobiliser le Traducteur.</div>
+      <p>Détectable en 5 secondes : pas de badge pro pertinent, cherche à scanner pour un tirage, demande « c'est quoi à gagner ? ». Ne lui consacre pas une ressource de conversion.</p>
+    </div>
+    <p>Route-le vers la simulation / leaderboard :</p>
+    <div class="say"><p>On a un jeu sur le stand, la simulation du salon en temps réel, avec un leaderboard. Tentez, c'est par là !</p></div>
+    <p>Ça : (1) le rend heureux, (2) libère le Traducteur, (3) fait de l'animation qui attire d'autres vrais prospects, (4) s'il s'avère intéressant, il reviendra de lui-même. Le Flex gère cette zone.</p>
+  </div>
+
+  <!-- PARTIE II -->
+  <div class="part-divider">
+    <div class="k">Partie II</div>
+    <h2>Exécuter</h2>
+    <p>Le chronologique. Ce qu'on consulte pendant une interaction, dans l'ordre où ça se déroule.</p>
+  </div>
+
+  <!-- 6. DEMO -->
+  <h2 class="sec" id="demo"><span class="num">6</span>La démo, scénarisée</h2>
+  <div class="lede-sec">3 minutes chrono. Un seul moment « wow ».</div>
+  <p>On part de l'exemple eShop pré-chargé pour ne jamais bricoler en direct.</p>
+
+  <h4>Le déroulé (version product / alignement)</h4>
+  <ol class="steps">
+    <li><strong>Plante le cas connu.</strong> <em>« Je prends un cas que tout le monde connaît : permettre au client de changer son abonnement. »</em></li>
+    <li><strong>Montre le modèle.</strong> <em>« Voilà la fonctionnalité modélisée, les règles, les états, les scénarios. »</em></li>
+    <li><strong>Lance la vérif (le moment wow).</strong> <em>« Je lance le contrôle de cohérence… et là il me dit : contradiction. Le design permet le changement à tout moment, mais la règle métier dit seulement avant renouvellement. »</em></li>
+    <li><strong>Assène la valeur.</strong> <em>« Cet écart-là, normalement vous le découvrez en recette, trois semaines trop tard. Là, il sort AVANT qu'une ligne de code soit écrite. »</em></li>
+    <li><strong>Branche l'IA.</strong> <em>« Et l'agent, Claude Code, Cursor, lit cette spec au lieu de deviner dans un prompt. Donc il code la bonne version du premier coup. »</em></li>
+  </ol>
+
+  <div class="box signal">
+    <div class="bt">◈ Variante dev</div>
+    <p>Même cas, mais on insiste sur : les scénarios qui s'exécutent comme une suite de tests AVANT l'implémentation, et l'audit qui réconcilie code et spec (« fichier:ligne »). On montre que c'est lisible par l'agent via MCP.</p>
+  </div>
+
+  <div class="box attention">
+    <div class="bt">▲ Attention, Plan B si le wifi lâche</div>
+    <p>Avoir des captures d'écran / une vidéo courte de la démo en local sur chaque appareil, AVANT le salon. Ne jamais dépendre d'une connexion live. Si ça rame : <em>« Je vous montre sur l'enregistrement, c'est plus rapide. »</em> On ne s'excuse pas, on enchaîne.</p>
+  </div>
+
+  <!-- 7. CLOSE -->
+  <h2 class="sec" id="close"><span class="num">7</span>Décrocher le rendez-vous (le close)</h2>
+  <div class="lede-sec">Un lead sans next step daté est un lead mort.</div>
+  <p>On ne quitte JAMAIS un visiteur qualifié sans avoir tenté un close.</p>
+
+  <h4>Les 3 niveaux de close, selon la chaleur</h4>
+  <div class="tablecard"><table>
+    <thead><tr><th>Chaleur</th><th>Le close à tenter</th><th>Outil</th></tr></thead>
+    <tbody>
+      <tr><td><strong style="color:#C0392B">Chaud</strong></td><td>« Une démo de 45 min la semaine pro, sur VOTRE produit. Mardi ou jeudi ? »</td><td>QR / tablette de prise de RDV</td></tr>
+      <tr><td><strong style="color:#FFA101">Tiède</strong></td><td>« Je vous envoie notre angle + le repo open source. On se reparle après le salon ? »</td><td>Scan badge + note de relance</td></tr>
+      <tr><td><strong style="color:var(--muted)">Froid</strong></td><td>Carte + orientation vers le GitHub. Pas de RDV forcé.</td><td>Carte / QR GitHub</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Ce qui fait qu'un close tient</h4>
+  <ul class="clean">
+    <li><strong>Spécifique, pas vague.</strong> « Sur VOTRE produit », pas « on vous fait une démo ».</li>
+    <li><strong>Daté, pas "un de ces jours".</strong> Propose deux créneaux (« mardi ou jeudi ? »), un choix fermé convertit mieux qu'une question ouverte.</li>
+    <li><strong>Calé sur place.</strong> On sort le QR / la tablette MAINTENANT (créneaux Teams). « Je vous l'envoie » = 80% d'évaporation.</li>
+    <li><strong>Badge scanné.</strong> Toujours, même quand le RDV est calé, filet de sécurité du lead.</li>
+  </ul>
+
+  <div class="box attention">
+    <div class="bt">▲ Attention, Le close investisseur est différent</div>
+    <p>Jamais un commercial : un fondateur. <em>« Le mieux c'est un échange dédié avec [fondateur]. »</em> → récupère la carte + le nom du fonds, promets le deck. PRÉ-REQUIS : qu'au moins un fondateur soit joignable pendant les 4 jours.</p>
+  </div>
+
+  <!-- 8. DATA -->
+  <h2 class="sec" id="data"><span class="num">8</span>Lead gen &amp; data capture</h2>
+  <div class="lede-sec">Deux flux séparés qui se rejoignent le soir.</div>
+  <p>Chaque outil fait ce qu'il fait de mieux, et rien ne dépend d'un point de défaillance unique. Notre stack : <strong>appli VivaTech</strong> (scan badge) + <strong>HubSpot</strong> (CRM) + <strong>Microsoft Teams</strong> (RDV).</p>
+
+  <h4>Les trois outils et leur rôle exclusif</h4>
+  <div class="tablecard"><table>
+    <thead><tr><th>Outil</th><th>Capte</th><th>Ne sert PAS à</th></tr></thead>
+    <tbody>
+      <tr><td>Appli VivaTech (scan badge)</td><td>L'identité : nom, société, fonction, email</td><td>Capter le contexte ou le pain</td></tr>
+      <tr><td>Formulaire HubSpot mobile</td><td>Le PROCED : pain en verbatim, outils, échelle, décision</td><td>Re-saisir l'identité (le badge l'a déjà)</td></tr>
+      <tr><td>Microsoft Teams</td><td>Le créneau de RDV, calé sur place</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+
+  <p><strong>Pourquoi ce découplage.</strong> L'appli VivaTech capte l'identité sans effort ni faute de frappe (un email mal tapé = lead mort). Le formulaire HubSpot capte la donnée qui a de la valeur (le verbatim du pain), que le scan ne sait pas prendre. La clé de jointure = <strong>email ou nom+société</strong>, noté dans les deux. Si un outil tombe, l'autre continue : on ne perd jamais tout.</p>
+
+  <h4>Le geste, étape par étape</h4>
+  <ol class="steps">
+    <li><strong>Pendant la découverte :</strong> rien. Aucun écran. PROCED de tête, à l'oral.</li>
+    <li><strong>Au close :</strong> scan du badge dans l'appli VivaTech (identité) <strong>et</strong> RDV Teams calé sur la tablette, devant le visiteur.</li>
+    <li><strong>Juste après son départ :</strong> le closeur dicte le PROCED au Flex, qui le saisit dans le formulaire HubSpot mobile, en notant la clé de jointure (email ou nom+société).</li>
+    <li><strong>Le soir (débrief) :</strong> export CSV des badges scannés + rapprochement avec les fiches PROCED via la clé. Chaque lead doit avoir au minimum <strong>P + C + D</strong>.</li>
+  </ol>
+
+  <div class="box principe">
+    <div class="bt">▚ À préparer AVANT le jour 1 (sinon ça ne marche pas le jour J)</div>
+    <p style="margin-bottom:0"></p>
+    <ul class="clean" style="margin-top:6px">
+      <li><strong>Créer les propriétés HubSpot</strong> qui matchent PROCED : <code>Profil</code>, <code>Rôle achat</code>, <code>Outils IA</code>, <code>Pain (verbatim)</code>, <code>Taille équipe</code>, <code>Décision/Next step</code>, <code>Source = VivaTech 2026</code>.</li>
+      <li><strong>Construire le formulaire HubSpot mobile</strong> avec ces champs, dont un grand champ texte libre pour le verbatim. Le tester en conditions réelles.</li>
+      <li><strong>Vérifier le parcours de scan VivaTech</strong> : qui a l'appli installée et connectée ? Tester un scan, vérifier l'export CSV.</li>
+      <li><strong>Désigner un responsable data par demi-journée</strong> (souvent le Flex) : il saisit les PROCED et pilote la fusion du soir.</li>
+      <li><strong>Préparer le QR GitHub à part</strong> (devs qui veulent juste l'open source Lyriks Community), ce n'est pas un lead commercial.</li>
+    </ul>
+  </div>
+
+  <div class="box attention">
+    <div class="bt">▲ Le filet de sécurité analogique</div>
+    <p>Avoir au stand des fiches PROCED papier pré-imprimées. Si tout l'électronique lâche en même temps, on gribouille nom+société+pain+décision sur papier et on saisit plus tard. Mieux vaut une fiche papier qu'un lead perdu.</p>
+  </div>
+
+  <!-- 9. DEBRIEF -->
+  <h2 class="sec" id="debrief"><span class="num">9</span>Le débrief de fin de journée</h2>
+  <div class="lede-sec">15 minutes, non négociable.</div>
+  <ul class="clean">
+    <li>Combien de <strong>RDV calés</strong> ? Combien de <strong>leads chauds</strong> ? (objectifs n°1 et 2).</li>
+    <li>Quels <strong>investisseurs</strong> rencontrés ? Quels <strong>fonds</strong> ? (objectif n°3).</li>
+    <li>Quelle <strong>phrase d'abordage / objection</strong> a le mieux marché aujourd'hui ? On ajuste pour demain.</li>
+    <li>Chaque lead du jour a-t-il <strong>P + C + D</strong> dans HubSpot ? On fait la <strong>fusion</strong> scan VivaTech ↔ PROCED tant qu'on s'en souvient.</li>
+  </ul>
+
+  <!-- 10. AIDE-MEMOIRE -->
+  <h2 class="sec" id="memo"><span class="num">10</span>Aide-mémoire (à plastifier)</h2>
+  <div class="lede-sec">Le strict minimum à avoir sous les yeux pendant le rush.</div>
+
+  <div class="memo">
+    <h4>Les 5 phrases d'abordage</h4>
+    <div class="tablecard"><table class="mini">
+      <thead><tr><th>Profil</th><th>La phrase</th></tr></thead>
+      <tbody>
+        <tr><td>Tronc commun</td><td>« Vous développez avec de l'IA en ce moment, chez vous ? »</td></tr>
+        <tr><td><strong style="color:var(--dir)">Dirigeant</strong></td><td>« Vos équipes produisent plus vite avec l'IA, mais est-ce que vous voyez ce qu'elles produisent, et ce que ça coûte ? »</td></tr>
+        <tr><td><strong style="color:var(--prod)">Product / Design</strong></td><td>« Une fois que l'IA s'en mêle, vos specs restent claires, ou ça part dans tous les sens ? »</td></tr>
+        <tr><td><strong style="color:#0C8175">Dev / CTO</strong></td><td>« Vous codez avec un agent IA ? Et vous re-promptez combien de fois parce qu'il ignore l'existant ? »</td></tr>
+        <tr><td><strong style="color:#B8730F">Investisseur</strong></td><td>« Vous regardez ça côté usage, ou plutôt côté investissement ? »</td></tr>
+        <tr><td><strong style="color:var(--bad)">Badaud</strong></td><td>« On a un jeu sur le stand, la simulation en temps réel avec leaderboard. Tentez, c'est par là ! »</td></tr>
+      </tbody>
+    </table></div>
+
+    <h4>PROCED, les 6 cases</h4>
+    <div class="proced-grid">
+      <div class="pcase"><span class="k">P</span><div class="n">Profil</div><div class="d">obligatoire</div></div>
+      <div class="pcase"><span class="k">R</span><div class="n">Rôle achat</div><div class="d">déduit</div></div>
+      <div class="pcase"><span class="k">O</span><div class="n">Outils</div><div class="d">dans le fil</div></div>
+      <div class="pcase"><span class="k">C</span><div class="n">Chaos verbatim</div><div class="d">oblig. · ses mots</div></div>
+      <div class="pcase"><span class="k">E</span><div class="n">Échelle</div><div class="d">taille équipe</div></div>
+      <div class="pcase"><span class="k">D</span><div class="n">Décision</div><div class="d">oblig. · RDV/carte</div></div>
+    </div>
+
+    <h4>Phrase de passe</h4>
+    <div class="say" style="margin-top:8px"><p>[Prénom], [profil], bosse avec [outil], son problème c'est [chaos]. Je te le/la passe pour [next step].</p></div>
+
+    <h4>Close</h4>
+    <div class="say big" style="margin-top:8px"><p>Une démo de 45 min la semaine pro, sur VOTRE produit, pas notre exemple. Mardi ou jeudi ?</p></div>
+  </div>
+
+  <p class="endnote">On y va. De l'intention produit à l'implémentation, sans dérive.</p>
+
+</div></div>
+</main>
+
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('nav.toc a'));
+  var map=links.map(function(a){var id=a.getAttribute('href').slice(1);return {a:a,el:document.getElementById(id)};}).filter(function(m){return m.el;});
+  var bar=document.querySelector('nav.toc'), wrap=document.querySelector('nav.toc .wrap');
+  function spy(){
+    var thr=(bar?bar.offsetHeight:0)+70, cur=map[0];
+    for(var i=0;i<map.length;i++){ if(map[i].el.getBoundingClientRect().top<=thr) cur=map[i]; }
+    links.forEach(function(a){a.classList.remove('on');});
+    if(cur){ cur.a.classList.add('on');
+      var ar=cur.a.getBoundingClientRect(), wr=wrap.getBoundingClientRect();
+      if(ar.left<wr.left) wrap.scrollLeft+=ar.left-wr.left-20;
+      else if(ar.right>wr.right) wrap.scrollLeft+=ar.right-wr.right+20;
+    }
+  }
+  window.addEventListener('scroll',spy,{passive:true});
+  window.addEventListener('resize',spy); spy();
+})();
+</script>
+<script>
+(function(){
+  var detail=document.getElementById('flowDetail'); if(!detail) return;
+  var colors={dir:'#0066FF',prod:'#8047F4',dev:'#1FA98A',inv:'#FFA101',bad:'#9AA0AB'};
+  var names={dir:'Dirigeant',prod:'Product / Design',dev:'Dev / CTO',inv:'Investisseur',bad:'Badaud'};
+  var keys=['dir','prod','dev','inv','bad'];
+  document.querySelectorAll('.flow .cell[data-say]').forEach(function(c){
+    c.addEventListener('click',function(){
+      document.querySelectorAll('.flow .cell.sel').forEach(function(x){x.classList.remove('sel');});
+      c.classList.add('sel');
+      var col=c.closest('.col'); var key=keys.filter(function(k){return col.classList.contains(k);})[0]||'dir';
+      var step=c.querySelector('b')?c.querySelector('b').textContent:'';
+      detail.style.borderLeftColor=colors[key];
+      detail.querySelector('.fd-dot').style.background=colors[key];
+      detail.querySelector('.fd-t').textContent=names[key];
+      detail.querySelector('.fd-step').textContent=step;
+      detail.querySelector('.fd-say').textContent=c.getAttribute('data-say');
+      detail.querySelector('.fd-link').setAttribute('href','#p-'+key);
+      detail.classList.add('show');
+    });
+  });
+})();
+</script>
+<script src="stand-editable.js" data-doc="stand-briefing"></script>
+</body>
+</html>

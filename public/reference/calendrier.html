@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lyriks · Calendrier VivaTech</title>
+<link rel="stylesheet" href="brand.css">
+<style>
+  body { background:#0c0c0e; color:#fff; }
+  .wrap { max-width:1080px; margin:0 auto; padding:0 40px; }
+
+  /* header */
+  .top { display:flex; justify-content:space-between; align-items:center; padding:30px 40px; max-width:1080px; margin:0 auto; }
+  .top .lk-logo { font-size:22px; }
+  .top a.back { text-decoration:none; color:#cfcfd6; font-family:var(--mono); font-size:12px; border:1px solid #2a2f37; padding:9px 14px; border-radius:999px; }
+
+  .hero { max-width:1080px; margin:6px auto 0; border-radius:28px; background:var(--grad-viva); color:#fff; padding:50px 52px; position:relative; overflow:hidden; }
+  .hero::after { content:""; position:absolute; inset:0; background:radial-gradient(560px 280px at 88% -10%,rgba(255,255,255,.25),transparent 60%); }
+  .hero > * { position:relative; z-index:1; }
+  .hero .eyebrow { font-family:var(--mono); font-size:12px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.3); padding:8px 15px; border-radius:999px; }
+  .hero h1 { font-family:var(--display); font-size:62px; font-weight:700; letter-spacing:-.04em; line-height:.96; margin:22px 0 14px; }
+  .hero p { font-size:18px; line-height:1.5; max-width:60ch; color:rgba(255,255,255,.92); font-weight:500; margin:0; }
+  .hero .facts { display:flex; gap:12px; margin-top:26px; flex-wrap:wrap; }
+  .hero .fact { background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.24); border-radius:14px; padding:12px 18px; }
+  .hero .fact b { display:block; font-family:var(--display); font-size:18px; font-weight:700; }
+  .hero .fact span { font-size:12px; color:rgba(255,255,255,.8); font-family:var(--mono); }
+
+  /* objectives legend */
+  .legend { display:flex; gap:10px; flex-wrap:wrap; margin:26px auto 0; max-width:1080px; padding:0 40px; }
+  .legend .l { display:inline-flex; align-items:center; gap:9px; font-size:13px; font-weight:600; color:#cfcfd6; background:#141417; border:1px solid #232328; padding:8px 14px; border-radius:999px; }
+  .legend .dot { width:11px; height:11px; border-radius:50%; }
+
+  /* phase filter */
+  .controls { position:sticky; top:0; z-index:30; background:#0c0c0e; padding:18px 40px 14px; max-width:1080px; margin:18px auto 0; display:flex; flex-direction:column; gap:12px; border-bottom:1px solid #1a1a1e; }
+  .ctrl-row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+  .ctrl-lbl { font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#5a5a62; width:54px; flex:none; }
+  .seg { display:inline-flex; gap:5px; background:#141417; border:1px solid #232328; padding:5px; border-radius:999px; flex-wrap:wrap; }
+  .seg button { font-family:var(--font); font-weight:700; font-size:13px; border:0; cursor:pointer; padding:8px 15px; border-radius:999px; background:transparent; color:#9aa0ab; }
+  .seg button.on { background:#fff; color:#0a0a0a; }
+  #authorSeg button.on[data-a=david] { background:#FFA101; color:#1a1a1a; }
+  #authorSeg button.on[data-a=abb] { background:#BB46F5; color:#fff; }
+  #authorSeg button.on[data-a=ac] { background:#0066FF; color:#fff; }
+  .controls .count { font-family:var(--mono); font-size:11.5px; color:#6a6a72; margin-left:auto; }
+
+  /* phase band */
+  .phase-band { display:flex; align-items:center; gap:16px; margin:46px 0 22px; }
+  .phase-band .ph { font-family:var(--display); font-size:30px; font-weight:700; letter-spacing:-.02em; }
+  .phase-band .rng { font-family:var(--mono); font-size:12px; color:#6a6a72; letter-spacing:.06em; }
+  .phase-band .line { flex:1; height:2px; border-radius:1px; }
+  .phase-AVANT .ph { color:#fff; } .phase-AVANT .line { background:linear-gradient(90deg,#BB46F5,transparent); }
+  .phase-PENDANT .ph { color:#fff; } .phase-PENDANT .line { background:linear-gradient(90deg,#FA5FB2,transparent); }
+  .phase-APRÈS .ph { color:#fff; } .phase-APRÈS .line { background:linear-gradient(90deg,#FFA101,transparent); }
+
+  /* entry card */
+  .entry { display:grid; grid-template-columns:92px 1fr 232px; gap:22px; padding:24px 0; border-top:1px solid #1a1a1e; align-items:start; }
+  .entry .when { }
+  .entry .day { font-family:var(--display); font-size:24px; font-weight:700; letter-spacing:-.02em; color:#fff; }
+  .entry .chan { font-family:var(--mono); font-size:10.5px; color:#6a6a72; margin-top:4px; letter-spacing:.05em; text-transform:uppercase; }
+  /* support visualization thumbnail */
+  .sviz { position:relative; }
+  .sviz .stage { border-radius:12px; overflow:hidden; border:1px solid #232328; box-shadow:0 16px 36px -20px rgba(0,0,0,.8); width:calc(var(--dw) * 1px); height:calc(var(--ah) * var(--dw) / var(--aw) * 1px); }
+  .sviz .art { width:calc(var(--aw) * 1px); height:calc(var(--ah) * 1px); transform:scale(calc(var(--dw) / var(--aw))); transform-origin:top left; position:relative; overflow:hidden; }
+  .sviz .vcap { font-family:var(--mono); font-size:10px; color:#6a6a72; margin-top:8px; letter-spacing:.04em; text-align:center; }
+  .sviz .adisp { font-family:var(--display); font-weight:700; letter-spacing:-.03em; line-height:.98; }
+  .sviz .amono { font-family:var(--mono); font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+  .sviz-task { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; height:150px; border:1px dashed #2a2a30; border-radius:12px; color:#6a6a72; }
+  .sviz-task .ic { font-size:30px; }
+  .sviz-task span { font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; text-align:center; padding:0 14px; }
+
+  .entry .card { background:#141417; border:1px solid #232328; border-radius:18px; padding:24px 26px; position:relative; overflow:hidden; }
+  .entry .card::before { content:""; position:absolute; left:0; top:0; bottom:0; width:5px; }
+  .entry.v1 .card::before { background:#FFA101; } .entry.v2 .card::before { background:#BB46F5; } .entry.v3 .card::before { background:#0066FF; } .entry.v0 .card::before { background:#3a3a42; }
+  .entry .tagrow { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:14px; }
+  .entry .voice { font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:5px 11px; border-radius:999px; }
+  .entry.v1 .voice { background:rgba(255,161,1,.14); color:#ffb845; } .entry.v2 .voice { background:rgba(187,70,245,.16); color:#d49bf8; } .entry.v3 .voice { background:rgba(0,102,255,.18); color:#5B93FF; } .entry.v0 .voice { background:#1d1d22; color:#9aa0ab; }
+  .entry .support { font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.06em; padding:5px 11px; border-radius:999px; background:#1d1d22; color:#cfcfd6; border:1px solid #2a2a30; display:inline-flex; gap:7px; align-items:center; text-decoration:none; }
+  .entry .support:hover { border-color:#FFA101; color:#fff; }
+  .entry .obj { font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-left:auto; }
+  .obj-Notoriété { color:#d49bf8; } .obj-Leads { color:#ffb845; } .obj-Investisseurs { color:#5B93FF; } .obj-Préparation, .obj-Leads\\/Invest { color:#9aa0ab; }
+  .entry h3 { font-family:var(--display); font-size:21px; font-weight:700; letter-spacing:-.01em; margin:0 0 6px; color:#fff; }
+  .entry .angle { font-size:14.5px; line-height:1.55; color:#9aa0ab; margin:0; }
+
+  /* ready copy */
+  .copybox { margin-top:16px; border:1px solid #232328; border-radius:14px; overflow:hidden; }
+  .copybox .ch-head { display:flex; align-items:center; justify-content:space-between; padding:11px 16px; background:#1a1a1e; cursor:pointer; }
+  .copybox .ch-head .lbl { font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#9aa0ab; display:flex; align-items:center; gap:9px; }
+  .copybox .ch-head .act { display:flex; gap:8px; align-items:center; }
+  .copybox .btn-copy { font-family:var(--font); font-weight:700; font-size:12px; border:0; cursor:pointer; background:#FFA101; color:#1a1a1a; padding:7px 13px; border-radius:999px; }
+  .copybox .btn-copy.done { background:#1FA98A; color:#fff; }
+  .copybox .toggle { font-family:var(--mono); font-size:16px; color:#6a6a72; transition:transform .2s; }
+  .copybox.open .toggle { transform:rotate(180deg); }
+  .copybox .body { display:none; padding:18px 18px; font-size:14px; line-height:1.62; color:#dadade; white-space:pre-wrap; font-family:var(--font); }
+  .copybox.open .body { display:block; }
+
+  /* task box (non-post) */
+  .taskbox { margin-top:14px; display:flex; align-items:center; gap:12px; font-size:13.5px; color:#9aa0ab; font-family:var(--mono); }
+  .taskbox .chk { width:20px; height:20px; border-radius:6px; border:1.5px solid #3a3a42; flex:none; }
+
+  footer { max-width:1080px; margin:80px auto 60px; padding:0 40px; }
+  .rule-card { background:#141417; border:1px solid #232328; border-left:5px solid #FFA101; border-radius:16px; padding:26px 30px; }
+  .rule-card h3 { font-family:var(--display); font-size:18px; font-weight:700; color:#FFA101; margin:0 0 6px; }
+  .rule-card p { margin:0; font-size:14.5px; line-height:1.55; color:#9aa0ab; }
+
+  @media (max-width:820px){
+    .wrap,.top,.legend,.controls,footer{ padding-left:18px; padding-right:18px; }
+    .entry{ grid-template-columns:1fr; gap:14px; }
+    .sviz .stage{ width:200px; }
+    .hero h1{ font-size:42px; }
+    .ctrl-lbl{ width:auto; }
+  }
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" rx="14" fill="#0a0a0a"/>
+<rect x="30" y="37" width="26" height="7" rx="2.5" fill="#0066FF"/>
+<rect x="30" y="48" width="26" height="7" rx="2.5" fill="#BB46F5"/>
+<rect x="30" y="59" width="40" height="7" rx="2.5" fill="#FFA101"/>
+</svg>
+</template>
+  <div class="top">
+    <span class="lk-logo on-dark"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+    <a class="back" href="charte.html">← Charte</a>
+  </div>
+
+  <div class="wrap">
+    <section class="hero">
+      <span class="eyebrow">Calendrier éditorial · VivaTech 2026</span>
+      <h1>20 prises de parole,<br>3 voix, 1 message.</h1>
+      <p>Le plan de communication jour par jour, Avant, Pendant, Après. Chaque jour : son canal, sa voix, son support, et le texte prêt à publier.</p>
+      <div class="facts">
+        <div class="fact"><b>17–20 juin 2026</b><span>BOOTH 1E24-001</span></div>
+        <div class="fact"><b>Avant · Pendant · Après</b><span>J-15 → J+12</span></div>
+        <div class="fact"><b>3 objectifs</b><span>NOTORIÉTÉ · LEADS · INVEST</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="legend">
+    <span class="l"><span class="dot" style="background:#FFA101"></span>David · Business / ROI</span>
+    <span class="l"><span class="dot" style="background:#BB46F5"></span>Adrien BB · Cohérence</span>
+    <span class="l"><span class="dot" style="background:#0066FF"></span>Adrien C · Produit</span>
+    <span class="l"><span class="dot" style="background:#3a3a42"></span>Page Lyriks / Équipe</span>
+  </div>
+
+  <div class="controls">
+    <div class="ctrl-row">
+      <span class="ctrl-lbl">Phase</span>
+      <div class="seg" id="phaseSeg">
+        <button class="on" data-p="all">Tout</button>
+        <button data-p="AVANT">Avant</button>
+        <button data-p="PENDANT">Pendant</button>
+        <button data-p="APRÈS">Après</button>
+      </div>
+    </div>
+    <div class="ctrl-row">
+      <span class="ctrl-lbl">Auteur</span>
+      <div class="seg" id="authorSeg">
+        <button class="on" data-a="all">Tous</button>
+        <button data-a="page">Page Lyriks</button>
+        <button data-a="david">David</button>
+        <button data-a="abb">Adrien BB</button>
+        <button data-a="ac">Adrien C</button>
+        <button data-a="equipe">Équipe</button>
+      </div>
+      <span class="count" id="count"></span>
+    </div>
+  </div>
+
+  <div class="wrap"><div id="feed"></div></div>
+
+  <footer>
+    <div class="rule-card">
+      <h3>⚠ La règle d'or</h3>
+      <p>Le plus gros raté post-salon : ne pas relancer les contacts rencontrés dans les 72h. Le créneau J+2 est bloqué pour ça. Préparez le fichier de suivi <b style="color:#fff">avant</b> le salon.</p>
+    </div>
+  </footer>
+
+<script>
+const TRACKS = ['#FFA101','#BB46F5','#0066FF'];
+/* voice: 1=David(Business), 2=Adrien BB(Cohérence), 3=Adrien C(Produit), 0=Page/Équipe */
+const ENTRIES = [
+  // ---------- AVANT ----------
+  { phase:'AVANT', day:'J-15', chan:'LinkedIn · Page Lyriks', v:0, type:'Annonce officielle', support:['Post carré · Signal','templates.html#social'], obj:'Notoriété',
+    title:'« Lyriks sera à VivaTech 2026 »', angle:'Annonce stand, hall, dates. Le coup d\'envoi de la campagne.',
+    copy:`🚀 Lyriks sera à VivaTech 2026 !\n\nRendez-vous au Pavillon 7, Booth 1E24-001, du 17 au 20 juin.\n\nAu programme : une démo live de Lyriks, la couche de cohérence qui donne à chaque équipe une seule vérité produit, synchronisée avec ses outils (Jira, Figma, Notion, GitHub, Cursor…).\n\nOn a hâte de vous montrer ce qu'on construit. Venez échanger avec l'équipe 👇\n🔗 [lien prise de RDV]\n\n#VivaTech #AI #DevTools #ProductOrchestration` },
+
+  { phase:'AVANT', day:'J-14', chan:'LinkedIn · David', v:1, type:'Post narratif', support:['Post portrait · Ink','templates.html#social'], obj:'Notoriété',
+    title:'Pourquoi on y va', angle:'Le pari business, ce qu\'on vient prouver.',
+    copy:`Dans deux semaines, on présente Lyriks à VivaTech.\n\nUn constat nous a lancés il y a 18 mois : produire du software coûte de plus en plus en tokens, et ce coût reste difficile à anticiper.\n\nNotre réponse : clarifier les specs en amont pour limiter le rework et garder les équipes alignées.\n\nC'est ce qu'on viendra montrer sur le stand. Vous serez à VivaTech ? Passez échanger.\n\n#VivaTech #IA` },
+
+  { phase:'AVANT', day:'J-13', chan:'Interne · Équipe', v:0, type:'Préparation RP', support:['Communiqué de presse','templates.html#presse'], obj:'Préparation',
+    title:'Dossier de presse + liste journalistes', angle:'Rédaction du dossier 1 page et constitution de la liste de 15-20 journalistes / newsletters cibles.',
+    task:'Livrable : dossier de presse PDF + fichier journalistes' },
+
+  { phase:'AVANT', day:'J-12', chan:'LinkedIn · Adrien BB', v:2, type:'Post technique', support:['Post portrait · Ink','templates.html#social'], obj:'Notoriété',
+    title:'Le moteur de cohérence, teasé', angle:'Le problème qu\'on résout, côté technique.',
+    copy:`Le vrai défi derrière Lyriks ? La cohérence à grande échelle.\n\nQuand plusieurs personnes, et plusieurs agents IA, éditent la même spec, les conflits apparaissent au merge, pas avant. C'est là que naissent le rework et les hallucinations.\n\nNotre réponse : un moteur de cohérence où chaque édition est une opération typée et formelle. Les changements parallèles fusionnent sans conflit.\n\nÀ VivaTech, je montrerai comment il tient la charge quand le projet grossit.\n\nIngés, CTO : venez challenger l'archi au Pavillon 7, Booth 1E24-001.\n\n#VivaTech #SoftwareEngineering #AI` },
+
+  { phase:'AVANT', day:'J-10', chan:'RP · David', v:1, type:'Pitch presse ciblé', support:['Communiqué de presse','templates.html#presse'], obj:'Notoriété',
+    title:'Envoi mails individualisés', angle:'Mails personnalisés aux newsletters tech et journalistes verticaux.',
+    task:'Action : envoi presse individualisé (15-20 contacts)' },
+
+  { phase:'AVANT', day:'J-9', chan:'LinkedIn · Adrien C', v:3, type:'Post produit', support:['Post portrait · Paper','templates.html#social'], obj:'Leads',
+    title:'Ce que la démo va montrer', angle:'Côté productivité et gain de temps.',
+    copy:`Combien de temps perdez-vous à écrire et maintenir des specs ?\n\nAvec Lyriks, elles sont générées automatiquement à partir de votre produit, et restituées à chaque rôle au bon niveau. Des jours d'écriture → quelques minutes de revue.\n\nÀ VivaTech, je ferai la démo en live : d'un codebase existant à une spec cohérente et exploitable, en direct.\n\nDevs, makers : passez voir, on parle vrai produit. Booth 1E24-001.\n\n#VivaTech #DevTools #Productivity #DX` },
+
+  { phase:'AVANT', day:'J-8', chan:'Newsletter · Page Lyriks', v:0, type:'Invitation', support:['Newsletter','templates.html#newsletter'], obj:'Leads',
+    title:'« Venez nous voir au stand »', angle:'Invitation à la base de contacts + lien prise de RDV.',
+    copy:`Objet : On vous attend à VivaTech 👋\n\nBonjour [Prénom],\n\nDu 17 au 20 juin, Lyriks sera à VivaTech, Pavillon 7, Booth 1E24-001.\n\nOn y présente en live la couche de cohérence qui donne à chaque équipe une seule vérité produit, synchronisée avec ses outils. 15 minutes suffisent pour voir ce que ça change sur vos délais et votre rework.\n\n👉 Réservez votre créneau : [lien]\n\nÀ très vite,\nL'équipe Lyriks` },
+
+  { phase:'AVANT', day:'J-7', chan:'LinkedIn · Page Lyriks', v:0, type:'Teaser démo', support:['Story · Ink','templates.html#social'], obj:'Notoriété',
+    title:'Court extrait de la démo', angle:'Un visuel / extrait de la démo produit live.',
+    copy:`7 écrans. Une seule boucle de cohérence.\n\nLa semaine prochaine au Pavillon 7, Booth 1E24-001, on déroule Lyriks de bout en bout : des domaines au dashboard, des règles métier au delta code ↔ spec.\n\nUn aperçu juste avant le salon 👇\n[teaser visuel / vidéo]\n\n#VivaTech #ProductTour #AI` },
+
+  { phase:'AVANT', day:'J-5', chan:'LinkedIn · David', v:1, type:'Post engageant', support:['Post portrait · Ink','templates.html#social'], obj:'Leads',
+    title:'« Qui sera à VivaTech ? »', angle:'Prise de RDV, sobre.',
+    copy:`On sera à VivaTech du 17 au 20 juin, Booth 1E24-001.\n\nJ'aimerais y rencontrer les équipes produit et tech qui cherchent à garder leurs specs et leur code alignés.\n\nPM, CTO, investisseurs : si vous y êtes, on se cale un créneau. Commentez ou écrivez-moi.\n\n#VivaTech` },
+
+  { phase:'AVANT', day:'J-3', chan:'LinkedIn · Page Lyriks', v:0, type:'Infos pratiques', support:['Bannière · couverture event','templates.html#banniere'], obj:'Leads',
+    title:'Stand, démo, horaires, accès', angle:'Toutes les infos pratiques pour les visiteurs.',
+    copy:`📍 Rendez-vous à VivaTech, infos pratiques\n\nPavillon 7 · Booth 1E24-001\nDu 17 au 20 juin, 9h–19h\nDémo live en continu sur le stand\n\nVenez voir la couche de cohérence de Lyriks et repartez avec une lecture claire de votre cohérence produit.\n\n👉 Réservez un créneau : [lien]\n\n#VivaTech` },
+
+  { phase:'AVANT', day:'J-2', chan:'RP · David', v:1, type:'Relance presse', support:['Communiqué de presse','templates.html#presse'], obj:'Notoriété',
+    title:'Relance + proposition d\'interview', angle:'Relance douce et proposition d\'interview sur le stand.',
+    task:'Action : relance presse + créneaux d\'interview au stand' },
+
+  { phase:'AVANT', day:'J-1', chan:'LinkedIn · Les 3', v:0, type:'Post veille', support:['Post carré · Signal','templates.html#social'], obj:'Notoriété',
+    title:'« Demain on y est »', angle:'3 posts, 3 angles, même énergie, depuis les 3 comptes.',
+    copy:`Demain, on y est. 🔥\n\nTrois profils, une même partition : la vision business, le moteur de cohérence, la productivité produit.\n\nRendez-vous au Pavillon 7, Booth 1E24-001 dès demain matin, démo live toute la journée.\n\nOn vous attend. 👇\n\n#VivaTech #Lyriks #AI\n\n→ À publier depuis les 3 comptes, chacun avec son angle.` },
+
+  // ---------- PENDANT ----------
+  { phase:'PENDANT', day:'Jour J', chan:'LinkedIn · David', v:1, type:'Live / photos', support:['Story · Ink','templates.html#social'], obj:'Notoriété',
+    title:'Ouverture & ambiance stand', angle:'Premières rencontres, énergie du matin.',
+    copy:`On y est. [Photo du stand] 🔥\n\nVivaTech est ouvert, Booth 1E24-001. Première matinée déjà dense : [1 phrase d'ambiance / une rencontre marquante].\n\nVous êtes sur place ? Passez nous voir, la démo tourne toute la journée 👇\n\n#VivaTech #LiveFromVivaTech` },
+
+  { phase:'PENDANT', day:'Jour J', chan:'LinkedIn · Adrien BB', v:2, type:'Live démo', support:['Post carré · Signal','templates.html#social'], obj:'Notoriété',
+    title:'Le moteur de cohérence en action', angle:'Réactions techniques en direct.',
+    copy:`Le moteur de cohérence en live à VivaTech. ⚙️\n\n[Photo / courte vidéo de la démo]\n\nCe qui fait réagir les ingés qui passent : [1 détail technique marquant]. Voir les specs et le code rester alignés en temps réel, ça parle.\n\nIngés, CTO : Booth 1E24-001, je suis là toute la journée 👇\n\n#VivaTech #SoftwareEngineering` },
+
+  { phase:'PENDANT', day:'Jour J', chan:'LinkedIn · Adrien C', v:3, type:'Live démo', support:['Post portrait · Paper','templates.html#social'], obj:'Leads',
+    title:'Démo produit, retours en direct', angle:'Feedbacks utilisateurs en temps réel.',
+    copy:`Démo produit en direct de VivaTech. 🎬\n\n[Photo de la démo / d'un visiteur qui teste]\n\nLe moment qui plaît : passer d'un codebase à une spec exploitable en quelques minutes. Les retours des devs qui testent sont [adjectif].\n\nVous voulez voir ? Booth 1E24-001 👇\n\n#VivaTech #DevTools #DX` },
+
+  { phase:'PENDANT', day:'Jour J', chan:'LinkedIn · Page Lyriks', v:0, type:'Best-of du jour', support:['Post carré · Signal','templates.html#social'], obj:'Notoriété',
+    title:'Récap quotidien', angle:'Moments forts + chiffres du jour.',
+    copy:`VivaTech · Jour [X], le best-of 🎯\n\n• [moment fort 1]\n• [moment fort 2]\n• [chiffre du jour : démos / visiteurs]\n\nMerci à toutes les personnes passées au Pavillon 7, Booth 1E24-001. On remet ça demain dès 9h 👇\n\n#VivaTech` },
+
+  { phase:'PENDANT', day:'Jour J', chan:'Terrain · Équipe', v:0, type:'Collecte leads', support:['Fichier de suivi','#'], obj:'Leads/Invest',
+    title:'Scan badges / contacts qualifiés', angle:'Collecte structurée des leads et investisseurs sur le stand.',
+    task:'Action : scanner les badges, qualifier (lead / invest) dans le fichier de suivi' },
+
+  { phase:'PENDANT', day:'Jour J', chan:'RP · David', v:1, type:'Relais retombées', support:['Repartage','templates.html#social'], obj:'Notoriété',
+    title:'Repartage des retombées presse', angle:'Relais immédiat de toute mention / article.',
+    task:'Action : repartager en story / post toute retombée presse du jour' },
+
+  // ---------- APRÈS ----------
+  { phase:'APRÈS', day:'J+1', chan:'LinkedIn · David', v:1, type:'Bilan à chaud', support:['Post portrait · Ink','templates.html#social'], obj:'Notoriété',
+    title:'Premier bilan', angle:'Remerciements, personnes taggées, 1er bilan business.',
+    copy:`Quatre jours à VivaTech, et beaucoup d'échanges utiles.\n\n[X] démos, [Y] rencontres. Merci à [@personnes] pour les discussions.\n\nCe que je retiens : le sujet de la cohérence entre specs et code parle autant aux devs qu'aux dirigeants.\n\nOn revient vers vous dans les prochains jours.\n\n#VivaTech` },
+
+  { phase:'APRÈS', day:'J+2', chan:'LinkedIn · Page Lyriks', v:0, type:'Récap (2 versions)', support:['Post carré · Signal','templates.html#social'], obj:'Notoriété',
+    title:'Le bilan du salon, version A ou B', angle:'Version A chiffrée si le volume est bon. Version B qualitative si les chiffres sont modestes. On choisit le jour J selon ce dont on dispose.',
+    copy:`VERSION A · si les chiffres sont bons\n\nVivaTech 2026 en chiffres 📊\n• [X] visiteurs au stand\n• [Y] démos réalisées\n• [Z] contacts qualifiés\n\nMerci à toutes les personnes passées voir la couche de cohérence en action. On revient vers vous très vite.\n\n#VivaTech\n\n· · ·\n\nVERSION B · si les chiffres sont modestes (sans volume)\n\nVivaTech 2026, ce qu'on retient.\n• La question qui revenait le plus : [thème]\n• Le moment marquant : [anecdote]\n• Ce qu'on change dès maintenant : [action]\n\nMerci pour la qualité des échanges. On continue.\n\n#VivaTech` },
+
+  { phase:'APRÈS', day:'J+2', chan:'Terrain · Équipe', v:0, type:'Relances 72h', support:['Fichier de suivi','#'], obj:'Leads/Invest',
+    title:'Relance de TOUS les contacts', angle:'Mail / message perso à chaque contact qualifié. La règle d\'or.',
+    task:'Action prioritaire : relancer 100% des contacts sous 72h (leads + investisseurs)' },
+
+  { phase:'APRÈS', day:'J+3', chan:'LinkedIn · Adrien BB', v:2, type:'Baromètre IA', support:['Post carré · Signal','templates.html#social'], obj:'Notoriété',
+    title:'Baromètre : l\'IA dans les équipes', angle:'Mini-baromètre sur l\'usage de l\'IA + les difficultés rencontrées, à partir des retours collectés au stand.',
+    copy:`Baromètre VivaTech : où en sont les équipes avec l'IA ? 📊\n\nOn a posé la même question aux personnes passées sur le stand, sur leur usage de l'IA pour les specs et le code. Ce qui ressort :\n\n• [X] % l'utilisent déjà au quotidien\n• Difficulté n°1 : [ex. cohérence entre specs et code]\n• Difficulté n°2 : [ex. résultats à vérifier, rework]\n• Frein principal : [ex. confiance dans la sortie]\n\nNotre lecture : [1-2 phrases sobres].\n\nVous vous reconnaissez ? Dites-le en commentaire.\n\n#VivaTech #IA` },
+
+  { phase:'APRÈS', day:'J+5', chan:'Newsletter · Page Lyriks', v:0, type:'Récap + CTA', support:['Newsletter','templates.html#newsletter'], obj:'Leads/Invest',
+    title:'Bilan + CTA segmenté', angle:'CTA clair : démo pour les leads, échange pour les investisseurs.',
+    copy:`Objet : Ce qu'on retient de VivaTech (et la suite)\n\nBonjour [Prénom],\n\nMerci à toutes les personnes croisées à VivaTech. En 4 jours : [X] démos, [Y] rencontres.\n\nLa suite dépend de vous :\n• Vous voulez voir Lyriks sur votre produit ? → Réservez une démo : [lien]\n• Vous investissez dans l'outillage produit / IA ? → Échangeons : [lien]\n\nÀ très vite,\nL'équipe Lyriks` },
+
+  { phase:'APRÈS', day:'J+7', chan:'LinkedIn · Adrien C', v:3, type:'Retour produit', support:['Post portrait · Paper','templates.html#social'], obj:'Leads',
+    title:'Feedbacks produit récoltés', angle:'Ce qu\'on a entendu, prochaines itérations.',
+    copy:`Une semaine après VivaTech : ce que les retours produit nous disent. 🛠️\n\nLes makers et devs qui ont testé Lyriks ont surtout réagi à [fonctionnalité]. On a noté [1-2 demandes récurrentes].\n\nProchaines itérations : [teasing].\n\nMerci pour les feedbacks, c'est ça qui fait avancer le produit. 👇\n\n#VivaTech #DevTools #BuildInPublic` },
+
+  { phase:'APRÈS', day:'J+10', chan:'LinkedIn · David', v:1, type:'Vision / capitalisation', support:['Post portrait · Ink','templates.html#social'], obj:'Investisseurs',
+    title:'Ce que VivaTech dit du marché', angle:'Vision, et où va Lyriks.',
+    copy:`Ce que VivaTech a confirmé, côté marché.\n\nLe coût et la cohérence du software à l'ère de l'IA ne sont plus un sujet d'experts : ils remontent au niveau des décisions d'entreprise.\n\nLà où va Lyriks : [vision en 2-3 lignes].\n\nSi vous construisez ou financez ce domaine, parlons-en.\n\n#IA` },
+
+  { phase:'APRÈS', day:'J+12', chan:'RP · David', v:1, type:'Relance presse', support:['Communiqué de presse','templates.html#presse'], obj:'Notoriété',
+    title:'Suivi des retombées', angle:'Relance des retombées en attente, partage des assets.',
+    task:'Action : relance presse finale + partage des assets (photos, chiffres)' },
+];
+
+const PHASES = {
+  AVANT: 'J-15 → J-1 · créer l\'attente',
+  PENDANT: '17–20 juin · maximiser la visibilité',
+  'APRÈS': 'J+1 → J+12 · capitaliser & convertir'
+};
+
+const feed = document.getElementById('feed');
+
+/* ---- author derivation ---- */
+function authorKey(e){
+  const c = e.chan;
+  if(c.includes('Les 3')) return 'tous';
+  if(c.includes('David')) return 'david';
+  if(c.includes('Adrien BB')) return 'abb';
+  if(c.includes('Adrien C')) return 'ac';
+  if(c.includes('Page Lyriks')) return 'page';
+  return 'equipe';
+}
+function matchAuthor(e, sel){
+  if(sel==='all') return true;
+  const k = authorKey(e);
+  if(k===sel) return true;
+  if(k==='tous' && (sel==='david'||sel==='abb'||sel==='ac')) return true;
+  return false;
+}
+
+/* ---- support visualization ---- */
+const LOGO_D = '<span class="lk-logo" style="font-size:30px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>';
+const LOGO_L = '<span class="lk-logo on-dark" style="font-size:30px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>';
+function vstripes(){ return '<div style="position:absolute;inset:0;display:flex">'+Array.from({length:14},(_,i)=>`<div style="width:${100/14}%;background:${TRACKS[i%3]}"></div>`).join('')+'</div>'; }
+function vfilets(cols){ return '<div style="display:flex;flex-direction:column;gap:14px">'+cols.map(c=>`<div style="height:26px;width:${c[1]};border-radius:7px;background:${c[0]}"></div>`).join('')+'</div>'; }
+function vconv(){ // static scattered→aligned bars
+  const ty=[28,50,72]; let h='<div style="position:absolute;left:55%;top:0;bottom:0;width:5px;background:#FA5FB2"></div>';
+  ty.forEach((y,ti)=>{ for(let k=0;k<3;k++){ const x=58+k*13+Math.random()*4; const w=8+Math.random()*8; h+=`<div style="position:absolute;left:${x}%;top:${y}%;width:${w}%;height:22px;border-radius:5px;background:${TRACKS[ti]}"></div>`; } });
+  for(let k=0;k<10;k++){ const x=Math.random()*48; const y=8+Math.random()*84; const w=6+Math.random()*10; h+=`<div style="position:absolute;left:${x}%;top:${y}%;width:${w}%;height:18px;border-radius:5px;background:#33333b"></div>`; }
+  return h;
+}
+function supportViz(e){
+  if(!e.support || e.support[1]==='#'){
+    const ic = e.support && e.support[0]==='Repartage' ? '↻' : '◷';
+    const lab = e.support ? e.support[0] : 'Action terrain';
+    return `<div class="sviz"><div class="sviz-task"><span class="ic">${ic}</span><span>${lab}</span></div><div class="vcap">${e.support?e.support[0]:'Tâche'}</div></div>`;
+  }
+  const label = e.support[0];
+  const t = (e.title||'').replace(/«|»/g,'').trim();
+  let aw=1080, ah=1080, inner='', dw=210, cap=label;
+  if(label.includes('carré')){
+    aw=1080; ah=1080;
+    inner=`<div style="position:absolute;inset:0;background:var(--ink)"></div>${vstripes()}<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.25),rgba(10,10,10,.82))"></div>
+      <div style="position:absolute;inset:0;padding:70px;display:flex;flex-direction:column">${LOGO_L}<div style="margin-top:auto"><div class="amono" style="font-size:130px;color:transparent;background-image:linear-gradient(180deg,#FFA101 0 33%,#BB46F5 33% 66%,#0066FF 66%);-webkit-background-clip:text;background-clip:text;font-family:var(--display);letter-spacing:-.04em;line-height:.82">SYNC</div><div class="adisp" style="font-size:50px;color:#fff;margin-top:22px">${t}</div></div></div>`;
+  } else if(label.includes('portrait · Ink')||label.includes('portrait Ink')){
+    aw=1080; ah=1350;
+    inner=`<div style="position:absolute;inset:0;background:var(--ink)"></div><div style="position:absolute;left:0;right:0;top:50%;bottom:0">${vconv()}</div><div style="position:absolute;left:0;right:0;top:46%;height:22%;background:linear-gradient(180deg,var(--ink),transparent)"></div>
+      <div style="position:absolute;inset:0;padding:74px;display:flex;flex-direction:column">${LOGO_L}<div class="adisp" style="font-size:62px;color:#fff;margin-top:70px">${t}</div></div>`;
+  } else if(label.includes('Paper')){
+    aw=1080; ah=1350;
+    inner=`<div style="position:absolute;inset:0;background:var(--paper)"></div>
+      <div style="position:absolute;inset:0;padding:74px;display:flex;flex-direction:column">${LOGO_D}<div class="adisp" style="font-size:60px;color:#0a0a0a;margin-top:70px">${t}</div><div style="margin-top:auto">${vfilets([['#FFA101','62%'],['#BB46F5','96%'],['#0066FF','78%']])}</div></div>`;
+  } else if(label.includes('Story')){
+    aw=1080; ah=1920; dw=190;
+    inner=`<div style="position:absolute;inset:0;background:var(--ink)"></div>
+      <div style="position:absolute;inset:0;padding:80px;display:flex;flex-direction:column">${LOGO_L}<div class="adisp" style="font-size:88px;color:#fff;margin-top:120px">On joue<br>tous la<br><span style="color:#FFA101">même</span><br>partition.</div><div style="margin-top:auto;background:var(--grad);border-radius:24px;padding:30px;text-align:center;color:#fff" class="adisp">VivaTech</div></div>`;
+  } else if(label.includes('Bannière')){
+    aw=1584; ah=396; dw=232;
+    inner=`<div style="position:absolute;inset:0;background:var(--grad-viva)"></div><div style="position:absolute;inset:0;background:radial-gradient(400px 200px at 86% 0%,rgba(255,255,255,.2),transparent 60%)"></div>
+      <div style="position:absolute;inset:0;padding:54px 64px;display:flex;flex-direction:column;justify-content:center">${LOGO_L}<div class="adisp" style="font-size:48px;color:#fff;margin-top:18px">${t}</div></div>`;
+  } else if(label.includes('Newsletter')){
+    aw=680; ah=900; dw=210;
+    inner=`<div style="position:absolute;inset:0;background:#fff"></div><div style="position:absolute;left:0;right:0;top:0;height:42%;background:var(--grad-viva);padding:40px 44px;box-sizing:border-box">${LOGO_L}<div class="adisp" style="font-size:40px;color:#fff;margin-top:20px">On vous attend<br>à VivaTech.</div></div>
+      <div style="position:absolute;left:0;right:0;top:42%;display:flex"><i style="height:8px;flex:1;background:#FFA101"></i><i style="height:8px;flex:1.6;background:#BB46F5"></i><i style="height:8px;flex:.8;background:#0066FF"></i></div>
+      <div style="position:absolute;left:44px;right:44px;top:50%;display:flex;flex-direction:column;gap:12px"><span style="height:10px;width:80%;background:#ECECF1;border-radius:4px"></span><span style="height:10px;width:90%;background:#ECECF1;border-radius:4px"></span><span style="height:10px;width:60%;background:#ECECF1;border-radius:4px"></span><span style="margin-top:14px;height:44px;width:60%;background:#0a0a0a;border-radius:999px"></span></div>`;
+  } else if(label.includes('Communiqué')){
+    aw=794; ah=1123; dw=205;
+    inner=`<div style="position:absolute;inset:0;background:#fff"></div>
+      <div style="position:absolute;left:0;right:0;top:0;padding:50px 56px;box-sizing:border-box;display:flex;justify-content:space-between;align-items:center">${LOGO_D}<span class="amono" style="font-size:13px;color:#9296a6">COMMUNIQUÉ</span></div>
+      <div style="position:absolute;left:56px;right:56px;top:110px"><div style="display:flex;gap:7px"><i style="height:9px;width:90px;border-radius:3px;background:#FFA101"></i><i style="height:9px;width:150px;border-radius:3px;background:#BB46F5"></i><i style="height:9px;width:64px;border-radius:3px;background:#0066FF"></i></div><div class="adisp" style="font-size:36px;color:#0a0a0a;margin-top:28px;line-height:1.05">${t}</div><div style="margin-top:24px;display:flex;flex-direction:column;gap:10px"><span style="height:9px;width:100%;background:#ECECF1;border-radius:4px"></span><span style="height:9px;width:96%;background:#ECECF1;border-radius:4px"></span><span style="height:9px;width:90%;background:#ECECF1;border-radius:4px"></span></div></div>
+      <div style="position:absolute;left:0;right:0;bottom:0;display:flex"><i style="height:10px;flex:1;background:#FFA101"></i><i style="height:10px;flex:1.6;background:#BB46F5"></i><i style="height:10px;flex:.8;background:#0066FF"></i></div>`;
+  } else {
+    aw=1080; ah=1080;
+    inner=`<div style="position:absolute;inset:0;background:var(--ink)"></div><div style="position:absolute;inset:0;padding:70px;display:flex;flex-direction:column">${LOGO_L}<div class="adisp" style="font-size:54px;color:#fff;margin-top:auto">${t}</div></div>`;
+  }
+  return `<div class="sviz" style="--aw:${aw};--ah:${ah};--dw:${dw}">
+    <a href="${e.support[1]}"><div class="stage"><div class="art">${inner}</div></div></a>
+    <div class="vcap">${cap}</div>
+  </div>`;
+}
+
+function render(){
+  const pf = document.querySelector('#phaseSeg button.on').dataset.p;
+  const af = document.querySelector('#authorSeg button.on').dataset.a;
+  feed.innerHTML='';
+  let shown=0; let lastPhase=null;
+  ENTRIES.forEach((e, idx)=>{
+    if(pf!=='all' && e.phase!==pf) return;
+    if(!matchAuthor(e, af)) return;
+    shown++;
+    if(e.phase!==lastPhase){
+      lastPhase=e.phase;
+      const band=document.createElement('div');
+      band.className='phase-band phase-'+e.phase;
+      band.innerHTML=`<span class="ph">${e.phase.charAt(0)+e.phase.slice(1).toLowerCase()}</span><span class="rng">${PHASES[e.phase]}</span><span class="line"></span>`;
+      feed.appendChild(band);
+    }
+    const el=document.createElement('div');
+    el.className='entry v'+e.v;
+    const supportHtml = e.support ? `<span class="support">▦ ${e.support[0]}</span>` : '';
+    const objClass = 'obj-'+e.obj.replace('/','\\/');
+    let bottom;
+    if(e.copy){
+      bottom = `<div class="copybox" id="cb${idx}">
+        <div class="ch-head" onclick="this.parentElement.classList.toggle('open')">
+          <span class="lbl">✎ Texte prêt à publier</span>
+          <span class="act"><button class="btn-copy" data-copy="${encodeURIComponent(e.copy)}" onclick="event.stopPropagation()">Copier</button><span class="toggle">▾</span></span>
+        </div>
+        <div class="body">${e.copy.replace(/</g,'&lt;')}</div>
+      </div>`;
+    } else {
+      bottom = `<div class="taskbox"><span class="chk"></span>${e.task||''}</div>`;
+    }
+    el.innerHTML=`
+      <div class="when"><div class="day">${e.day}</div><div class="chan">${e.chan}</div></div>
+      <div class="card">
+        <div class="tagrow">
+          <span class="voice">${voiceLabel(e.v)}</span>
+          ${supportHtml}
+          <span class="obj ${objClass}">${e.obj}</span>
+        </div>
+        <h3>${e.title}</h3>
+        <p class="angle">${e.angle}</p>
+        ${bottom}
+      </div>
+      ${supportViz(e)}`;
+    feed.appendChild(el);
+  });
+  document.getElementById('count').textContent = shown+' prise'+(shown>1?'s':'')+' de parole';
+}
+function voiceLabel(v){
+  return v===1?'Track 01 · David':v===2?'Track 02 · Adrien BB':v===3?'Track 03 · Adrien C':'Page Lyriks / Équipe';
+}
+
+document.addEventListener('click', e=>{
+  const b=e.target.closest('.btn-copy'); if(!b) return;
+  navigator.clipboard.writeText(decodeURIComponent(b.dataset.copy));
+  const t=b.textContent; b.textContent='Copié ✓'; b.classList.add('done');
+  setTimeout(()=>{ b.textContent=t; b.classList.remove('done'); },1500);
+});
+
+document.querySelectorAll('#phaseSeg button').forEach(btn=>{
+  btn.addEventListener('click',()=>{ document.querySelectorAll('#phaseSeg button').forEach(x=>x.classList.remove('on')); btn.classList.add('on'); render(); });
+});
+document.querySelectorAll('#authorSeg button').forEach(btn=>{
+  btn.addEventListener('click',()=>{ document.querySelectorAll('#authorSeg button').forEach(x=>x.classList.remove('on')); btn.classList.add('on'); render(); });
+});
+render();
+</script>
+</body>
+</html>

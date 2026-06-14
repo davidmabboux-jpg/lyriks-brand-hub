@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lyriks · Templates de communication</title>
+<link rel="stylesheet" href="brand.css">
+<style>
+  body { background:#0e1014; color:#fff; }
+  .head { max-width:1280px; margin:0 auto; padding:42px 40px 0; }
+  .head .lk-logo { font-size:22px; }
+  .head a.back { float:right; text-decoration:none; color:#cfcfd6; font-family:var(--mono); font-size:12px; border:1px solid #2a2f37; padding:9px 14px; border-radius:999px; }
+  .head .badge { display:inline-block; font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#FFA101; border:1px solid #2a2f37; border-radius:999px; padding:7px 14px; margin:20px 0 0; }
+  .head h1 { font-family:var(--display); font-size:46px; font-weight:700; letter-spacing:-.035em; margin:16px 0 8px; }
+  .head p { margin:0; color:#9aa0ab; font-size:16px; max-width:74ch; line-height:1.6; }
+
+  /* in-page nav */
+  .tabs { max-width:1280px; margin:0 auto; padding:24px 40px 0; display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:0; background:#0e1014; z-index:20; }
+  .tabs a { text-decoration:none; font-family:var(--mono); font-size:11.5px; font-weight:700; letter-spacing:.06em; color:#9aa0ab; border:1px solid #262b33; padding:9px 14px; border-radius:999px; }
+  .tabs a:hover { color:#fff; border-color:#3a4150; }
+
+  .group { max-width:1280px; margin:0 auto; padding:14px 40px; }
+  .group > h2 { font-family:var(--display); font-size:13px; font-weight:700; letter-spacing:.04em; margin:44px 0 4px; display:flex; align-items:center; gap:14px; color:#fff; text-transform:uppercase; }
+  .group > h2 .nm { font-family:var(--mono); font-size:11px; color:#FFA101; letter-spacing:.14em; }
+  .group > h2::after { content:""; flex:1; height:1px; background:#1c2129; }
+  .group > .gdesc { color:#7a808b; font-family:var(--mono); font-size:11.5px; margin:6px 0 22px; letter-spacing:.03em; }
+  .gallery { display:flex; flex-wrap:wrap; gap:30px; align-items:flex-start; }
+
+  figure.fmt { margin:0; }
+  figure.fmt .stage { border-radius:14px; overflow:hidden; box-shadow:0 24px 60px -28px rgba(0,0,0,.85); border:1px solid #1c1c1c; width:calc(var(--w) * var(--s)); height:calc(var(--h) * var(--s)); }
+  figure.fmt .art { width:var(--w); height:var(--h); transform:scale(var(--s)); transform-origin:top left; position:relative; overflow:hidden; }
+  figure.fmt figcaption { margin-top:13px; font-family:var(--mono); font-size:11.5px; color:#7a808b; letter-spacing:.03em; max-width:calc(var(--w) * var(--s)); }
+  figure.fmt figcaption b { color:#cfcfd6; font-weight:700; text-transform:uppercase; letter-spacing:.08em; }
+  figure.fmt figcaption .dim { color:#565c66; }
+
+  /* artboard atoms */
+  .art .disp { font-family:var(--display); font-weight:700; letter-spacing:-.04em; line-height:.96; }
+  .art .mono { font-family:var(--mono); font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+  .art .pad { position:absolute; inset:0; display:flex; flex-direction:column; }
+  .art .filets { display:flex; flex-direction:column; gap:0; }
+  .art .filets i { display:block; }
+  .notebox { display:inline-block; border-radius:999px; }
+
+  @media (max-width:720px){ .head,.tabs,.group{ padding-left:18px; padding-right:18px; } }
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" rx="14" fill="#0a0a0a"/>
+<rect x="30" y="37" width="26" height="7" rx="2.5" fill="#0066FF"/>
+<rect x="30" y="48" width="26" height="7" rx="2.5" fill="#BB46F5"/>
+<rect x="30" y="59" width="40" height="7" rx="2.5" fill="#FFA101"/>
+</svg>
+</template>
+  <div class="head">
+    <a class="back" href="charte.html">← Charte</a>
+    <span class="lk-logo on-dark"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+    <span class="badge">Templates · à valider</span>
+    <h1>Templates de communication</h1>
+    <p>Un gabarit prêt à l'emploi pour chaque type de support, tous bâtis sur l'univers de marque : pistes, filets, typo tramée, convergence. Surfaces clair / foncé / signal selon l'usage. Donnez vos retours support par support, ensuite on finalise les copies et on exporte (PNG / PDF / HTML).</p>
+  </div>
+
+  <div class="tabs">
+    <a href="#social">Posts LinkedIn</a>
+    <a href="#carrousel">Carrousel</a>
+    <a href="#banniere">Bannières</a>
+    <a href="#newsletter">Newsletter</a>
+    <a href="#emailing">Emailing</a>
+    <a href="#presse">Communiqué de presse</a>
+    <a href="#signature">Signature email</a>
+  </div>
+
+  <!-- ===== POSTS ===== -->
+  <div class="group" id="social">
+    <h2><span class="nm">01</span> Posts LinkedIn</h2>
+    <div class="gdesc">Format carré (1080²) et portrait (1080×1350) · pour les 3 voix et la page Lyriks</div>
+    <div class="gallery">
+
+      <!-- carré · signal · typo tramée -->
+      <figure class="fmt" style="--w:1080px;--h:1080px;--s:0.40">
+        <div class="stage"><div class="art">
+          <div style="position:absolute;inset:0;background:var(--ink)"></div>
+          <div id="p1stripes" style="position:absolute;inset:0"></div>
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.2),rgba(10,10,10,.78))"></div>
+          <div class="pad" style="padding:88px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start">
+              <span class="lk-logo on-dark" style="font-size:38px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+              <span class="mono" style="font-size:22px;color:rgba(255,255,255,.8)">VivaTech 2026</span>
+            </div>
+            <div style="margin-top:auto">
+              <div class="disp" style="font-size:150px;background-image:linear-gradient(180deg,#FFA101 0 33.3%,#BB46F5 33.3% 66.6%,#0066FF 66.6%);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:.82">SYNC</div>
+              <div class="disp" style="font-size:62px;color:#fff;margin-top:30px">On joue tous<br>la même partition.</div>
+            </div>
+          </div>
+        </div></div>
+        <figcaption><b>Post carré · Signal</b><br><span class="dim">1080 × 1080 · typo tramée</span></figcaption>
+      </figure>
+
+      <!-- portrait · ink · voix Business -->
+      <figure class="fmt" style="--w:1080px;--h:1350px;--s:0.40">
+        <div class="stage"><div class="art">
+          <div style="position:absolute;inset:0;background:var(--ink)"></div>
+          <div id="p2conv" style="position:absolute;left:0;right:0;top:52%;bottom:0"></div>
+          <div style="position:absolute;left:0;right:0;top:46%;height:24%;background:linear-gradient(180deg,var(--ink),transparent)"></div>
+          <div class="pad" style="padding:88px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span class="lk-logo on-dark" style="font-size:34px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+              <span class="mono" style="font-size:18px;color:#FFA101;border:1px solid rgba(255,161,1,.45);padding:9px 16px;border-radius:999px">Track 01 · Business</span>
+            </div>
+            <div class="disp" style="font-size:80px;color:#fff;margin-top:90px">Il y a 18 mois,<br>un <span style="color:#FFA101">pari</span>.<br>Dans 14 jours,<br><span style="color:#FFA101">VivaTech</span>.</div>
+            <div style="margin-top:auto">
+              <div class="filets" style="gap:9px;margin-bottom:30px">
+                <i style="height:16px;width:46%;border-radius:5px;background:#FFA101"></i>
+                <i style="height:16px;width:30%;border-radius:5px;background:#BB46F5"></i>
+                <i style="height:16px;width:62%;border-radius:5px;background:#0066FF"></i>
+              </div>
+              <span class="mono" style="font-size:20px;color:rgba(255,255,255,.6)">Pavillon 7 · Booth 1E24-001 · 17–20 juin</span>
+            </div>
+          </div>
+        </div></div>
+        <figcaption><b>Post portrait · Ink</b><br><span class="dim">1080 × 1350 · convergence · piste Business</span></figcaption>
+      </figure>
+
+      <!-- portrait · paper · voix Produit -->
+      <figure class="fmt" style="--w:1080px;--h:1350px;--s:0.40">
+        <div class="stage"><div class="art">
+          <div style="position:absolute;inset:0;background:var(--paper)"></div>
+          <div class="pad" style="padding:88px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span class="lk-logo" style="font-size:34px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+              <span class="mono" style="font-size:18px;color:#0066FF;border:1px solid rgba(0,102,255,.35);padding:9px 16px;border-radius:999px">Track 03 · Produit</span>
+            </div>
+            <div class="disp" style="font-size:74px;color:#0a0a0a;margin-top:90px">Des jours de specs ?<br>Quelques <span style="color:#0066FF">minutes</span><br>de revue.</div>
+            <p style="font-family:var(--font);font-size:30px;color:#535462;line-height:1.5;margin:30px 0 0;max-width:24ch">Démo live au stand : d'un codebase à une spec cohérente, en direct.</p>
+            <div style="margin-top:auto">
+              <div class="filets" style="gap:9px;margin-bottom:30px">
+                <i style="height:16px;width:62%;border-radius:5px;background:#FFA101"></i>
+                <i style="height:16px;width:96%;border-radius:5px;background:#BB46F5"></i>
+                <i style="height:16px;width:78%;border-radius:5px;background:#0066FF"></i>
+              </div>
+              <span class="mono" style="font-size:20px;color:#9296a6">Pavillon 7 · Booth 1E24-001 · 17–20 juin</span>
+            </div>
+          </div>
+        </div></div>
+        <figcaption><b>Post portrait · Paper</b><br><span class="dim">1080 × 1350 · filets de piste · piste Produit</span></figcaption>
+      </figure>
+
+      <!-- story · ink · convergence -->
+      <figure class="fmt" style="--w:1080px;--h:1920px;--s:0.285">
+        <div class="stage"><div class="art">
+          <div style="position:absolute;inset:0;background:var(--ink)"></div>
+          <div class="pad" style="padding:88px">
+            <span class="lk-logo on-dark" style="font-size:32px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+            <div style="margin-top:130px">
+              <span class="mono" style="font-size:22px;color:#FFA101;display:inline-flex;align-items:center;gap:12px"><span class="playglyph"></span> From scattered to in sync</span>
+              <div class="disp" style="font-size:110px;color:#fff;margin-top:28px">On joue<br>tous la<br><span style="color:#FFA101">même</span><br>partition.</div>
+            </div>
+            <div id="p4conv" style="margin-top:60px;height:420px;position:relative"></div>
+            <div style="margin-top:auto">
+              <div class="notebox" style="background:var(--grad);color:#fff;font-family:var(--display);font-weight:700;font-size:38px;letter-spacing:-.02em;width:100%;text-align:center;border-radius:28px;padding:34px">VivaTech · 17–20 juin · 1E24-001</div>
+            </div>
+          </div>
+        </div></div>
+        <figcaption><b>Story · Ink</b><br><span class="dim">1080 × 1920 · Instagram / LinkedIn story</span></figcaption>
+      </figure>
+
+    </div>
+  </div>
+
+  <!-- ===== CARROUSEL ===== -->
+  <div class="group" id="carrousel">
+    <h2><span class="nm">02</span> Carrousel LinkedIn</h2>
+    <div class="gdesc">Gabarit à filets de piste · 1080×1350 · clair & foncé · <a href="labo-carrousel.html" style="color:#FFA101">ouvrir le carrousel complet →</a></div>
+    <div class="gallery" id="carrRail"></div>
+  </div>
+
+  <!-- ===== BANNIÈRES ===== -->
+  <div class="group" id="banniere">
+    <h2><span class="nm">03</span> Bannières</h2>
+    <div class="gdesc">En-tête LinkedIn (1584×396) · couverture d'événement</div>
+    <div class="gallery">
+      <figure class="fmt" style="--w:1584px;--h:396px;--s:0.52">
+        <div class="stage"><div class="art">
+          <div style="position:absolute;inset:0;background:var(--ink)"></div>
+          <div id="b1stripes" style="position:absolute;left:62%;right:0;top:0;bottom:0"></div>
+          <div style="position:absolute;left:48%;right:0;top:0;bottom:0;background:linear-gradient(90deg,var(--ink),transparent)"></div>
+          <div class="pad" style="padding:60px 72px;justify-content:center">
+            <span class="lk-logo on-dark" style="font-size:42px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+            <div class="disp" style="font-size:50px;color:#fff;margin-top:24px;max-width:22ch">The coherence layer for<br>AI-accelerated software.</div>
+            <div style="display:flex;gap:10px;margin-top:26px">
+              <i style="height:14px;width:120px;border-radius:4px;background:#FFA101"></i>
+              <i style="height:14px;width:180px;border-radius:4px;background:#BB46F5"></i>
+              <i style="height:14px;width:90px;border-radius:4px;background:#0066FF"></i>
+            </div>
+          </div>
+        </div></div>
+        <figcaption><b>Bannière LinkedIn · Ink</b><br><span class="dim">1584 × 396 · profil ou page</span></figcaption>
+      </figure>
+
+      <figure class="fmt" style="--w:1584px;--h:396px;--s:0.52">
+        <div class="stage"><div class="art">
+          <div style="position:absolute;inset:0;background:var(--grad-viva)"></div>
+          <div style="position:absolute;inset:0;background:radial-gradient(700px 320px at 86% 0%,rgba(255,255,255,.2),transparent 60%)"></div>
+          <div class="pad" style="padding:60px 72px;justify-content:center">
+            <span class="mono" style="font-size:22px;color:rgba(255,255,255,.85)">VivaTech 2026 · Paris · Pavillon 7</span>
+            <div class="disp" style="font-size:62px;color:#fff;margin-top:18px">On vous attend au Pavillon 7, Booth 1E24-001.</div>
+            <div style="display:flex;gap:10px;margin-top:26px">
+              <i style="height:14px;width:120px;border-radius:4px;background:#fff"></i>
+              <i style="height:14px;width:90px;border-radius:4px;background:rgba(255,255,255,.6)"></i>
+              <i style="height:14px;width:150px;border-radius:4px;background:#FFA101"></i>
+            </div>
+          </div>
+        </div></div>
+        <figcaption><b>Couverture événement · Signal</b><br><span class="dim">1584 × 396 · bandeau de campagne</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- ===== NEWSLETTER ===== -->
+  <div class="group" id="newsletter">
+    <h2><span class="nm">04</span> Newsletter</h2>
+    <div class="gdesc">Email éditorial · 680px de large · surface claire, en-tête signal</div>
+    <div class="gallery">
+      <figure class="fmt" style="--w:680px;--h:1020px;--s:0.62">
+        <div class="stage"><div class="art" style="background:#fff">
+          <!-- header -->
+          <div style="background:var(--grad-viva);padding:44px 48px;position:relative;overflow:hidden">
+            <div style="position:absolute;inset:0;background:radial-gradient(360px 180px at 88% 0%,rgba(255,255,255,.22),transparent 60%)"></div>
+            <div style="position:relative">
+              <span class="lk-logo on-dark" style="font-size:24px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+              <div class="disp" style="font-size:46px;color:#fff;margin-top:22px">On vous attend<br>à VivaTech.</div>
+            </div>
+          </div>
+          <!-- filets -->
+          <div style="display:flex"><i style="height:8px;flex:1;background:#FFA101"></i><i style="height:8px;flex:1.6;background:#BB46F5"></i><i style="height:8px;flex:.8;background:#0066FF"></i></div>
+          <!-- body -->
+          <div style="padding:40px 48px">
+            <p class="mono" style="font-size:14px;color:#9296a6;margin:0 0 18px">17–20 JUIN · PAVILLON 7 · BOOTH 1E24-001</p>
+            <div class="disp" style="font-size:30px;color:#0a0a0a;letter-spacing:-.02em">Une démo live de la couche de cohérence.</div>
+            <p style="font-family:var(--font);font-size:17px;line-height:1.62;color:#535462;margin:18px 0 0">Lyriks donne à chaque équipe une seule vérité produit, synchronisée avec ses outils, Jira, Figma, Notion, GitHub, Cursor. Venez voir la plateforme de bout en bout et repartez avec une lecture claire de votre cohérence produit.</p>
+            <div style="margin:30px 0;height:1px;background:#ECECF1"></div>
+            <div class="disp" style="font-size:22px;color:#0a0a0a">Réservez votre créneau</div>
+            <p style="font-family:var(--font);font-size:16px;line-height:1.6;color:#535462;margin:10px 0 22px">15 minutes en tête-à-tête avec l'équipe. Places limitées sur les 4 jours.</p>
+            <span class="notebox" style="background:#0a0a0a;color:#fff;font-family:var(--display);font-weight:700;font-size:20px;padding:18px 32px">Réserver un créneau →</span>
+          </div>
+          <!-- footer -->
+          <div style="margin-top:auto;background:#0a0a0a;padding:30px 48px;display:flex;justify-content:space-between;align-items:center">
+            <span class="lk-logo on-dark" style="font-size:16px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+            <span class="mono" style="font-size:12px;color:#7a7a82">lyriks.io · se désinscrire</span>
+          </div>
+        </div></div>
+        <figcaption><b>Newsletter invitation · Paper + Signal</b><br><span class="dim">680px large · HTML email responsive</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- ===== EMAILING ===== -->
+  <div class="group" id="emailing">
+    <h2><span class="nm">05</span> Emailing</h2>
+    <div class="gdesc">Email promotionnel court · 1 message, 1 CTA · surface signal</div>
+    <div class="gallery">
+      <figure class="fmt" style="--w:680px;--h:760px;--s:0.62">
+        <div class="stage"><div class="art" style="background:var(--ink)">
+          <div style="padding:36px 48px"><span class="lk-logo on-dark" style="font-size:22px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span></div>
+          <div style="position:relative;margin:0 32px;border-radius:22px;overflow:hidden;background:var(--grad);padding:48px 44px">
+            <div style="position:absolute;inset:0;background:radial-gradient(320px 180px at 85% 0%,rgba(255,255,255,.22),transparent 60%)"></div>
+            <div style="position:relative">
+              <span class="mono" style="font-size:14px;color:rgba(255,255,255,.85)">DERNIERS JOURS</span>
+              <div class="disp" style="font-size:44px;color:#fff;margin-top:14px">Plus que 3 jours<br>avant VivaTech.</div>
+              <p style="font-family:var(--font);font-size:17px;line-height:1.55;color:rgba(255,255,255,.9);margin:18px 0 0;max-width:34ch">Réservez votre démo avant que les créneaux ne partent. 15 min pour voir votre cohérence produit en clair.</p>
+              <div style="display:flex;gap:8px;margin-top:26px"><i style="height:12px;width:90px;border-radius:4px;background:#fff"></i><i style="height:12px;width:60px;border-radius:4px;background:rgba(255,255,255,.6)"></i><i style="height:12px;width:120px;border-radius:4px;background:#FFA101"></i></div>
+            </div>
+          </div>
+          <div style="padding:36px 48px;text-align:center">
+            <span class="notebox" style="background:#FFA101;color:#1a1a1a;font-family:var(--display);font-weight:700;font-size:22px;padding:20px 38px">Réserver ma démo →</span>
+            <p class="mono" style="font-size:12px;color:#6a6a72;margin:28px 0 0">Pavillon 7 · Booth 1E24-001 · 17–20 juin · lyriks.io</p>
+          </div>
+        </div></div>
+        <figcaption><b>Emailing promo · Signal</b><br><span class="dim">680px large · relance courte</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- ===== PRESSE ===== -->
+  <div class="group" id="presse">
+    <h2><span class="nm">06</span> Communiqué de presse</h2>
+    <div class="gdesc">A4 portrait · surface claire · en-tête à filets · prêt à imprimer / PDF</div>
+    <div class="gallery">
+      <figure class="fmt" style="--w:794px;--h:1123px;--s:0.56">
+        <div class="stage"><div class="art" style="background:#fff">
+          <!-- header -->
+          <div style="padding:56px 64px 0">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start">
+              <span class="lk-logo" style="font-size:24px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+              <span class="mono" style="font-size:13px;color:#9296a6">COMMUNIQUÉ DE PRESSE</span>
+            </div>
+            <div style="display:flex;gap:7px;margin-top:24px"><i style="height:9px;width:90px;border-radius:3px;background:#FFA101"></i><i style="height:9px;width:150px;border-radius:3px;background:#BB46F5"></i><i style="height:9px;width:64px;border-radius:3px;background:#0066FF"></i></div>
+          </div>
+          <!-- body -->
+          <div style="padding:38px 64px 0">
+            <p class="mono" style="font-size:13px;color:#9296a6;margin:0 0 14px">PARIS · 10 JUIN 2026 · POUR DIFFUSION IMMÉDIATE</p>
+            <div class="disp" style="font-size:40px;color:#0a0a0a;line-height:1.04">Lyriks présente sa couche de cohérence produit à VivaTech 2026.</div>
+            <p style="font-family:var(--font);font-size:15px;line-height:1.62;color:#2a2a2a;margin:24px 0 0;font-weight:600">La startup dévoile au Pavillon 7, Booth 1E24-001 une plateforme qui donne à chaque équipe une seule vérité produit, synchronisée avec ses outils, pour réduire le rework et sécuriser les délais à l'ère de l'IA.</p>
+            <p style="font-family:var(--font);font-size:14px;line-height:1.7;color:#535462;margin:18px 0 0">Alors que les équipes produit, design et tech multiplient les outils, Jira, Figma, Notion, GitHub, Cursor, la vision produit se disperse et les écarts coûtent cher. Lyriks agit comme une couche d'orchestration entre ces outils, vérifie automatiquement la cohérence entre la vision et les livrables, et détecte les contradictions avant qu'elles ne génèrent retards et dépassements.</p>
+            <p style="font-family:var(--font);font-size:14px;line-height:1.7;color:#535462;margin:14px 0 0">« Lyriks, c'est la partition qui permet à toute l'équipe de jouer la même musique », résume David Mabboux, co-fondateur. La démonstration sera présentée en continu sur les quatre jours du salon.</p>
+            <div style="margin:26px 0 0;padding:20px 24px;background:#FAFAFC;border-radius:14px;border-left:4px solid #BB46F5">
+              <p class="mono" style="font-size:12px;color:#9296a6;margin:0 0 6px">CONTACT PRESSE</p>
+              <p style="font-family:var(--font);font-size:14px;color:#0a0a0a;margin:0;font-weight:600">presse@lyriks.io · lyriks.io · Booth 1E24-001</p>
+            </div>
+          </div>
+          <!-- footer filets -->
+          <div style="margin-top:auto;display:flex"><i style="height:10px;flex:1;background:#FFA101"></i><i style="height:10px;flex:1.6;background:#BB46F5"></i><i style="height:10px;flex:.8;background:#0066FF"></i></div>
+        </div></div>
+        <figcaption><b>Communiqué de presse · Paper</b><br><span class="dim">A4 · 794 × 1123 · imprimable / PDF</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- ===== SIGNATURE ===== -->
+  <div class="group" id="signature">
+    <h2><span class="nm">07</span> Signature email</h2>
+    <div class="gdesc">Bloc signature · clair & foncé · filets de piste en accent</div>
+    <div class="gallery">
+      <figure class="fmt" style="--w:760px;--h:280px;--s:0.72">
+        <div class="stage"><div class="art" style="background:#fff">
+          <div class="pad" style="padding:44px 52px;justify-content:center">
+            <div style="display:flex;align-items:center;gap:28px">
+              <div style="display:flex;flex-direction:column;gap:7px;padding-right:28px;border-right:2px solid #ECECF1">
+                <span class="lk-logo" style="font-size:26px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+                <div style="display:flex;gap:5px;margin-top:6px"><i style="height:8px;width:34px;border-radius:3px;background:#FFA101"></i><i style="height:8px;width:54px;border-radius:3px;background:#BB46F5"></i><i style="height:8px;width:26px;border-radius:3px;background:#0066FF"></i></div>
+              </div>
+              <div>
+                <div class="disp" style="font-size:30px;color:#0a0a0a;letter-spacing:-.01em">David Mabboux</div>
+                <div class="mono" style="font-size:14px;color:#9296a6;margin-top:6px">CO-FOUNDER · BUSINESS</div>
+                <p style="font-family:var(--font);font-size:15px;color:#535462;margin:14px 0 0">david@lyriks.io · lyriks.io</p>
+                <p style="font-family:var(--font);font-size:13px;color:#FFA101;margin:6px 0 0;font-weight:700">⚡ Rendez-vous à VivaTech · Booth 1E24-001</p>
+              </div>
+            </div>
+          </div>
+        </div></div>
+        <figcaption><b>Signature · Paper</b><br><span class="dim">760 × 280 · bloc HTML email</span></figcaption>
+      </figure>
+
+      <figure class="fmt" style="--w:760px;--h:280px;--s:0.72">
+        <div class="stage"><div class="art" style="background:var(--ink)">
+          <div class="pad" style="padding:44px 52px;justify-content:center">
+            <div style="display:flex;align-items:center;gap:28px">
+              <div style="display:flex;flex-direction:column;gap:7px;padding-right:28px;border-right:2px solid #222630">
+                <span class="lk-logo on-dark" style="font-size:26px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+                <div style="display:flex;gap:5px;margin-top:6px"><i style="height:8px;width:34px;border-radius:3px;background:#FFA101"></i><i style="height:8px;width:54px;border-radius:3px;background:#BB46F5"></i><i style="height:8px;width:26px;border-radius:3px;background:#0066FF"></i></div>
+              </div>
+              <div>
+                <div class="disp" style="font-size:30px;color:#fff;letter-spacing:-.01em">Adrien Basso Blandin</div>
+                <div class="mono" style="font-size:14px;color:#9296a6;margin-top:6px">CO-FOUNDER · ENGINEERING</div>
+                <p style="font-family:var(--font);font-size:15px;color:#cfcfd6;margin:14px 0 0">adrien@lyriks.io · lyriks.io</p>
+                <p style="font-family:var(--font);font-size:13px;color:#D49BF8;margin:6px 0 0;font-weight:700">⚡ Rendez-vous à VivaTech · Booth 1E24-001</p>
+              </div>
+            </div>
+          </div>
+        </div></div>
+        <figcaption><b>Signature · Ink</b><br><span class="dim">760 × 280 · bloc HTML email</span></figcaption>
+      </figure>
+
+      <figure class="fmt" style="--w:760px;--h:280px;--s:0.72">
+        <div class="stage"><div class="art" style="background:#fff">
+          <div class="pad" style="padding:44px 52px;justify-content:center">
+            <div style="display:flex;align-items:center;gap:28px">
+              <div style="display:flex;flex-direction:column;gap:7px;padding-right:28px;border-right:2px solid #ECECF1">
+                <span class="lk-logo" style="font-size:26px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span>
+                <div style="display:flex;gap:5px;margin-top:6px"><i style="height:8px;width:34px;border-radius:3px;background:#FFA101"></i><i style="height:8px;width:54px;border-radius:3px;background:#BB46F5"></i><i style="height:8px;width:26px;border-radius:3px;background:#0066FF"></i></div>
+              </div>
+              <div>
+                <div class="disp" style="font-size:30px;color:#0a0a0a;letter-spacing:-.01em">Adrien Charles</div>
+                <div class="mono" style="font-size:14px;color:#9296a6;margin-top:6px">CO-FOUNDER · PRODUCT</div>
+                <p style="font-family:var(--font);font-size:15px;color:#535462;margin:14px 0 0">adrien.charles@lyriks.io · lyriks.io</p>
+                <p style="font-family:var(--font);font-size:13px;color:#0066FF;margin:6px 0 0;font-weight:700">⚡ Rendez-vous à VivaTech · Booth 1E24-001</p>
+              </div>
+            </div>
+          </div>
+        </div></div>
+        <figcaption><b>Signature · Paper</b><br><span class="dim">760 × 280 · bloc HTML email</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div style="max-width:1280px;margin:0 auto;padding:30px 40px 100px;color:#565c66;font-family:var(--mono);font-size:12px;line-height:1.7">
+    ↳ Tous les templates sont des gabarits éditables, bâtis sur la charte. Prochaine étape après vos retours : finaliser copies + photos, puis exporter chaque support dans son format (PNG, PDF, HTML email).
+  </div>
+
+<script>
+const TRACKS = ['#FFA101','#BB46F5','#0066FF'];
+
+/* stripes filler (vertical) */
+function stripes(host){
+  host.innerHTML = '<div style="position:absolute;inset:0;display:flex">' +
+    Array.from({length:22},(_, i)=>`<div style="width:${100/22}%;height:100%;background:${TRACKS[i%3]}"></div>`).join('') + '</div>';
+}
+
+/* convergence */
+function convergence(container, opts){
+  const o = Object.assign({ count:26, faint:'#2a2a32', height:14, playX:0.58 }, opts||{});
+  if(!container) return;
+  container.innerHTML='';
+  const ty=[0.26,0.5,0.74];
+  const ph=document.createElement('div');
+  ph.style.cssText=`position:absolute;top:0;bottom:0;width:3px;left:${o.playX*100}%;background:#FA5FB2;z-index:3`;
+  container.appendChild(ph);
+  const tip=document.createElement('div');
+  tip.style.cssText=`position:absolute;top:-2px;left:${o.playX*100}%;transform:translateX(-50%);border-left:9px solid transparent;border-right:9px solid transparent;border-top:12px solid #FA5FB2;z-index:4`;
+  container.appendChild(tip);
+  for(let i=0;i<o.count;i++){
+    const b=document.createElement('div');
+    const w=26+Math.round(Math.random()*64);
+    b.style.cssText=`position:absolute;height:${o.height}px;width:${w}px;border-radius:4px`;
+    const track=i%3, aligned=Math.random()<0.62;
+    if(aligned){
+      const x=o.playX+0.03+Math.random()*0.32;
+      b.style.left=(x*100)+'%';
+      b.style.top=`calc(${ty[track]*100}% - ${o.height/2}px)`;
+      b.style.background=TRACKS[track]; b.style.opacity=0.75+Math.random()*0.25;
+    } else {
+      const x=Math.random()*o.playX*0.9, y=0.08+Math.random()*0.84;
+      b.style.left=(x*100)+'%'; b.style.top=`calc(${y*100}% - ${o.height/2}px)`;
+      b.style.background=o.faint; b.style.opacity=0.5+Math.random()*0.4;
+    }
+    container.appendChild(b);
+  }
+}
+
+/* carousel mini-cards */
+const BLUE='#0066FF', VIOLET='#BB46F5', ORANGE='#FFA101';
+function carrCards(){
+  const rail=document.getElementById('carrRail');
+  const cards=[
+    {s:'light', html:`<div class="ctop"><i style="width:120px;background:${BLUE}"></i><i style="width:200px;background:${VIOLET}"></i><i style="width:90px;background:${ORANGE}"></i></div><div style="margin-top:auto"><div class="ch">AI broke<br>your product<br>coherence.</div><div class="ch ac" style="margin-top:40px">We restored it.</div></div><div class="cfoot"><i style="width:100%;background:${BLUE}"></i><i style="width:90%;background:${VIOLET}"></i><i style="width:78%;background:${ORANGE}"></i></div>`, lab:'01 · Accroche · clair'},
+    {s:'light', html:`<div class="ch ac" style="font-size:70px">The first prompt<br>is the right prompt</div><div class="cbul" style="margin-top:30px"><div class="r"><span class="d" style="background:${BLUE}"></span>First AI Coherence Engine</div><div class="r"><span class="d" style="background:${VIOLET}"></span>Executable Specs</div><div class="r"><span class="d" style="background:${ORANGE}"></span>LLM Agnostic</div></div><div class="cfoot"><i style="width:100%;background:${BLUE}"></i><i style="width:90%;background:${VIOLET}"></i><i style="width:78%;background:${ORANGE}"></i></div>`, lab:'02 · Preuves · clair'},
+    {s:'dark', html:`<div style="margin-top:30px"><div class="ch">No Hallucinations<br>No Rework</div><div style="height:3px;background:var(--crule);margin:50px 0"></div><div class="ch ac">Save Tokens<br>Save Time</div></div><div class="cfoot"><i style="width:100%;background:${BLUE}"></i><i style="width:90%;background:${VIOLET}"></i><i style="width:78%;background:${ORANGE}"></i></div>`, lab:'03 · Bénéfices · foncé'},
+    {s:'dark', html:`<div class="ctop"><i style="width:120px;background:${BLUE}"></i><i style="width:200px;background:${VIOLET}"></i><i style="width:90px;background:${ORANGE}"></i></div><div style="margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:20px"><span class="lk-logo on-dark" style="font-size:46px"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks.io</span></span><span style="font-family:var(--font);font-weight:500;font-size:22px;color:#9aa0ab;max-width:13ch;text-align:right">The coherence layer for AI-accelerated software.</span></div>`, lab:'04 · Signature · foncé'},
+  ];
+  rail.innerHTML = cards.map(c=>`
+    <figure class="fmt" style="--w:1080px;--h:1350px;--s:0.21">
+      <div class="stage"><div class="art"><div class="cfr ${c.s}">${c.html}</div></div></div>
+      <figcaption><b>${c.lab}</b></figcaption>
+    </figure>`).join('');
+}
+
+function renderAll(){
+  stripes(document.getElementById('p1stripes'));
+  stripes(document.getElementById('b1stripes'));
+  convergence(document.getElementById('p2conv'), {count:22, height:14});
+  convergence(document.getElementById('p4conv'), {count:24, height:16});
+  carrCards();
+}
+renderAll();
+window.addEventListener('load', renderAll);
+</script>
+
+<style>
+  /* carrousel mini-card frame styles */
+  .cfr { position:absolute; inset:0; padding:96px 88px; display:flex; flex-direction:column; font-family:var(--display); }
+  .cfr.light { background:#fff; color:#0a0a0a; --crule:#ECECF1; }
+  .cfr.dark { background:var(--ink); color:#fff; --crule:#222630; }
+  .cfr .ch { font-weight:700; letter-spacing:-.035em; line-height:1.02; font-size:80px; }
+  .cfr .ch .ac { color:#FFA101; }
+  .cfr .ctop { display:flex; flex-direction:column; gap:14px; }
+  .cfr .ctop i { height:20px; border-radius:6px; display:block; }
+  .cfr .cbul { display:flex; flex-direction:column; }
+  .cfr .cbul .r { display:flex; align-items:center; gap:22px; padding:30px 0; font-size:33px; font-weight:600; }
+  .cfr .cbul .r + .r { border-top:2px solid var(--crule); }
+  .cfr .cbul .d { width:22px; height:22px; border-radius:50%; flex:none; }
+  .cfr .cfoot { margin-top:auto; display:flex; flex-direction:column; gap:14px; }
+  .cfr .cfoot i { height:18px; border-radius:6px; display:block; }
+</style>
+</body>
+</html>
