@@ -11,25 +11,29 @@
   var main = document.querySelector('main')
   if (!DOC_ID || !main) return
 
-  // ---- petit bandeau d'état (flottant, discret) ----
+  // ---- pastille d'état (masquée par défaut, visible seulement pendant une
+  //      sauvegarde, puis disparaît). Aucun signal « mode édition ». ----
   var bar = document.createElement('div')
   bar.setAttribute('contenteditable', 'false')
   bar.style.cssText =
     'position:fixed;z-index:99999;right:16px;bottom:16px;display:flex;align-items:center;gap:8px;' +
     'font:600 12px/1.2 -apple-system,Segoe UI,Roboto,sans-serif;color:#1a1b20;background:#fff;' +
     'border:1px solid #e6e8ee;border-radius:999px;padding:8px 14px;box-shadow:0 8px 24px -12px rgba(16,18,40,.35);' +
-    'transition:opacity .2s'
+    'opacity:0;pointer-events:none;transition:opacity .25s'
   var dot = document.createElement('span')
   dot.style.cssText = 'width:8px;height:8px;border-radius:50%;background:#1FA98A;flex:none'
   var label = document.createElement('span')
-  label.textContent = 'Édition activée'
   bar.appendChild(dot)
   bar.appendChild(label)
   document.body.appendChild(bar)
 
-  function status(text, color) {
+  var hideTimer = null
+  function status(text, color, autohide) {
     label.textContent = text
     dot.style.background = color || '#1FA98A'
+    bar.style.opacity = '1'
+    clearTimeout(hideTimer)
+    if (autohide) hideTimer = setTimeout(function () { bar.style.opacity = '0' }, 2000)
   }
 
   // ---- chargement du contenu sauvegardé (sinon : contenu d'origine) ----
@@ -92,7 +96,7 @@
     })
       .then(function (r) {
         if (!r.ok) throw new Error('save')
-        status(snapshot ? 'Enregistré · copie gardée' : 'Enregistré', '#1FA98A')
+        status(snapshot ? 'Enregistré · copie gardée' : 'Enregistré', '#1FA98A', true)
       })
       .catch(function () { status('Hors-ligne · non enregistré', '#d63b3b') })
   }
