@@ -291,3 +291,60 @@ body {
 .notebox.is-violet { background: var(--track-2); color:#fff; }
 .notebox.is-blue   { background: var(--track-3); color:#fff; }
 .notebox.is-grad   { background: var(--grad); color:#fff; }
+
+/* ============================================================
+   ÉVOLUTION 2026 — éléments repris de lyriks.io
+   Palette étendue, inks profonds, textures & mécanique d'accent.
+   Le socle ci-dessus reste la référence ; ceci l'enrichit.
+   ============================================================ */
+:root {
+  /* accents étendus (use cases, illustrations) */
+  --a-blue: #2563EB;
+  --a-violet: #7C3AED;
+  --a-fuchsia: #C026D3;
+  --a-magenta: #E0218A;
+  --a-orange: #EA580C;
+
+  /* statuts */
+  --ok: #0E9F6E;
+  --warn: #EA580C;
+  --err: #C0392B;
+
+  /* inks chromatiques profonds (fonds sombres) */
+  --ink-blue: #091226;
+  --ink-violet: #150721;
+  --ink-purple: #0C0722;
+  --ink-space: #05080F;
+
+  /* dégradés & textures */
+  --grad-soft: linear-gradient(115deg, color-mix(in oklch, #8047F4 9%, #fff) 0%, color-mix(in oklch, #FA5FB2 7%, #fff) 50%, color-mix(in oklch, #FFA101 9%, #fff) 100%);
+  --grid-bg: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+}
+
+/* wash pastel tricolore (fond de section très clair) */
+.lk-wash { background: var(--grad-soft); }
+
+/* grille blueprint (papier millimétré technique) */
+.lk-gridbg { background-image: var(--grid-bg); background-size: 48px 48px; background-color: #fff; }
+
+/* surface translucide floutée (nav, panneaux) */
+.lk-glass { background: rgba(255,255,255,.86); -webkit-backdrop-filter: saturate(160%) blur(14px); backdrop-filter: saturate(160%) blur(14px); }
+
+/* aurora sombre — poser une couleur via --ac (défaut: violet), variantes par voix */
+.lk-aurora {
+  --ac: var(--violet);
+  position: relative; color: #fff; border-radius: var(--r); overflow: hidden;
+  background:
+    radial-gradient(circle at 72% 60%, color-mix(in oklch, var(--ac) 34%, transparent), transparent 60%),
+    radial-gradient(115% 115% at 25% 10%, color-mix(in oklch, var(--ac) 36%, #0c0722), #0a0a12 72%);
+}
+.lk-aurora--produit   { --ac: var(--blue); }
+.lk-aurora--coherence { --ac: var(--purple); }
+.lk-aurora--business  { --ac: var(--magenta); }
+
+/* carte use-case à accent — poser --ac (défaut: violet) */
+.lk-uc {
+  --ac: var(--violet);
+  background: linear-gradient(160deg, var(--ac) 0%, color-mix(in oklch, var(--ac) 80%, #000) 100%);
+  color: #fff; border: 1px solid rgba(255,255,255,.5); border-radius: var(--r);
+}

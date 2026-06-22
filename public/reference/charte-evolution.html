@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr" data-event="vivatech">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lyriks · Charte , proposition d'évolution</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="brand.css">
+<style>
+  /* Les tokens d'évolution (--a-*, --ink-*, --grid-bg, etc.) vivent désormais
+     dans brand.css (section « ÉVOLUTION 2026 »). Cette page les consomme. */
+  body{background:#fff;color:var(--ink);}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+
+  /* nav glass */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid var(--line);}
+  .nav-in{display:flex;align-items:center;gap:14px;height:64px;}
+  .nav .lk-logo{font-size:19px;}
+  .badge{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#b56e00;background:rgba(255,161,1,.14);border:1px solid rgba(255,161,1,.4);padding:5px 10px;border-radius:999px;}
+  .nav .right{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--muted);}
+
+  /* hero : grille blueprint + wash pastel */
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);}
+  .hero .gridbg{position:absolute;inset:0;background-image:var(--grid-bg);background-size:48px 48px;}
+  .hero .wash{position:absolute;inset:0;background:linear-gradient(115deg,color-mix(in oklch,#8047F4 9%,#fff) 0%,color-mix(in oklch,#FA5FB2 7%,#fff) 50%,color-mix(in oklch,#FFA101 9%,#fff) 100%);opacity:.9;}
+  .hero .in{position:relative;padding:64px 0 56px;}
+  .kick{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--event-ink);}
+  .hero h1{font-family:var(--display);font-size:clamp(34px,5vw,56px);font-weight:700;letter-spacing:-.03em;margin:14px 0 12px;}
+  .hero p{font-size:16px;color:var(--body);max-width:62ch;line-height:1.6;margin:0;}
+  .voices{display:inline-flex;gap:8px;margin-top:24px;}
+  .voices span{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 14px;}
+  .voices i{width:10px;height:10px;border-radius:3px;}
+
+  section{padding:54px 0;border-bottom:1px solid var(--line-2);}
+  h2{font-family:var(--display);font-size:24px;letter-spacing:-.02em;margin:0 0 6px;}
+  .lead{color:var(--body);font-size:14.5px;margin:0 0 26px;max-width:70ch;line-height:1.6;}
+  .eyebrow{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;}
+
+  /* swatches */
+  .sw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
+  .sw{border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden;background:#fff;}
+  .sw .c{height:64px;}
+  .sw .m{padding:9px 11px;}
+  .sw .m b{display:block;font-size:12.5px;font-weight:800;letter-spacing:-.01em;}
+  .sw .m code{font-family:var(--mono);font-size:11px;color:var(--muted);}
+
+  /* cartes aurora par voix */
+  .auroras{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .aurora{position:relative;min-height:200px;border-radius:var(--r);overflow:hidden;color:#fff;padding:22px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid rgba(255,255,255,.08);}
+  .aurora::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 82% -12%,rgba(255,255,255,.18),transparent 52%);}
+  .aurora>*{position:relative;z-index:1;}
+  .aurora .tl{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.85;}
+  .aurora h3{font-family:var(--display);font-size:20px;margin:6px 0 0;letter-spacing:-.01em;}
+  .v1{--ac:#0066FF;background:radial-gradient(130% 130% at 24% 12%,color-mix(in oklch,var(--ac) 58%,#0b0b16),#0a0a12);}
+  .v2{--ac:#FA5FB2;background:radial-gradient(circle at 72% 60%,rgba(236,72,153,.28),transparent 60%),radial-gradient(115% 115% at 25% 10%,#331038,#150721 72%);}
+  .v3{--ac:#8047F4;background:radial-gradient(circle at 72% 60%,rgba(124,58,237,.30),transparent 60%),radial-gradient(115% 115% at 25% 10%,#1d1340,#0c0722 72%);}
+  .sc{display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--ac);margin-bottom:10px;}
+
+  /* panneaux texture */
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .panel{border:1px solid var(--line);border-radius:var(--r);min-height:180px;position:relative;overflow:hidden;padding:18px;}
+  .panel .pl{position:relative;z-index:1;font-family:var(--mono);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ink);}
+  .panel.grid{background-image:var(--grid-bg);background-size:48px 48px;background-color:#fff;}
+  .panel.soft{background:linear-gradient(115deg,color-mix(in oklch,#8047F4 9%,#fff) 0%,color-mix(in oklch,#FA5FB2 7%,#fff) 50%,color-mix(in oklch,#FFA101 9%,#fff) 100%);}
+
+  /* cartes use-case (accent --ac) */
+  .uc-grid{display:flex;flex-wrap:wrap;gap:14px;}
+  .uc{flex:1;min-width:180px;background:linear-gradient(160deg,var(--ac) 0%,color-mix(in oklch,var(--ac) 80%,#000) 100%);color:#fff;border:1px solid rgba(255,255,255,.5);border-radius:var(--r);padding:18px;min-height:120px;display:flex;flex-direction:column;justify-content:space-between;}
+  .uc .ptag{align-self:flex-start;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);padding:5px 9px;border-radius:999px;}
+  .uc b{font-family:var(--display);font-size:16px;letter-spacing:-.01em;}
+  .u1{--ac:#2563EB;}.u2{--ac:#7C3AED;}.u3{--ac:#C026D3;}.u4{--ac:#E0218A;}.u5{--ac:#EA580C;}
+
+  /* déclinaison --ac : un même composant, 3 voix */
+  .decl{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .card{border:1px solid var(--line);border-radius:var(--r);padding:18px;background:#fff;}
+  .card .bar{height:8px;border-radius:4px;background:color-mix(in oklch,var(--ac) 32%,#E8E8EE);margin-bottom:14px;}
+  .card .k{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ac);}
+  .card .fill{margin-top:12px;height:36px;border-radius:10px;background:color-mix(in oklch,var(--ac) 12%,#fff);border:1px solid color-mix(in oklch,var(--ac) 30%,#fff);display:flex;align-items:center;padding:0 12px;font-size:13px;color:color-mix(in oklch,var(--ac) 60%,#000);font-weight:600;}
+  .d1{--ac:#0066FF;}.d2{--ac:#FA5FB2;}.d3{--ac:#8047F4;}
+
+  @media(max-width:820px){.auroras,.decl{grid-template-columns:1fr;}.duo{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+  <nav class="nav"><div class="wrap nav-in">
+    <span class="lk-logo"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks<span class="dot">.io</span></span></span>
+    <span class="badge">Charte · Évolution</span>
+    <span class="right">Repris de lyriks.io</span>
+  </div></nav>
+
+  <header class="hero">
+    <div class="gridbg"></div><div class="wash"></div>
+    <div class="wrap in">
+      <div class="kick">Proposition d'évolution graphique</div>
+      <h1>La charte, enrichie.</h1>
+      <p>Même socle (couleurs cœur, dégradés signature, Space Grotesk / Montserrat / JetBrains Mono). On ajoute les techniques et éléments décoratifs repris du site lyriks.io : mélange oklch, accent par bloc, auroras sombres, grille blueprint et palette étendue.</p>
+      <div class="voices">
+        <span><i style="background:#0066FF"></i> Produit</span>
+        <span><i style="background:#BB46F5"></i> Cohérence</span>
+        <span><i style="background:#FFA101"></i> Business</span>
+      </div>
+    </div>
+  </header>
+
+  <section><div class="wrap">
+    <div class="eyebrow">01 · Couleurs</div>
+    <h2>Palette d'accents étendue + statuts + inks profonds</h2>
+    <p class="lead">Les couleurs cœur restent la référence. On ajoute une gamme d'accents secondaires (use cases, illustrations), des couleurs de statut, et des inks chromatiques profonds pour les fonds sombres.</p>
+    <div class="sw-grid">
+      <div class="sw"><div class="c" style="background:#2563EB"></div><div class="m"><b>Accent bleu</b><code>#2563EB</code></div></div>
+      <div class="sw"><div class="c" style="background:#7C3AED"></div><div class="m"><b>Accent violet</b><code>#7C3AED</code></div></div>
+      <div class="sw"><div class="c" style="background:#C026D3"></div><div class="m"><b>Accent fuchsia</b><code>#C026D3</code></div></div>
+      <div class="sw"><div class="c" style="background:#E0218A"></div><div class="m"><b>Accent magenta</b><code>#E0218A</code></div></div>
+      <div class="sw"><div class="c" style="background:#EA580C"></div><div class="m"><b>Accent orange</b><code>#EA580C</code></div></div>
+      <div class="sw"><div class="c" style="background:#0E9F6E"></div><div class="m"><b>Succès</b><code>#0E9F6E</code></div></div>
+      <div class="sw"><div class="c" style="background:#C0392B"></div><div class="m"><b>Erreur</b><code>#C0392B</code></div></div>
+      <div class="sw"><div class="c" style="background:#091226"></div><div class="m"><b>Ink bleu</b><code>#091226</code></div></div>
+      <div class="sw"><div class="c" style="background:#150721"></div><div class="m"><b>Ink violet</b><code>#150721</code></div></div>
+      <div class="sw"><div class="c" style="background:#05080F"></div><div class="m"><b>Ink space</b><code>#05080F</code></div></div>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="eyebrow">02 · Dégradés</div>
+    <h2>Auroras sombres , les 3 voix</h2>
+    <p class="lead">Fonds radial profonds, un par voix (Produit / Cohérence / Business), avec un voile lumineux en haut à droite. Idéal pour héros, cartes et sections d'accent.</p>
+    <div class="auroras">
+      <div class="aurora v1"><span class="sc"></span><div class="tl">Voix · Produit</div><h3>Construire juste</h3></div>
+      <div class="aurora v2"><span class="sc"></span><div class="tl">Voix · Business</div><h3>Aligner l'équipe</h3></div>
+      <div class="aurora v3"><span class="sc"></span><div class="tl">Voix · Cohérence</div><h3>Une seule vérité</h3></div>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="eyebrow">03 · Textures</div>
+    <h2>Wash pastel & grille blueprint</h2>
+    <p class="lead">Deux fonds clairs réutilisables : un wash tricolore très doux (oklch) et une grille technique « papier millimétré ».</p>
+    <div class="duo">
+      <div class="panel soft"><span class="pl">Wash pastel tricolore</span></div>
+      <div class="panel grid"><span class="pl">Grille blueprint · 48px</span></div>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="eyebrow">04 · Composants</div>
+    <h2>Cartes use-case , accent par bloc</h2>
+    <p class="lead">Une même carte déclinée via la variable <code style="font-family:var(--mono)">--ac</code> avec la palette étendue. Dégradé accent vers accent assombri.</p>
+    <div class="uc-grid">
+      <div class="uc u1"><span class="ptag">Produit</span><b>Spécifier</b></div>
+      <div class="uc u2"><span class="ptag">Design</span><b>Aligner</b></div>
+      <div class="uc u3"><span class="ptag">Dev</span><b>Implémenter</b></div>
+      <div class="uc u4"><span class="ptag">Manager</span><b>Superviser</b></div>
+      <div class="uc u5"><span class="ptag">Finance</span><b>Piloter</b></div>
+    </div>
+  </div></section>
+
+  <section style="border-bottom:0"><div class="wrap">
+    <div class="eyebrow">05 · Système</div>
+    <h2>Mécanique <code style="font-family:var(--mono)">--ac</code> + oklch</h2>
+    <p class="lead">Le même composant, trois voix : barre, label et remplissage dérivent tous d'une seule variable d'accent via color-mix oklch.</p>
+    <div class="decl">
+      <div class="card d1"><div class="bar"></div><div class="k">Produit · #0066FF</div><div class="fill">Tint oklch dérivé</div></div>
+      <div class="card d2"><div class="bar"></div><div class="k">Business · #FA5FB2</div><div class="fill">Tint oklch dérivé</div></div>
+      <div class="card d3"><div class="bar"></div><div class="k">Cohérence · #8047F4</div><div class="fill">Tint oklch dérivé</div></div>
+    </div>
+  </div></section>
+</body>
+</html>
