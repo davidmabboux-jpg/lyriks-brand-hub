@@ -32,9 +32,8 @@ export const PAGES: PageGroup[] = [
   {
     g: 'Chartes',
     items: [
-      { f: 'charte.html', t: 'Charte générale', s: 'Univers de marque Lyriks', ic: '◆', c: '#BB46F5' },
+      { f: 'charte.html', t: 'Charte générale', s: 'Univers de marque Lyriks · + évolution', ic: '◆', c: '#BB46F5' },
       { f: 'charte-vivatech.html', t: 'Charte VivaTech', s: 'Co-branding événement', ic: '★', c: '#FFA101' },
-      { f: 'charte-evolution.html', t: 'Charte · Évolution', s: 'Éléments repris de lyriks.io', ic: '✶', c: '#8047F4' },
     ],
   },
   {
