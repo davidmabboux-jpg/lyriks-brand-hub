@@ -312,7 +312,8 @@
     <a href="#events"><span class="num">11</span>Événements</a>
     <a href="#templates"><span class="num">12</span>Templates</a>
     <a href="#evolution"><span class="num">13</span>Évolution</a>
-    <a href="calendrier.html" class="ext"><span class="num">14</span>Calendrier VivaTech</a>
+    <a href="#site"><span class="num">14</span>Site & produit</a>
+    <a href="calendrier.html" class="ext"><span class="num">15</span>Calendrier VivaTech</a>
     <div class="foot">Univers de marque<br>v2.0 · 2026</div>
   </nav>
 
@@ -1088,6 +1089,82 @@
         <div class="lk-uc" style="--ac:#C026D3;flex:1 1 150px;padding:16px;min-height:106px;display:flex;flex-direction:column;justify-content:space-between"><span style="align-self:flex-start;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);padding:4px 8px;border-radius:999px">Dev</span><b style="font-family:var(--display);font-size:15px">Implémenter</b></div>
         <div class="lk-uc" style="--ac:#E0218A;flex:1 1 150px;padding:16px;min-height:106px;display:flex;flex-direction:column;justify-content:space-between"><span style="align-self:flex-start;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);padding:4px 8px;border-radius:999px">Manager</span><b style="font-family:var(--display);font-size:15px">Superviser</b></div>
         <div class="lk-uc" style="--ac:#EA580C;flex:1 1 150px;padding:16px;min-height:106px;display:flex;flex-direction:column;justify-content:space-between"><span style="align-self:flex-start;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);padding:4px 8px;border-radius:999px">Finance</span><b style="font-family:var(--display);font-size:15px">Piloter</b></div>
+      </div>
+    </section>
+
+    <style>
+      #site .heroline{font-family:var(--display);font-weight:700;font-size:clamp(28px,3.6vw,44px);letter-spacing:-.02em;line-height:1.04;color:var(--ink);margin:0 0 16px;max-width:20ch;}
+      #site .herosub{font-family:var(--font);font-size:16px;color:var(--body);margin:0 0 22px;max-width:52ch;line-height:1.5;}
+      #site .ctas{display:flex;gap:12px;flex-wrap:wrap;}
+      #site .bands{display:flex;flex-direction:column;border-radius:14px;overflow:hidden;}
+      #site .band{display:flex;align-items:center;gap:16px;padding:20px 26px;}
+      #site .band .n{font-family:var(--mono);font-size:13px;font-weight:700;opacity:.65;}
+      #site .band .l{font-family:var(--display);font-size:22px;font-weight:700;letter-spacing:-.01em;}
+      #site .band.b{background:var(--royal);color:#fff;}
+      #site .band.p{background:var(--logo-purple);color:#fff;}
+      #site .band.o{background:var(--orange);color:#0a0a0a;}
+      #site .duo{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:stretch;}
+      #site .ptext .k{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--royal);}
+      #site .ptext h4{font-family:var(--display);font-size:23px;font-weight:700;letter-spacing:-.01em;margin:10px 0 12px;color:var(--ink);}
+      #site .ptext .desc{font-family:var(--font);font-size:14px;color:var(--body);line-height:1.5;margin:0 0 14px;font-style:italic;}
+      #site .ptext ul{margin:0;padding-left:18px;}
+      #site .ptext li{font-size:13.5px;color:var(--ink-soft);margin:8px 0;}
+      #site .ppanel{position:relative;min-height:300px;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.08);padding:22px;color:#fff;background:radial-gradient(circle at 72% 60%,rgba(124,58,237,.30),transparent 60%),radial-gradient(115% 115% at 25% 10%,#1d1340,#0c0722 72%);}
+      #site .ptag{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72);display:flex;align-items:center;gap:8px;}
+      #site .ptag::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--magenta);}
+      #site .dash{margin-top:4px;border-radius:18px;background:var(--grad-ink);border:1px solid rgba(255,255,255,.08);padding:24px;}
+      #site .dash .ptag::before{background:var(--violet);}
+      #site .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px;}
+      #site .stat{background:#fff;border-radius:14px;padding:16px 18px;box-shadow:var(--shadow-card);}
+      #site .stat .sl{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+      #site .stat .sv{font-family:var(--display);font-size:30px;font-weight:700;color:var(--ink);margin-top:6px;}
+      #site .stat .sv small{font-family:var(--mono);font-size:12px;color:var(--green);font-weight:700;margin-left:6px;}
+      @media(max-width:760px){#site .duo,#site .stats{grid-template-columns:1fr;}}
+    </style>
+    <!-- 14 SITE & PRODUIT (repris de lyriks.io) -->
+    <section class="block light" id="site">
+      <span class="sec-num" style="color:var(--royal)">14 · Site & produit</span>
+      <h2 class="sec-title">Le langage de l'interface</h2>
+      <p class="sec-intro">Les motifs repris du site lyriks.io : l'accroche à dégradé, les trois bandes de piliers et les panneaux produit sombres.</p>
+
+      <h3 class="sub">Accroche à dégradé</h3>
+      <div class="heroline">La cohérence <span class="gradtext">produit</span> pour les équipes qui développent avec l'IA.</div>
+      <div class="herosub">Gardez vos équipes et vos IA alignées sur la façon dont votre produit doit fonctionner.</div>
+      <div class="ctas"><a class="btn btn-ink">Essayer maintenant</a><a class="btn btn-outline">Voir les cas d'usage</a></div>
+
+      <h3 class="sub">Les trois bandes</h3>
+      <div class="bands">
+        <div class="band b"><span class="n">01</span><span class="l">Spécification</span></div>
+        <div class="band p"><span class="n">02</span><span class="l">Cohérence</span></div>
+        <div class="band o"><span class="n">03</span><span class="l">Supervision</span></div>
+      </div>
+
+      <h3 class="sub">Panneaux produit</h3>
+      <div class="duo">
+        <div class="ptext">
+          <div class="k">Spécification produit</div>
+          <h4>Une modélisation produit partagée et directement exploitable.</h4>
+          <div class="desc">Une base de connaissance centralisée pour donner aux équipes et aux agents IA une compréhension commune de ce qui doit être construit.</div>
+          <ul><li>Vision produits, features & priorisation</li><li>Cartographie des parcours clés & des règles métiers</li><li>Spécifications fonctionnelle, technique & data</li></ul>
+        </div>
+        <div class="ppanel">
+          <div class="ptag">Experience map</div>
+          <svg viewBox="0 0 480 200" preserveAspectRatio="none" style="position:absolute;left:0;right:0;bottom:24px;width:100%;height:170px">
+            <defs><linearGradient id="emg" x1="0" x2="1"><stop offset="0" stop-color="#FA5FB2"/><stop offset="1" stop-color="#8047F4" stop-opacity="0.15"/></linearGradient></defs>
+            <path d="M40,130 C150,40 250,190 460,90" fill="none" stroke="url(#emg)" stroke-width="3"/>
+            <circle cx="40" cy="130" r="11" fill="#cfd3ff"/>
+          </svg>
+        </div>
+      </div>
+
+      <h3 class="sub">Cartes de supervision</h3>
+      <div class="dash">
+        <div class="ptag">Activity</div>
+        <div class="stats">
+          <div class="stat"><div class="sl">Features shipped</div><div class="sv">47<small>&#9650; +12%</small></div></div>
+          <div class="stat"><div class="sl">AI-assisted</div><div class="sv">68%<small>&#9650; +9 pts</small></div></div>
+          <div class="stat"><div class="sl">Active contributors</div><div class="sv">9<small>&#9650; +2</small></div></div>
+        </div>
       </div>
     </section>
   </main>
