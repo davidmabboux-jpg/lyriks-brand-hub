@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr" data-event="vivatech">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lyriks · Formats & exports</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="brand.css">
+<style>
+  body{background:#fff;color:var(--ink);}
+  .wrap{max-width:1000px;margin:0 auto;padding:48px 32px 80px;}
+  .eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--event-ink);margin:0 0 12px;}
+  h1{font-family:var(--display);font-size:clamp(30px,4vw,42px);font-weight:700;letter-spacing:-.02em;margin:0 0 10px;}
+  .lead{color:var(--body);font-size:16px;line-height:1.6;margin:0 0 36px;max-width:64ch;}
+  h2.grp{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:34px 0 16px;}
+  .card{display:flex;gap:22px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:var(--shadow-card);}
+  .thumb{flex:none;width:150px;height:96px;border-radius:12px;overflow:hidden;position:relative;background:var(--grad-viva, linear-gradient(105deg,#8047F4,#BB46F5 38%,#FA5FB2 72%,#FFA101 130%));display:flex;align-items:flex-end;padding:12px;}
+  .thumb .lk-logo{font-size:14px;}
+  .card .body{flex:1;min-width:0;}
+  .card h3{font-family:var(--display);font-size:20px;letter-spacing:-.01em;margin:0 0 6px;}
+  .card p{color:var(--body);font-size:14px;line-height:1.55;margin:0 0 14px;}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;}
+  .tag{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--body);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:5px 11px;}
+  .actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .note{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:26px;line-height:1.6;}
+  a.btn{font-size:14px;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">Bibliothèque</div>
+    <h1>Formats & exports</h1>
+    <p class="lead">Les gabarits prêts à l'emploi, téléchargeables. Réutilisez-les tels quels et remplacez les textes par votre contenu.</p>
+
+    <h2 class="grp">Présentations</h2>
+    <div class="card">
+      <div class="thumb">
+        <span class="lk-logo on-dark"><span class="lk-mark"><i></i><i></i><i></i></span><span class="lk-word">Lyriks<span class="dot">.io</span></span></span>
+      </div>
+      <div class="body">
+        <h3>Template PowerPoint · Corporate</h3>
+        <p>Modèle de présentation polyvalent aux couleurs Lyriks : couverture, sommaire, intercalaire, contenu, deux colonnes, image + texte, chiffres clés, citation, tableau, équipe et page de fin.</p>
+        <div class="meta">
+          <span class="tag">.pptx</span>
+          <span class="tag">11 slides</span>
+          <span class="tag">16:9</span>
+          <span class="tag">Thème clair</span>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="lyriks-template.pptx" download>Télécharger (.pptx)</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="note">Polices de la marque : Space Grotesk (titres) · Montserrat (texte) · JetBrains Mono (étiquettes).<br>Pour un rendu exact, installez ces polices (Google Fonts, gratuites). Sinon PowerPoint applique une police de substitution.</p>
+  </div>
+</body>
+</html>

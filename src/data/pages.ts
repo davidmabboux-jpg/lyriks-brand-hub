@@ -40,7 +40,7 @@ export const PAGES: PageGroup[] = [
     g: 'Bibliothèque',
     items: [
       { f: 'templates.html', t: 'Supports Lyriks', s: 'Gabarits classiques (marque)', ic: '▣', c: '#BB46F5' },
-      { f: 'formats.html', t: 'Formats & exports', s: 'Tous les formats', ic: '❑', c: '#1FA98A', soon: true },
+      { f: 'formats.html', t: 'Formats & exports', s: 'Template PowerPoint à télécharger', ic: '❑', c: '#1FA98A' },
       { f: 'posts.html', t: 'Posts (1ʳᵉ version)', s: 'Studio de posts initial', ic: '▥', c: '#9097A2', soon: true },
       { f: 'templates-vivatech.html', t: 'Supports VivaTech', s: 'Posts, bannières, emails', ic: '▦', c: '#FFA101' },
       { f: 'posts-equipe-vivatech.html', t: "Posts d'annonce · VivaTech", s: 'Page + 3 membres', ic: '☺', c: '#0066FF', soon: true },
