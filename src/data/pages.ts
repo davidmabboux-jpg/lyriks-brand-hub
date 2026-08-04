@@ -50,7 +50,8 @@ export const PAGES: PageGroup[] = [
   {
     g: 'Éditorial',
     items: [
-      { f: 'calendrier.html', t: 'Calendrier éditorial', s: '26 prises de parole', ic: '▤', c: '#1FA98A' },
+      { f: 'calendrier-editorial.html', t: 'Calendrier éditorial', s: '4 sous-calendriers · mois / semaine', ic: '▤', c: '#1FA98A' },
+      { f: 'calendrier.html', t: 'Calendrier VivaTech', s: '26 prises de parole · événement', ic: '▦', c: '#FFA101' },
     ],
   },
   {
