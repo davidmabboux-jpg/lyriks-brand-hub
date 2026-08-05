@@ -16,7 +16,7 @@ declare const process: { env: Record<string, string | undefined> }
 export const config = { runtime: 'edge' }
 
 const BUCKET = 'brand-hub-docs'
-const ALLOWED = new Set(['stand-briefing', 'stand-faq-produit', 'stand-faq-business'])
+const ALLOWED = new Set(['stand-briefing', 'stand-faq-produit', 'stand-faq-business', 'grille-editoriale'])
 const MAX_BYTES = 3_000_000 // ~3 MB safety cap
 
 const URL_BASE = () => process.env.SUPABASE_URL!

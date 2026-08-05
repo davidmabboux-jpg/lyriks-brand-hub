@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr" data-event="vivatech">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lyriks · Grille éditoriale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="brand.css">
+<style>
+  :root{ --bg:#F4F5F8; --panel:#fff; --line:#E6E8EE; --dim:#5B606B; --dim2:#9097A2; --colW:150px; --labW:290px; }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);}
+  .top{position:sticky;top:0;z-index:40;background:var(--bg);padding:20px 22px 14px;border-bottom:1px solid var(--line);}
+  .toprow{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;}
+  .eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--event-ink);margin:0 0 5px;}
+  h1{font-family:var(--display);font-size:26px;font-weight:700;letter-spacing:-.02em;margin:0;}
+  h1 .period{font-size:15px;font-weight:600;color:var(--dim);margin-left:6px;}
+  .spacer{flex:1;}
+  .ctrls{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+  .seg{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+  .seg button{font-family:var(--font);font-size:13px;font-weight:700;color:var(--dim);background:none;border:0;padding:8px 15px;cursor:pointer;}
+  .seg button.on{background:var(--ink);color:#fff;}
+  .btn-s{font-family:var(--font);font-size:13px;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 13px;cursor:pointer;}
+  .btn-s:hover{border-color:#FFA101;}
+  .nav button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:16px;font-weight:700;cursor:pointer;}
+  .nav button:hover{border-color:#FFA101;}
+  .btn-add{background:var(--ink);color:#fff;border:0;border-radius:9px;padding:9px 14px;font-weight:700;font-size:13px;cursor:pointer;}
+  .status{font-family:var(--mono);font-size:11px;color:var(--dim2);}
+
+  /* scroll area */
+  .scroller{overflow:auto;height:calc(100vh - 92px);}
+  .grid{display:grid;width:max-content;min-width:100%;}
+
+  .cell{border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-height:52px;padding:5px;}
+  /* header */
+  .hcorner{position:sticky;left:0;top:0;z-index:30;background:#fff;border-right:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .hcorner .lab{font-family:var(--display);font-weight:700;font-size:13px;padding:14px 14px;}
+  .hgroup{position:sticky;top:0;z-index:20;background:#EEF1FB;border-right:1px solid var(--line);border-bottom:1px solid var(--line);font-family:var(--display);font-weight:700;font-size:13px;color:#3a3f7a;display:flex;align-items:center;justify-content:center;padding:8px;}
+  .hcol{position:sticky;z-index:20;background:#fff;border-right:1px solid var(--line);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--dim);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:9px 4px;text-align:center;line-height:1.2;}
+  .hcol.today{color:#FFA101;background:#FFF9EE;}
+
+  /* segment group row */
+  .grouprow{position:sticky;left:0;z-index:15;grid-column:1 / -1;display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);}
+  .grouprow .gname{font-family:var(--display);font-weight:700;font-size:15px;}
+  .grouprow .gnote{font-family:var(--mono);font-size:11px;color:var(--dim2);}
+  .grouprow .ga{margin-left:auto;display:flex;gap:6px;}
+  .iconbtn{width:26px;height:26px;border-radius:7px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:12px;color:var(--dim);display:grid;place-items:center;}
+  .iconbtn:hover{border-color:#FFA101;color:var(--ink);}
+
+  /* sub-segment label */
+  .sublabel{position:sticky;left:0;z-index:12;background:#fff;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px;padding:8px 14px;min-height:52px;}
+  .sublabel .chip{width:12px;height:12px;border-radius:4px;flex:none;}
+  .sublabel .sname{font-size:13px;font-weight:600;line-height:1.2;flex:1;min-width:0;}
+  .sublabel .sa{display:none;gap:4px;}
+  .sublabel:hover .sa{display:flex;}
+
+  /* content cell */
+  .ccell{position:relative;cursor:pointer;}
+  .ccell:hover{background:#FAFAFC;}
+  .ccell.today{background:#FFFBF3;}
+  .post{border-radius:8px;padding:6px 8px;margin-bottom:4px;font-size:11.5px;line-height:1.25;font-weight:600;color:var(--ink);}
+  .post small{display:block;font-family:var(--mono);font-size:9px;color:var(--dim2);font-weight:400;margin-top:1px;}
+  .post.repartage{background:transparent!important;border:1.5px dashed var(--pc);color:var(--pc);font-family:var(--mono);font-size:10.5px;}
+  .addhint{position:absolute;inset:0;display:none;align-items:center;justify-content:center;color:var(--dim2);font-size:18px;}
+  .ccell:hover .addhint{display:flex;}
+  .ccell:has(.post) .addhint{display:none;}
+
+  /* modal */
+  .ovl{position:fixed;inset:0;background:rgba(10,12,16,.5);z-index:90;display:none;align-items:center;justify-content:center;padding:20px;}
+  .ovl.show{display:flex;}
+  .modal{background:#fff;border-radius:16px;width:440px;max-width:100%;box-shadow:0 40px 90px -30px rgba(0,0,0,.5);overflow:hidden;}
+  .modal h3{font-family:var(--display);font-size:18px;margin:0;padding:20px 22px 4px;}
+  .modal .mb{padding:8px 22px 20px;}
+  .modal label{display:block;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);margin:14px 0 6px;}
+  .modal input,.modal select{width:100%;font-family:var(--font);font-size:14px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;color:var(--ink);}
+  .modal input:focus,.modal select:focus{outline:none;border-color:#FFA101;}
+  .swatches{display:flex;gap:8px;flex-wrap:wrap;}
+  .sw{width:30px;height:30px;border-radius:8px;cursor:pointer;border:2px solid transparent;}
+  .sw.on{border-color:var(--ink);}
+  .mfoot{display:flex;gap:10px;align-items:center;padding:16px 22px;border-top:1px solid var(--line);}
+  .mfoot .del{margin-right:auto;color:#c0392b;background:#fff;border:1px solid #f0d5d2;border-radius:9px;padding:9px 13px;font-weight:700;font-size:13px;cursor:pointer;}
+  .mfoot .cancel{background:#fff;border:1px solid var(--line);border-radius:9px;padding:9px 15px;font-weight:700;font-size:13px;cursor:pointer;}
+  .mfoot .ok{background:var(--ink);color:#fff;border:0;border-radius:9px;padding:9px 18px;font-weight:700;font-size:13px;cursor:pointer;}
+  .seg.mini button{padding:7px 12px;font-size:12px;}
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="toprow">
+      <div><div class="eyebrow">Éditorial</div><h1>Grille éditoriale <span class="period" id="period"></span></h1></div>
+      <div class="spacer"></div>
+      <div class="ctrls">
+        <span class="status" id="status"></span>
+        <div class="seg" id="granSeg">
+          <button data-g="jour">Jour</button><button data-g="semaine" class="on">Semaine</button><button data-g="mois">Mois</button>
+        </div>
+        <button class="btn-s" id="today">Aujourd'hui</button>
+        <div class="nav"><button id="prev">‹</button><button id="next">›</button></div>
+        <button class="btn-add" id="addSeg">+ Segment</button>
+      </div>
+    </div>
+  </div>
+  <div class="scroller"><div class="grid" id="grid"></div></div>
+
+  <div class="ovl" id="ovl"><div class="modal" id="modal"></div></div>
+
+<script>
+  const PALETTE = ['#0066FF','#8047F4','#BB46F5','#FA5FB2','#FFA101','#1FA98A','#E0218A','#9097A2'];
+  const MONTHS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  const WD=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+  const uid=()=>'x'+Math.random().toString(36).slice(2,9);
+  const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+
+  /* ---- date utils ---- */
+  const pad=n=>String(n).padStart(2,'0');
+  const fmt=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+  const parse=s=>{const[y,m,dd]=s.split('-').map(Number);return new Date(y,m-1,dd);};
+  const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x;};
+  const mondayOf=d=>{const x=new Date(d);const o=(x.getDay()+6)%7;x.setDate(x.getDate()-o);x.setHours(0,0,0,0);return x;};
+  const sameDay=(a,b)=>fmt(a)===fmt(b);
+  const todayStr=fmt(new Date());
+
+  /* ---- default model ---- */
+  function seed(){
+    const sg=(name,note,subs)=>({id:uid(),name,note,subsegments:subs.map(([n,c])=>({id:uid(),name:n,color:c}))});
+    const m={ gran:'semaine', segments:[
+      sg('Page LYRIKS','2/sem',[['Retour d\'expérience','#FA5FB2'],['Choix technologiques & architecture','#0066FF'],['Fonctionnalités','#0066FF'],['Process & ways of working','#FFA101'],['Données propres en contexte','#0066FF'],['Présence salons / événements','#FA5FB2'],['Point de vue / décryptage marché','#FFA101'],['Preuve & chiffres','#8047F4']]),
+      sg('Adrien Charles — CTO','surpond. Tech',[['Architecture produit & dette technique','#FFA101'],['Vibe coding et ses pièges','#FFA101'],['Choix de stack & outils IA dev','#0066FF'],['Qualité du code IA & code review','#0066FF'],['Verdicts d\'ingénierie','#FFA101'],['Repartage LYRIKS','#0066FF']]),
+      sg('Adrien Basso — CEO','surpond. Data',[['Modèle de données & logique métier','#0066FF'],['Données propres en contexte','#0066FF'],['Cohérence de la donnée','#0066FF'],['Représentation du système','#0066FF'],['Gouvernance & traçabilité','#8047F4'],['Repartage LYRIKS','#0066FF']]),
+      sg('David Mabboux','surpond. ROI',[['Coût réel de l\'IA & FinOps IA','#8047F4'],['Marge, rework évité, refontes évitées','#8047F4'],['ROI du dev assisté par IA','#8047F4'],['Décision d\'investissement tooling','#8047F4'],['Vision business & cap stratégique','#FA5FB2'],['Repartage LYRIKS','#0066FF']]),
+      sg('Newsletter — Le Brief','1/mois',[['Édito du mois','#8047F4'],['Sélection & liens','#8047F4']]),
+    ], posts:[] };
+    // quelques posts d'exemple, ancrés sur la semaine courante
+    const mon=mondayOf(new Date());
+    const S=m.segments; const sub=(si,sj)=>S[si].subsegments[sj].id;
+    const D=n=>fmt(addDays(mon,n));
+    m.posts=[
+      {id:uid(),subId:sub(0,1),date:D(9),title:'Sous le capot · AST+LLM'},
+      {id:uid(),subId:sub(0,2),date:D(7),title:'3 modules produit'},
+      {id:uid(),subId:sub(0,2),date:D(11),title:'Simuler avant de builder'},
+      {id:uid(),subId:sub(0,6),date:D(2),title:'On vérifie l\'agent'},
+      {id:uid(),subId:sub(0,6),date:D(3),title:'Article · agents & cohérence'},
+      {id:uid(),subId:sub(0,7),date:D(0),title:'Gartner : 40% débranchés'},
+      {id:uid(),subId:sub(1,5),date:D(3),title:'Repartage du 12',type:'repartage'},
+      {id:uid(),subId:sub(2,5),date:D(10),title:'Repartage du 19',type:'repartage'},
+      {id:uid(),subId:sub(3,1),date:D(7),title:'Flotte incohérente = marge qui fuit'},
+      {id:uid(),subId:sub(3,5),date:D(8),title:'Repartage du 17',type:'repartage'},
+    ];
+    return m;
+  }
+
+  let model=null;
+  const state={ gran:'semaine', anchor:new Date() };
+
+  /* ---- persistence ---- */
+  const $=s=>document.querySelector(s);
+  function setStatus(t){ $('#status').textContent=t; }
+  let saveT=null;
+  function save(){
+    setStatus('Enregistrement…');
+    clearTimeout(saveT);
+    saveT=setTimeout(()=>{
+      fetch('/api/doc',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({id:'grille-editoriale',content:JSON.stringify(model),snapshot:true})})
+        .then(r=>{ setStatus(r.ok?'Enregistré ✓':'Hors-ligne'); })
+        .catch(()=>setStatus('Hors-ligne'));
+    },600);
+  }
+  function load(){
+    setStatus('Chargement…');
+    fetch('/api/doc?id=grille-editoriale').then(r=>r.ok?r.json():null).then(d=>{
+      if(d&&d.content){ try{ model=JSON.parse(d.content); }catch(e){ model=seed(); } }
+      else { model=seed(); save(); }
+      state.gran=model.gran||'semaine';
+      [...document.querySelectorAll('#granSeg button')].forEach(b=>b.classList.toggle('on',b.dataset.g===state.gran));
+      setStatus('Enregistré ✓'); render();
+    }).catch(()=>{ model=seed(); render(); setStatus('Hors-ligne (exemple local)'); });
+  }
+
+  /* ---- columns per granularity ---- */
+  function buildCols(){
+    const g=state.gran; const cols=[]; const groups=[];
+    if(g==='jour'){
+      const start=mondayOf(state.anchor);
+      for(let i=0;i<14;i++){ const d=addDays(start,i); cols.push({type:'jour',date:fmt(d),label:WD[(d.getDay()+6)%7],sub:pad(d.getDate()),d}); }
+      // group by week
+      groups.push({label:'Semaine du '+cols[0].d.getDate()+' '+MONTHS[cols[0].d.getMonth()].slice(0,4),span:7});
+      groups.push({label:'Semaine du '+cols[7].d.getDate()+' '+MONTHS[cols[7].d.getMonth()].slice(0,4),span:7});
+    } else if(g==='semaine'){
+      const start=mondayOf(state.anchor);
+      for(let i=0;i<10;i++){ const d=addDays(start,i*7); cols.push({type:'semaine',start:fmt(d),end:fmt(addDays(d,6)),d,label:'S'+isoWeek(d),sub:d.getDate()+' '+MONTHS[d.getMonth()].slice(0,4)}); }
+    } else {
+      const s=new Date(state.anchor.getFullYear(),state.anchor.getMonth(),1);
+      for(let i=0;i<7;i++){ const d=new Date(s.getFullYear(),s.getMonth()+i,1); cols.push({type:'mois',y:d.getFullYear(),m:d.getMonth(),label:cap(MONTHS[d.getMonth()]),sub:''+d.getFullYear(),d}); }
+    }
+    return {cols,groups};
+  }
+  function isoWeek(d){ const x=new Date(d);x.setHours(0,0,0,0);x.setDate(x.getDate()+3-((x.getDay()+6)%7));const w1=new Date(x.getFullYear(),0,4);return 1+Math.round(((x-w1)/86400000-3+((w1.getDay()+6)%7))/7); }
+  function postInCol(p,c){
+    if(c.type==='jour') return p.date===c.date;
+    if(c.type==='semaine') return p.date>=c.start&&p.date<=c.end;
+    const d=parse(p.date); return d.getFullYear()===c.y&&d.getMonth()===c.m;
+  }
+  function periodLabel(cols){
+    if(state.gran==='mois') return cap(MONTHS[cols[0].m])+' → '+cap(MONTHS[cols[cols.length-1].m])+' '+cols[cols.length-1].y;
+    return cols[0].d.getDate()+' '+MONTHS[cols[0].d.getMonth()]+' → '+cols[cols.length-1].d.getDate()+' '+MONTHS[cols[cols.length-1].d.getMonth()];
+  }
+
+  /* ---- render ---- */
+  function render(){
+    const {cols,groups}=buildCols();
+    $('#period').textContent=periodLabel(cols);
+    const grid=$('#grid');
+    grid.style.gridTemplateColumns=`var(--labW) repeat(${cols.length}, var(--colW))`;
+    let html='';
+    // header group row (jour only)
+    const hasGroups=groups.length>0;
+    if(hasGroups){
+      html+=`<div class="hcorner" style="grid-row:1 / span 2"><div class="lab">Support · thématique</div></div>`;
+      let ci=0;
+      groups.forEach(g=>{ html+=`<div class="hgroup" style="grid-column: span ${g.span}">${g.label}</div>`; ci+=g.span; });
+      cols.forEach(c=>{ const t=c.date===todayStr; html+=`<div class="hcol ${t?'today':''}" style="top:37px">${c.label}<span>${c.sub||''}</span></div>`; });
+    } else {
+      html+=`<div class="hcorner"><div class="lab">Support · thématique</div></div>`;
+      cols.forEach(c=>{ const t=c.type==='semaine'&&(todayStr>=c.start&&todayStr<=c.end); html+=`<div class="hcol ${t?'today':''}" style="top:0">${c.label}<span style="font-family:var(--font);font-weight:600;color:var(--dim2)">${c.sub||''}</span></div>`; });
+    }
+    // body
+    model.segments.forEach((seg,si)=>{
+      html+=`<div class="grouprow" style="background:${tint(segColor(seg),.07)}">
+        <span class="gname">${esc(seg.name)}</span><span class="gnote">${esc(seg.note||'')}</span>
+        <span class="ga"><button class="iconbtn" data-act="add-sub" data-si="${si}" title="Ajouter une thématique">＋</button>
+        <button class="iconbtn" data-act="edit-seg" data-si="${si}" title="Modifier">✎</button>
+        <button class="iconbtn" data-act="del-seg" data-si="${si}" title="Supprimer">✕</button></span></div>`;
+      seg.subsegments.forEach((sub,sj)=>{
+        html+=`<div class="sublabel"><span class="chip" style="background:${sub.color}"></span><span class="sname">${esc(sub.name)}</span>
+          <span class="sa"><button class="iconbtn" data-act="edit-sub" data-si="${si}" data-sj="${sj}" title="Modifier">✎</button>
+          <button class="iconbtn" data-act="del-sub" data-si="${si}" data-sj="${sj}" title="Supprimer">✕</button></span></div>`;
+        cols.forEach((c,ci)=>{
+          const posts=model.posts.filter(p=>p.subId===sub.id&&postInCol(p,c));
+          const t=(c.type==='jour'&&c.date===todayStr)||(c.type==='semaine'&&todayStr>=c.start&&todayStr<=c.end);
+          html+=`<div class="cell ccell ${t?'today':''}" data-sub="${sub.id}" data-ci="${ci}">`;
+          posts.forEach(p=>{
+            const cls=p.type==='repartage'?'post repartage':'post';
+            html+=`<div class="${cls}" data-pid="${p.id}" style="background:${tint(sub.color,.12)};--pc:${sub.color}">${esc(p.title)}${p.type==='repartage'?'':''}</div>`;
+          });
+          html+=`<span class="addhint">＋</span></div>`;
+        });
+      });
+    });
+    grid.innerHTML=html;
+    bind(cols);
+  }
+  function segColor(seg){ return (seg.subsegments[0]&&seg.subsegments[0].color)||'#8047F4'; }
+  function tint(hex,a){const n=parseInt(hex.slice(1),16);return `rgba(${n>>16},${(n>>8)&255},${n&255},${a})`;}
+  function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+  /* ---- interactions ---- */
+  function bind(cols){
+    document.querySelectorAll('[data-act]').forEach(b=>b.onclick=e=>{
+      e.stopPropagation();
+      const a=b.dataset.act, si=+b.dataset.si, sj=+b.dataset.sj;
+      if(a==='add-sub') editSub(si,null);
+      if(a==='edit-seg') editSeg(si);
+      if(a==='del-seg'){ if(confirm('Supprimer le segment « '+model.segments[si].name+' » et ses thématiques ?')){ const ids=model.segments[si].subsegments.map(s=>s.id); model.posts=model.posts.filter(p=>!ids.includes(p.subId)); model.segments.splice(si,1); commit(); } }
+      if(a==='edit-sub') editSub(si,sj);
+      if(a==='del-sub'){ const sub=model.segments[si].subsegments[sj]; if(confirm('Supprimer la thématique « '+sub.name+' » ?')){ model.posts=model.posts.filter(p=>p.subId!==sub.id); model.segments[si].subsegments.splice(sj,1); commit(); } }
+    });
+    document.querySelectorAll('.ccell').forEach(cell=>cell.onclick=e=>{
+      const pd=e.target.closest('.post');
+      const ci=+cell.dataset.ci, sub=cell.dataset.sub, col=cols[ci];
+      if(pd){ editPost(pd.dataset.pid); }
+      else { editPost(null,sub,defaultDate(col)); }
+    });
+  }
+  function defaultDate(col){ if(col.type==='jour')return col.date; if(col.type==='semaine')return col.start; return fmt(new Date(col.y,col.m,1)); }
+  function commit(){ render(); save(); }
+
+  /* ---- modal engine ---- */
+  const ovl=$('#ovl'), modal=$('#modal');
+  function close(){ ovl.classList.remove('show'); }
+  ovl.onclick=e=>{ if(e.target===ovl) close(); };
+  function openModal(html){ modal.innerHTML=html; ovl.classList.add('show'); }
+
+  function swatchHtml(sel){ return '<div class="swatches">'+PALETTE.map(c=>`<div class="sw ${c===sel?'on':''}" data-c="${c}" style="background:${c}"></div>`).join('')+'</div>'; }
+  function wireSwatch(){ let cur=modal.querySelector('.sw.on')?.dataset.c||PALETTE[0];
+    modal.querySelectorAll('.sw').forEach(s=>s.onclick=()=>{ modal.querySelectorAll('.sw').forEach(x=>x.classList.remove('on')); s.classList.add('on'); cur=s.dataset.c; });
+    return ()=>cur; }
+
+  function editSeg(si){
+    const isNew=si==null; const seg=isNew?{name:'',note:''}:model.segments[si];
+    openModal(`<h3>${isNew?'Nouveau segment':'Modifier le segment'}</h3><div class="mb">
+      <label>Nom du preneur de parole</label><input id="f1" value="${esc(seg.name)}" placeholder="Ex. David Mabboux">
+      <label>Note (cadence, rôle…)</label><input id="f2" value="${esc(seg.note||'')}" placeholder="Ex. surpond. ROI · 2/sem"></div>
+      <div class="mfoot">${isNew?'':'<button class="del" id="del">Supprimer</button>'}<button class="cancel" id="c">Annuler</button><button class="ok" id="ok">Enregistrer</button></div>`);
+    $('#c').onclick=close; $('#f1').focus();
+    if($('#del')) $('#del').onclick=()=>{ if(confirm('Supprimer ce segment ?')){ const ids=seg.subsegments.map(s=>s.id); model.posts=model.posts.filter(p=>!ids.includes(p.subId)); model.segments.splice(si,1); close(); commit(); } };
+    $('#ok').onclick=()=>{ const n=$('#f1').value.trim(); if(!n)return; const note=$('#f2').value.trim();
+      if(isNew) model.segments.push({id:uid(),name:n,note,subsegments:[]}); else { seg.name=n; seg.note=note; } close(); commit(); };
+  }
+  function editSub(si,sj){
+    const isNew=sj==null; const sub=isNew?{name:'',color:PALETTE[0]}:model.segments[si].subsegments[sj];
+    openModal(`<h3>${isNew?'Nouvelle thématique':'Modifier la thématique'}</h3><div class="mb">
+      <label>Intitulé</label><input id="f1" value="${esc(sub.name)}" placeholder="Ex. Coût réel de l'IA & FinOps IA">
+      <label>Couleur</label>${swatchHtml(sub.color)}</div>
+      <div class="mfoot">${isNew?'':'<button class="del" id="del">Supprimer</button>'}<button class="cancel" id="c">Annuler</button><button class="ok" id="ok">Enregistrer</button></div>`);
+    const getC=wireSwatch(); $('#c').onclick=close; $('#f1').focus();
+    if($('#del')) $('#del').onclick=()=>{ model.posts=model.posts.filter(p=>p.subId!==sub.id); model.segments[si].subsegments.splice(sj,1); close(); commit(); };
+    $('#ok').onclick=()=>{ const n=$('#f1').value.trim(); if(!n)return;
+      if(isNew) model.segments[si].subsegments.push({id:uid(),name:n,color:getC()}); else { sub.name=n; sub.color=getC(); } close(); commit(); };
+  }
+  function editPost(pid,subId,date){
+    const isNew=!pid; const p=isNew?{title:'',date,type:'post',subId}:model.posts.find(x=>x.id===pid);
+    openModal(`<h3>${isNew?'Nouvelle prise de parole':'Modifier la prise de parole'}</h3><div class="mb">
+      <label>Titre</label><input id="f1" value="${esc(p.title)}" placeholder="Ex. Sous le capot · AST+LLM">
+      <label>Date</label><input id="f2" type="date" value="${p.date}">
+      <label>Type</label><div class="seg mini" id="ty"><button data-t="post" class="${p.type!=='repartage'?'on':''}">Post</button><button data-t="repartage" class="${p.type==='repartage'?'on':''}">Repartage</button></div></div>
+      <div class="mfoot">${isNew?'':'<button class="del" id="del">Supprimer</button>'}<button class="cancel" id="c">Annuler</button><button class="ok" id="ok">Enregistrer</button></div>`);
+    let ty=p.type==='repartage'?'repartage':'post';
+    modal.querySelectorAll('#ty button').forEach(b=>b.onclick=()=>{ modal.querySelectorAll('#ty button').forEach(x=>x.classList.remove('on')); b.classList.add('on'); ty=b.dataset.t; });
+    $('#c').onclick=close; $('#f1').focus();
+    if($('#del')) $('#del').onclick=()=>{ model.posts=model.posts.filter(x=>x.id!==pid); close(); commit(); };
+    $('#ok').onclick=()=>{ const t=$('#f1').value.trim(); const dt=$('#f2').value; if(!t||!dt)return;
+      if(isNew) model.posts.push({id:uid(),subId,date:dt,title:t,type:ty}); else { p.title=t; p.date=dt; p.type=ty; } close(); commit(); };
+  }
+
+  /* ---- controls ---- */
+  $('#granSeg').onclick=e=>{ const b=e.target.closest('button'); if(!b)return; state.gran=b.dataset.g; model.gran=state.gran;
+    [...document.querySelectorAll('#granSeg button')].forEach(x=>x.classList.toggle('on',x===b)); render(); save(); };
+  $('#today').onclick=()=>{ state.anchor=new Date(); render(); };
+  $('#prev').onclick=()=>shift(-1); $('#next').onclick=()=>shift(1);
+  function shift(dir){ const d=state.anchor; if(state.gran==='jour')d.setDate(d.getDate()+14*dir); else if(state.gran==='semaine')d.setDate(d.getDate()+70*dir); else d.setMonth(d.getMonth()+7*dir); state.anchor=new Date(d); render(); }
+  $('#addSeg').onclick=()=>editSeg(null);
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
+
+  load();
+</script>
+</body>
+</html>
