@@ -157,25 +157,33 @@
   /* ---- persistence ---- */
   const $=s=>document.querySelector(s);
   function setStatus(t){ $('#status').textContent=t; }
+  const LSKEY='lyriks_grille_editoriale';
   let saveT=null;
   function save(){
+    try{ localStorage.setItem(LSKEY, JSON.stringify(model)); }catch(e){}
     setStatus('Enregistrement…');
     clearTimeout(saveT);
     saveT=setTimeout(()=>{
       fetch('/api/doc',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({id:'grille-editoriale',content:JSON.stringify(model),snapshot:true})})
-        .then(r=>{ setStatus(r.ok?'Enregistré ✓':'Hors-ligne'); })
-        .catch(()=>setStatus('Hors-ligne'));
+        .then(r=>r.ok?r.json():null).then(d=>{ setStatus(d&&d.ok?'Enregistré ✓ (cloud)':'Enregistré ✓ (local)'); })
+        .catch(()=>setStatus('Enregistré ✓ (local)'));
     },600);
+  }
+  function boot(fresh){
+    if(!model){ try{ const ls=localStorage.getItem(LSKEY); if(ls) model=JSON.parse(ls); }catch(e){} }
+    if(!model){ model=seed(); save(); }
+    state.gran=model.gran||'semaine';
+    [...document.querySelectorAll('#granSeg button')].forEach(b=>b.classList.toggle('on',b.dataset.g===state.gran));
+    setStatus(fresh?'Enregistré ✓ (cloud)':'Prêt (local)');
+    render();
   }
   function load(){
     setStatus('Chargement…');
     fetch('/api/doc?id=grille-editoriale').then(r=>r.ok?r.json():null).then(d=>{
-      if(d&&d.content){ try{ model=JSON.parse(d.content); }catch(e){ model=seed(); } }
-      else { model=seed(); save(); }
-      state.gran=model.gran||'semaine';
-      [...document.querySelectorAll('#granSeg button')].forEach(b=>b.classList.toggle('on',b.dataset.g===state.gran));
-      setStatus('Enregistré ✓'); render();
-    }).catch(()=>{ model=seed(); render(); setStatus('Hors-ligne (exemple local)'); });
+      let cloud=false;
+      if(d&&d.content){ try{ model=JSON.parse(d.content); cloud=true; }catch(e){ model=null; } }
+      boot(cloud);
+    }).catch(()=>{ boot(false); });
   }
 
   /* ---- columns per granularity ---- */

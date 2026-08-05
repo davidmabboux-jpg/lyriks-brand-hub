@@ -43,10 +43,15 @@ async function ensureBucket() {
 }
 
 async function readObject(path: string): Promise<string | null> {
-  const r = await fetch(`${URL_BASE()}/storage/v1/object/${BUCKET}/${path}`, {
-    headers: authHeaders(),
-  })
-  return r.ok ? await r.text() : null
+  try {
+    const r = await fetch(`${URL_BASE()}/storage/v1/object/${BUCKET}/${path}`, {
+      headers: authHeaders(),
+    })
+    return r.ok ? await r.text() : null
+  } catch {
+    // storage unreachable (paused/deleted project) — degrade gracefully
+    return null
+  }
 }
 
 async function writeObject(path: string, content: string) {
@@ -100,17 +105,22 @@ export default async function handler(req: Request): Promise<Response> {
     if (typeof content !== 'string') return json({ error: 'no_content' }, 400)
     if (content.length > MAX_BYTES) return json({ error: 'too_large' }, 413)
 
-    await ensureBucket()
-    const cur = await writeObject(`current/${id}.html`, content)
-    if (!cur.ok) return json({ error: 'save_failed', detail: await cur.text() }, 502)
+    try {
+      await ensureBucket()
+      const cur = await writeObject(`current/${id}.html`, content)
+      if (!cur.ok) return json({ ok: false, offline: true }, 200)
 
-    let version: string | null = null
-    if (snapshot) {
-      const stamp = new Date().toISOString().replace(/[:.]/g, '-')
-      version = `versions/${id}/${stamp}.html`
-      await writeObject(version, content)
+      let version: string | null = null
+      if (snapshot) {
+        const stamp = new Date().toISOString().replace(/[:.]/g, '-')
+        version = `versions/${id}/${stamp}.html`
+        await writeObject(version, content)
+      }
+      return json({ ok: true, savedAt: new Date().toISOString(), version })
+    } catch {
+      // storage unreachable — tell the client to keep its local copy
+      return json({ ok: false, offline: true }, 200)
     }
-    return json({ ok: true, savedAt: new Date().toISOString(), version })
   }
 
   return json({ error: 'method_not_allowed' }, 405)
