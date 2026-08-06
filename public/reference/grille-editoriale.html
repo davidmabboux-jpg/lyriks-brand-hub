@@ -35,7 +35,7 @@
   .statusbar .slab{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);margin-right:2px;}
   .statuschip{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer;user-select:none;transition:opacity .15s;}
   .statuschip .d{width:9px;height:9px;border-radius:50%;flex:none;}
-  .statuschip .n{font-family:var(--mono);font-size:10px;color:var(--dim2);}
+  .statuschip i{font-style:normal;font-size:12px;line-height:1;}
   .statuschip.off{opacity:.4;}
   .grid{display:grid;width:max-content;min-width:100%;}
 
@@ -66,12 +66,12 @@
   .ccell{position:relative;cursor:pointer;}
   .ccell:hover{background:#FAFAFC;}
   .ccell.today{background:#FFFBF3;}
-  .post{border-radius:8px;padding:6px 8px;margin-bottom:4px;font-size:11.5px;line-height:1.25;font-weight:600;color:var(--ink);display:flex;align-items:flex-start;gap:6px;}
-  .post .ptxt{flex:1;min-width:0;}
-  .post .pstatus{width:8px;height:8px;border-radius:50%;flex:none;margin-top:3px;}
-  .post.st-draft{opacity:.6;}
+  .post{border-radius:8px;padding:6px 8px;margin-bottom:4px;font-size:11.5px;line-height:1.25;font-weight:600;color:var(--ink);display:flex;flex-direction:column;align-items:flex-start;gap:4px;}
+  .post .ptxt{min-width:0;}
+  .pbadge{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:2px 7px 2px 6px;border-radius:999px;color:var(--sc);background:var(--sbg);border:1px solid var(--sbd);}
+  .pbadge i{font-style:normal;font-size:10px;line-height:1;}
+  .post.st-draft{opacity:.72;}
   .post.st-draft .ptxt{font-style:italic;}
-  .post.st-publie .ptxt{text-decoration:none;}
   .post small{display:block;font-family:var(--mono);font-size:9px;color:var(--dim2);font-weight:400;margin-top:1px;}
   .post.repartage{background:transparent!important;border:1.5px dashed var(--pc);color:var(--pc);font-family:var(--mono);font-size:10.5px;}
   .addhint{position:absolute;inset:0;display:none;align-items:center;justify-content:center;color:var(--dim2);font-size:18px;}
@@ -122,7 +122,7 @@
   const PALETTE = ['#0066FF','#8047F4','#BB46F5','#FA5FB2','#FFA101','#1FA98A','#E0218A','#9097A2'];
   const MONTHS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
   const WD=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
-  const STATUSES=[{id:'draft',name:'Brouillon',color:'#9097A2'},{id:'valide',name:'Validé',color:'#FFA101'},{id:'publie',name:'Publié',color:'#1FA98A'}];
+  const STATUSES=[{id:'draft',label:'DRAFT',name:'Brouillon',icon:'✎',color:'#9097A2'},{id:'valide',label:'VALIDATED',name:'Validé',icon:'✓',color:'#FFA101'},{id:'publie',label:'PUBLISHED',name:'Publié',icon:'✦',color:'#1FA98A'}];
   const statusActive=new Set(['draft','valide','publie']);
   const smap=Object.fromEntries(STATUSES.map(s=>[s.id,s]));
   const pstatus=p=>p.status||'draft';
@@ -189,7 +189,7 @@
     const b=$('#statusbar'); if(!b) return;
     b.innerHTML='<span class="slab">Statuts</span>'+STATUSES.map(s=>{
       const on=statusActive.has(s.id);
-      return `<span class="statuschip ${on?'':'off'}" data-s="${s.id}"><span class="d" style="background:${s.color}"></span>${s.name}</span>`;
+      return `<span class="statuschip ${on?'':'off'}" data-s="${s.id}"><i style="color:${s.color}">${s.icon}</i>${s.label}</span>`;
     }).join('');
     b.querySelectorAll('.statuschip').forEach(c=>c.onclick=()=>{ const id=c.dataset.s; if(statusActive.has(id))statusActive.delete(id); else statusActive.add(id); renderStatusBar(); render(); });
   }
@@ -273,9 +273,10 @@
           const t=(c.type==='jour'&&c.date===todayStr)||(c.type==='semaine'&&todayStr>=c.start&&todayStr<=c.end);
           html+=`<div class="cell ccell ${t?'today':''}" data-sub="${sub.id}" data-ci="${ci}">`;
           posts.forEach(p=>{
-            const stt=pstatus(p); const scol=smap[stt].color;
+            const stt=pstatus(p); const st=smap[stt];
             const cls='post st-'+stt+(p.type==='repartage'?' repartage':'');
-            html+=`<div class="${cls}" data-pid="${p.id}" title="${smap[stt].name}" style="background:${tint(sub.color,.12)};--pc:${sub.color}"><span class="pstatus" style="background:${scol}"></span><span class="ptxt">${esc(p.title)}</span></div>`;
+            const badge=`<span class="pbadge" style="--sc:${st.color};--sbg:${tint(st.color,.14)};--sbd:${tint(st.color,.32)}"><i>${st.icon}</i>${st.label}</span>`;
+            html+=`<div class="${cls}" data-pid="${p.id}" style="background:${tint(sub.color,.10)};--pc:${sub.color}">${badge}<span class="ptxt">${esc(p.title)}</span></div>`;
           });
           html+=`<span class="addhint">＋</span></div>`;
         });
@@ -348,7 +349,7 @@
       <label>Titre</label><input id="f1" value="${esc(p.title)}" placeholder="Ex. Sous le capot · AST+LLM">
       <label>Date</label><input id="f2" type="date" value="${p.date}">
       <label>Type</label><div class="seg mini" id="ty"><button data-t="post" class="${p.type!=='repartage'?'on':''}">Post</button><button data-t="repartage" class="${p.type==='repartage'?'on':''}">Repartage</button></div>
-      <label>Statut</label><div class="seg mini" id="st">${STATUSES.map(s=>`<button data-s="${s.id}" class="${pstatus(p)===s.id?'on':''}">${s.name}</button>`).join('')}</div></div>
+      <label>Statut</label><div class="seg mini" id="st">${STATUSES.map(s=>`<button data-s="${s.id}" class="${pstatus(p)===s.id?'on':''}">${s.icon} ${s.label}</button>`).join('')}</div></div>
       <div class="mfoot">${isNew?'':'<button class="del" id="del">Supprimer</button>'}<button class="cancel" id="c">Annuler</button><button class="ok" id="ok">Enregistrer</button></div>`);
     let ty=p.type==='repartage'?'repartage':'post';
     let stt=pstatus(p);
