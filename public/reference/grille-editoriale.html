@@ -11,7 +11,7 @@
   :root{ --bg:#F4F5F8; --panel:#fff; --line:#E6E8EE; --dim:#5B606B; --dim2:#9097A2; --colW:150px; --labW:290px; }
   *{box-sizing:border-box;}
   html,body{height:100%;}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);display:flex;flex-direction:column;height:100vh;}
   .top{position:sticky;top:0;z-index:40;background:var(--bg);padding:20px 22px 14px;border-bottom:1px solid var(--line);}
   .toprow{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;}
   .eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--event-ink);margin:0 0 5px;}
@@ -30,7 +30,13 @@
   .status{font-family:var(--mono);font-size:11px;color:var(--dim2);}
 
   /* scroll area */
-  .scroller{overflow:auto;height:calc(100vh - 92px);}
+  .scroller{overflow:auto;flex:1;min-height:0;}
+  .statusbar{display:flex;align-items:center;gap:8px;padding:9px 22px;flex-wrap:wrap;background:var(--bg);border-bottom:1px solid var(--line);}
+  .statusbar .slab{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);margin-right:2px;}
+  .statuschip{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer;user-select:none;transition:opacity .15s;}
+  .statuschip .d{width:9px;height:9px;border-radius:50%;flex:none;}
+  .statuschip .n{font-family:var(--mono);font-size:10px;color:var(--dim2);}
+  .statuschip.off{opacity:.4;}
   .grid{display:grid;width:max-content;min-width:100%;}
 
   .cell{border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-height:52px;padding:5px;}
@@ -60,7 +66,12 @@
   .ccell{position:relative;cursor:pointer;}
   .ccell:hover{background:#FAFAFC;}
   .ccell.today{background:#FFFBF3;}
-  .post{border-radius:8px;padding:6px 8px;margin-bottom:4px;font-size:11.5px;line-height:1.25;font-weight:600;color:var(--ink);}
+  .post{border-radius:8px;padding:6px 8px;margin-bottom:4px;font-size:11.5px;line-height:1.25;font-weight:600;color:var(--ink);display:flex;align-items:flex-start;gap:6px;}
+  .post .ptxt{flex:1;min-width:0;}
+  .post .pstatus{width:8px;height:8px;border-radius:50%;flex:none;margin-top:3px;}
+  .post.st-draft{opacity:.6;}
+  .post.st-draft .ptxt{font-style:italic;}
+  .post.st-publie .ptxt{text-decoration:none;}
   .post small{display:block;font-family:var(--mono);font-size:9px;color:var(--dim2);font-weight:400;margin-top:1px;}
   .post.repartage{background:transparent!important;border:1.5px dashed var(--pc);color:var(--pc);font-family:var(--mono);font-size:10.5px;}
   .addhint{position:absolute;inset:0;display:none;align-items:center;justify-content:center;color:var(--dim2);font-size:18px;}
@@ -102,6 +113,7 @@
       </div>
     </div>
   </div>
+  <div class="statusbar" id="statusbar"></div>
   <div class="scroller"><div class="grid" id="grid"></div></div>
 
   <div class="ovl" id="ovl"><div class="modal" id="modal"></div></div>
@@ -110,6 +122,10 @@
   const PALETTE = ['#0066FF','#8047F4','#BB46F5','#FA5FB2','#FFA101','#1FA98A','#E0218A','#9097A2'];
   const MONTHS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
   const WD=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+  const STATUSES=[{id:'draft',name:'Brouillon',color:'#9097A2'},{id:'valide',name:'Validé',color:'#FFA101'},{id:'publie',name:'Publié',color:'#1FA98A'}];
+  const statusActive=new Set(['draft','valide','publie']);
+  const smap=Object.fromEntries(STATUSES.map(s=>[s.id,s]));
+  const pstatus=p=>p.status||'draft';
   const uid=()=>'x'+Math.random().toString(36).slice(2,9);
   const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
 
@@ -137,16 +153,16 @@
     const S=m.segments; const sub=(si,sj)=>S[si].subsegments[sj].id;
     const D=n=>fmt(addDays(mon,n));
     m.posts=[
-      {id:uid(),subId:sub(0,1),date:D(9),title:'Sous le capot · AST+LLM'},
-      {id:uid(),subId:sub(0,2),date:D(7),title:'3 modules produit'},
-      {id:uid(),subId:sub(0,2),date:D(11),title:'Simuler avant de builder'},
-      {id:uid(),subId:sub(0,6),date:D(2),title:'On vérifie l\'agent'},
-      {id:uid(),subId:sub(0,6),date:D(3),title:'Article · agents & cohérence'},
-      {id:uid(),subId:sub(0,7),date:D(0),title:'Gartner : 40% débranchés'},
-      {id:uid(),subId:sub(1,5),date:D(3),title:'Repartage du 12',type:'repartage'},
-      {id:uid(),subId:sub(2,5),date:D(10),title:'Repartage du 19',type:'repartage'},
-      {id:uid(),subId:sub(3,1),date:D(7),title:'Flotte incohérente = marge qui fuit'},
-      {id:uid(),subId:sub(3,5),date:D(8),title:'Repartage du 17',type:'repartage'},
+      {id:uid(),subId:sub(0,1),date:D(9),title:'Sous le capot · AST+LLM',status:'valide'},
+      {id:uid(),subId:sub(0,2),date:D(7),title:'3 modules produit',status:'publie'},
+      {id:uid(),subId:sub(0,2),date:D(11),title:'Simuler avant de builder',status:'draft'},
+      {id:uid(),subId:sub(0,6),date:D(2),title:'On vérifie l\'agent',status:'publie'},
+      {id:uid(),subId:sub(0,6),date:D(3),title:'Article · agents & cohérence',status:'valide'},
+      {id:uid(),subId:sub(0,7),date:D(0),title:'Gartner : 40% débranchés',status:'publie'},
+      {id:uid(),subId:sub(1,5),date:D(3),title:'Repartage du 12',type:'repartage',status:'valide'},
+      {id:uid(),subId:sub(2,5),date:D(10),title:'Repartage du 19',type:'repartage',status:'draft'},
+      {id:uid(),subId:sub(3,1),date:D(7),title:'Flotte incohérente = marge qui fuit',status:'valide'},
+      {id:uid(),subId:sub(3,5),date:D(8),title:'Repartage du 17',type:'repartage',status:'publie'},
     ];
     return m;
   }
@@ -169,13 +185,21 @@
         .catch(()=>setStatus('Enregistré ✓ (local)'));
     },600);
   }
+  function renderStatusBar(){
+    const b=$('#statusbar'); if(!b) return;
+    b.innerHTML='<span class="slab">Statuts</span>'+STATUSES.map(s=>{
+      const on=statusActive.has(s.id);
+      return `<span class="statuschip ${on?'':'off'}" data-s="${s.id}"><span class="d" style="background:${s.color}"></span>${s.name}</span>`;
+    }).join('');
+    b.querySelectorAll('.statuschip').forEach(c=>c.onclick=()=>{ const id=c.dataset.s; if(statusActive.has(id))statusActive.delete(id); else statusActive.add(id); renderStatusBar(); render(); });
+  }
   function boot(fresh){
     if(!model){ try{ const ls=localStorage.getItem(LSKEY); if(ls) model=JSON.parse(ls); }catch(e){} }
     if(!model){ model=seed(); save(); }
     state.gran=model.gran||'semaine';
     [...document.querySelectorAll('#granSeg button')].forEach(b=>b.classList.toggle('on',b.dataset.g===state.gran));
     setStatus(fresh?'Enregistré ✓ (cloud)':'Prêt (local)');
-    render();
+    renderStatusBar(); render();
   }
   function load(){
     setStatus('Chargement…');
@@ -245,12 +269,13 @@
           <span class="sa"><button class="iconbtn" data-act="edit-sub" data-si="${si}" data-sj="${sj}" title="Modifier">✎</button>
           <button class="iconbtn" data-act="del-sub" data-si="${si}" data-sj="${sj}" title="Supprimer">✕</button></span></div>`;
         cols.forEach((c,ci)=>{
-          const posts=model.posts.filter(p=>p.subId===sub.id&&postInCol(p,c));
+          const posts=model.posts.filter(p=>p.subId===sub.id&&postInCol(p,c)&&statusActive.has(pstatus(p)));
           const t=(c.type==='jour'&&c.date===todayStr)||(c.type==='semaine'&&todayStr>=c.start&&todayStr<=c.end);
           html+=`<div class="cell ccell ${t?'today':''}" data-sub="${sub.id}" data-ci="${ci}">`;
           posts.forEach(p=>{
-            const cls=p.type==='repartage'?'post repartage':'post';
-            html+=`<div class="${cls}" data-pid="${p.id}" style="background:${tint(sub.color,.12)};--pc:${sub.color}">${esc(p.title)}${p.type==='repartage'?'':''}</div>`;
+            const stt=pstatus(p); const scol=smap[stt].color;
+            const cls='post st-'+stt+(p.type==='repartage'?' repartage':'');
+            html+=`<div class="${cls}" data-pid="${p.id}" title="${smap[stt].name}" style="background:${tint(sub.color,.12)};--pc:${sub.color}"><span class="pstatus" style="background:${scol}"></span><span class="ptxt">${esc(p.title)}</span></div>`;
           });
           html+=`<span class="addhint">＋</span></div>`;
         });
@@ -322,14 +347,17 @@
     openModal(`<h3>${isNew?'Nouvelle prise de parole':'Modifier la prise de parole'}</h3><div class="mb">
       <label>Titre</label><input id="f1" value="${esc(p.title)}" placeholder="Ex. Sous le capot · AST+LLM">
       <label>Date</label><input id="f2" type="date" value="${p.date}">
-      <label>Type</label><div class="seg mini" id="ty"><button data-t="post" class="${p.type!=='repartage'?'on':''}">Post</button><button data-t="repartage" class="${p.type==='repartage'?'on':''}">Repartage</button></div></div>
+      <label>Type</label><div class="seg mini" id="ty"><button data-t="post" class="${p.type!=='repartage'?'on':''}">Post</button><button data-t="repartage" class="${p.type==='repartage'?'on':''}">Repartage</button></div>
+      <label>Statut</label><div class="seg mini" id="st">${STATUSES.map(s=>`<button data-s="${s.id}" class="${pstatus(p)===s.id?'on':''}">${s.name}</button>`).join('')}</div></div>
       <div class="mfoot">${isNew?'':'<button class="del" id="del">Supprimer</button>'}<button class="cancel" id="c">Annuler</button><button class="ok" id="ok">Enregistrer</button></div>`);
     let ty=p.type==='repartage'?'repartage':'post';
+    let stt=pstatus(p);
     modal.querySelectorAll('#ty button').forEach(b=>b.onclick=()=>{ modal.querySelectorAll('#ty button').forEach(x=>x.classList.remove('on')); b.classList.add('on'); ty=b.dataset.t; });
+    modal.querySelectorAll('#st button').forEach(b=>b.onclick=()=>{ modal.querySelectorAll('#st button').forEach(x=>x.classList.remove('on')); b.classList.add('on'); stt=b.dataset.s; });
     $('#c').onclick=close; $('#f1').focus();
     if($('#del')) $('#del').onclick=()=>{ model.posts=model.posts.filter(x=>x.id!==pid); close(); commit(); };
     $('#ok').onclick=()=>{ const t=$('#f1').value.trim(); const dt=$('#f2').value; if(!t||!dt)return;
-      if(isNew) model.posts.push({id:uid(),subId,date:dt,title:t,type:ty}); else { p.title=t; p.date=dt; p.type=ty; } close(); commit(); };
+      if(isNew) model.posts.push({id:uid(),subId,date:dt,title:t,type:ty,status:stt}); else { p.title=t; p.date=dt; p.type=ty; p.status=stt; } close(); commit(); };
   }
 
   /* ---- controls ---- */
