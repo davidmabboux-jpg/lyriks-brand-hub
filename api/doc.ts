@@ -44,8 +44,12 @@ async function ensureBucket() {
 
 async function readObject(path: string): Promise<string | null> {
   try {
-    const r = await fetch(`${URL_BASE()}/storage/v1/object/${BUCKET}/${path}`, {
-      headers: authHeaders(),
+    // cache-buster query + no-store: Supabase storage sits behind a CDN whose
+    // read-after-write can be stale on overwrite; a unique URL bypasses it.
+    const bust = `?_=${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
+    const r = await fetch(`${URL_BASE()}/storage/v1/object/${BUCKET}/${path}${bust}`, {
+      headers: authHeaders({ 'cache-control': 'no-cache' }),
+      cache: 'no-store',
     })
     return r.ok ? await r.text() : null
   } catch {
